@@ -94,6 +94,7 @@
 
 #include <map>
 #include <limits>
+#include <boost/scoped_ptr.hpp>
 
 using ::editeng::SvxBorderLine;
 using namespace ::com::sun::star;
@@ -2869,7 +2870,7 @@ void ScDocument::FillTab( const ScRange& rSrcArea, const ScMarkData& rMark,
         SCROW nStartRow = rSrcArea.aStart.Row();
         SCCOL nEndCol = rSrcArea.aEnd.Col();
         SCROW nEndRow = rSrcArea.aEnd.Row();
-        ScDocument* pMixDoc = NULL;
+        boost::scoped_ptr<ScDocument> pMixDoc;
         bool bDoMix = ( bSkipEmpty || nFunction ) && ( nFlags & IDF_CONTENTS );
 
         bool bOldAutoCalc = GetAutoCalc();
@@ -2887,7 +2888,7 @@ void ScDocument::FillTab( const ScRange& rSrcArea, const ScMarkData& rMark,
                 {
                     if (!pMixDoc)
                     {
-                        pMixDoc = new ScDocument( SCDOCMODE_UNDO );
+                        pMixDoc.reset(new ScDocument(SCDOCMODE_UNDO));
                         pMixDoc->InitUndo( this, i, i );
                     }
                     else
@@ -2905,8 +2906,6 @@ void ScDocument::FillTab( const ScRange& rSrcArea, const ScMarkData& rMark,
                     maTabs[i]->MixData( nStartCol,nStartRow, nEndCol,nEndRow,
                                         nFunction, bSkipEmpty, pMixDoc->maTabs[i] );
             }
-
-        delete pMixDoc;
 
         SetAutoCalc( bOldAutoCalc );
     }
@@ -2927,7 +2926,7 @@ void ScDocument::FillTabMarked( SCTAB nSrcTab, const ScMarkData& rMark,
 
     if (ValidTab(nSrcTab) && nSrcTab < static_cast<SCTAB>(maTabs.size()) && maTabs[nSrcTab])
     {
-        ScDocument* pMixDoc = NULL;
+        boost::scoped_ptr<ScDocument> pMixDoc;
         bool bDoMix = ( bSkipEmpty || nFunction ) && ( nFlags & IDF_CONTENTS );
 
         bool bOldAutoCalc = GetAutoCalc();
@@ -2952,7 +2951,7 @@ void ScDocument::FillTabMarked( SCTAB nSrcTab, const ScMarkData& rMark,
                 {
                     if (!pMixDoc)
                     {
-                        pMixDoc = new ScDocument( SCDOCMODE_UNDO );
+                        pMixDoc.reset(new ScDocument(SCDOCMODE_UNDO));
                         pMixDoc->InitUndo( this, i, i );
                     }
                     else
@@ -2971,8 +2970,6 @@ void ScDocument::FillTabMarked( SCTAB nSrcTab, const ScMarkData& rMark,
                 if (bDoMix)
                     maTabs[i]->MixMarked( rMark, nFunction, bSkipEmpty, pMixDoc->maTabs[i] );
             }
-
-        delete pMixDoc;
 
         SetAutoCalc( bOldAutoCalc );
     }
