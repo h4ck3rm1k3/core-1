@@ -1841,12 +1841,14 @@ void ScDocument::CopyToDocument(SCCOL nCol1, SCROW nRow1, SCTAB nTab1,
         pDestDoc->aDocName = aDocName;
     if (ValidTab(nTab1) && ValidTab(nTab2))
     {
+        sc::CopyToDocContext aCxt(*pDestDoc);
+        aCxt.setTabRange(nTab1, nTab2);
         bool bOldAutoCalc = pDestDoc->GetAutoCalc();
         pDestDoc->SetAutoCalc( false );     // avoid multiple calculations
         for (SCTAB i = nTab1; i <= nTab2 && i < static_cast<SCTAB>(maTabs.size()); i++)
         {
             if (maTabs[i] && i < static_cast<SCTAB>(pDestDoc->maTabs.size()) && pDestDoc->maTabs[i])
-                maTabs[i]->CopyToTable( nCol1, nRow1, nCol2, nRow2, nFlags,
+                maTabs[i]->CopyToTable(aCxt, nCol1, nRow1, nCol2, nRow2, nFlags,
                                       bOnlyMarked, pDestDoc->maTabs[i], pMarks,
                                       false, bColRowFlags );
         }
@@ -1896,12 +1898,19 @@ void ScDocument::CopyToDocument(const ScRange& rRange,
         pDestDoc->aDocName = aDocName;
     bool bOldAutoCalc = pDestDoc->GetAutoCalc();
     pDestDoc->SetAutoCalc( false );     // avoid multiple calculations
+
+    sc::CopyToDocContext aCxt(*pDestDoc);
+    aCxt.setTabRange(aNewRange.aStart.Tab(), aNewRange.aEnd.Tab());
     for (SCTAB i = aNewRange.aStart.Tab(); i <= aNewRange.aEnd.Tab() && i < static_cast<SCTAB>(maTabs.size()); i++)
-        if (maTabs[i] && i < static_cast<SCTAB>(pDestDoc->maTabs.size()) && pDestDoc->maTabs[i])
-            maTabs[i]->CopyToTable(aNewRange.aStart.Col(), aNewRange.aStart.Row(),
-                                 aNewRange.aEnd.Col(), aNewRange.aEnd.Row(),
-                                 nFlags, bOnlyMarked, pDestDoc->maTabs[i],
-                                 pMarks, false, bColRowFlags);
+    {
+        if (!TableExists(i) || !pDestDoc->TableExists(i))
+            continue;
+
+        maTabs[i]->CopyToTable(aCxt, aNewRange.aStart.Col(), aNewRange.aStart.Row(),
+                               aNewRange.aEnd.Col(), aNewRange.aEnd.Row(),
+                               nFlags, bOnlyMarked, pDestDoc->maTabs[i],
+                               pMarks, false, bColRowFlags);
+    }
     pDestDoc->SetAutoCalc( bOldAutoCalc );
 }
 
@@ -2862,6 +2871,8 @@ void ScDocument::FillTab( const ScRange& rSrcArea, const ScMarkData& rMark,
         bool bOldAutoCalc = GetAutoCalc();
         SetAutoCalc( false );                   // avoid multiple calculations
 
+        sc::CopyToDocContext aCxt(*this);
+        aCxt.setTabRange(rMark.GetFirstSelected(), rMark.GetLastSelected());
         SCTAB nCount = static_cast<SCTAB>(maTabs.size());
         ScMarkData::const_iterator itr = rMark.begin(), itrEnd = rMark.end();
         for (; itr != itrEnd && *itr < nCount; ++itr)
@@ -2877,11 +2888,13 @@ void ScDocument::FillTab( const ScRange& rSrcArea, const ScMarkData& rMark,
                     }
                     else
                         pMixDoc->AddUndoTab( i, i );
-                    maTabs[i]->CopyToTable( nStartCol,nStartRow, nEndCol,nEndRow,
+                    sc::CopyToDocContext aMixCxt(*pMixDoc);
+                    aMixCxt.setTabRange(i, i);
+                    maTabs[i]->CopyToTable(aMixCxt, nStartCol,nStartRow, nEndCol,nEndRow,
                                             IDF_CONTENTS, false, pMixDoc->maTabs[i] );
                 }
                 maTabs[i]->DeleteArea( nStartCol,nStartRow, nEndCol,nEndRow, nDelFlags);
-                maTabs[nSrcTab]->CopyToTable( nStartCol,nStartRow, nEndCol,nEndRow,
+                maTabs[nSrcTab]->CopyToTable(aCxt, nStartCol,nStartRow, nEndCol,nEndRow,
                                                  nFlags, false, maTabs[i], NULL, bAsLink );
 
                 if (bDoMix)
@@ -2923,6 +2936,8 @@ void ScDocument::FillTabMarked( SCTAB nSrcTab, const ScMarkData& rMark,
         SCCOL nEndCol = aArea.aEnd.Col();
         SCROW nEndRow = aArea.aEnd.Row();
 
+        sc::CopyToDocContext aCxt(*this);
+        aCxt.setTabRange(rMark.GetFirstSelected(), rMark.GetLastSelected());
         SCTAB nCount = static_cast<SCTAB>(maTabs.size());
         ScMarkData::const_iterator itr = rMark.begin(), itrEnd = rMark.end();
         for (; itr != itrEnd && *itr < nCount; ++itr)
@@ -2938,12 +2953,15 @@ void ScDocument::FillTabMarked( SCTAB nSrcTab, const ScMarkData& rMark,
                     }
                     else
                         pMixDoc->AddUndoTab( i, i );
-                    maTabs[i]->CopyToTable( nStartCol,nStartRow, nEndCol,nEndRow,
+
+                    sc::CopyToDocContext aMixCxt(*pMixDoc);
+                    aMixCxt.setTabRange(i, i);
+                    maTabs[i]->CopyToTable(aMixCxt, nStartCol,nStartRow, nEndCol,nEndRow,
                                             IDF_CONTENTS, true, pMixDoc->maTabs[i], &rMark );
                 }
 
                 maTabs[i]->DeleteSelection( nDelFlags, rMark );
-                maTabs[nSrcTab]->CopyToTable( nStartCol,nStartRow, nEndCol,nEndRow,
+                maTabs[nSrcTab]->CopyToTable(aCxt, nStartCol,nStartRow, nEndCol,nEndRow,
                                              nFlags, true, maTabs[i], &rMark, bAsLink );
 
                 if (bDoMix)
