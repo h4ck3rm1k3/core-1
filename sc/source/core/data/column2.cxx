@@ -1390,17 +1390,11 @@ void ScColumn::CellStorageModified()
         return;
     }
 
-    cout << "-- begin" << endl;
-    std::vector<ColEntry>::const_iterator it = maItems.begin(), itEnd = maItems.end();
-    for (; it != itEnd; ++it)
-        cout << "ScColumn::CellStorageModified: entry: row = " << it->nRow << "; cell = " << it->pCell << endl;
-
     ScColumnTextWidthIterator aIter(*this, 0, MAXROW);
     for (; aIter.hasCell(); aIter.next())
     {
         SCROW nRow = aIter.getPos();
         ScBaseCell* pCell = GetCell(nRow);
-        cout << "ScColumn::CellStorageModified: row = " << nRow << "; cell = " << pCell << endl;
         if (!pCell)
         {
             cout << "ScColumn::CellStorageModified: Cell and text width storages are out of sync!" << endl;
@@ -1408,7 +1402,6 @@ void ScColumn::CellStorageModified()
             abort();
         }
     }
-    cout << "-- end" << endl;
 #endif
 }
 
