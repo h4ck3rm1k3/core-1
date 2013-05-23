@@ -1432,7 +1432,7 @@ void ScColumn::CopyCellTextAttrsToDocument(SCROW nRow1, SCROW nRow2, ScColumn& r
     nRowPos = static_cast<size_t>(nRow2); // End row position.
 
     // Keep copying until we hit the end row position.
-    sc::custom_celltextattr_block::const_iterator itData, itDataEnd;
+    sc::celltextattr_block::const_iterator itData, itDataEnd;
     for (; itBlk != itBlkEnd; ++itBlk, nBlockStart = nBlockEnd, nOffsetInBlock = 0)
     {
         nBlockEnd = nBlockStart + itBlk->size;
@@ -1449,15 +1449,15 @@ void ScColumn::CopyCellTextAttrsToDocument(SCROW nRow1, SCROW nRow2, ScColumn& r
         }
 
         // Non-empty block.
-        itData = sc::custom_celltextattr_block::begin(*itBlk->data);
-        itDataEnd = sc::custom_celltextattr_block::end(*itBlk->data);
+        itData = sc::celltextattr_block::begin(*itBlk->data);
+        itDataEnd = sc::celltextattr_block::end(*itBlk->data);
         std::advance(itData, nOffsetInBlock);
 
         if (nBlockStart <= nRowPos && nRowPos <= nBlockEnd)
         {
             // This block contains the end row. Only copy partially.
             size_t nOffset = nRowPos - nBlockStart + 1;
-            itDataEnd = sc::custom_celltextattr_block::begin(*itBlk->data);
+            itDataEnd = sc::celltextattr_block::begin(*itBlk->data);
             std::advance(itDataEnd, nOffset);
 
             rDestCol.maCellTextAttrs.set(nBlockStart + nOffsetInBlock, itData, itDataEnd);
@@ -1652,8 +1652,8 @@ sal_uInt8 ScColumn::GetRangeScriptType(
 
     if (itPos->type == sc::element_type_celltextattr)
     {
-        sc::custom_celltextattr_block::iterator it = sc::custom_celltextattr_block::begin(*itPos->data);
-        sc::custom_celltextattr_block::iterator itEnd = sc::custom_celltextattr_block::end(*itPos->data);
+        sc::celltextattr_block::iterator it = sc::celltextattr_block::begin(*itPos->data);
+        sc::celltextattr_block::iterator itEnd = sc::celltextattr_block::end(*itPos->data);
         std::advance(it, aRet.second);
         for (; it != itEnd; ++it, ++nRow)
         {
@@ -1684,8 +1684,8 @@ sal_uInt8 ScColumn::GetRangeScriptType(
             continue;
         }
 
-        sc::custom_celltextattr_block::iterator it = sc::custom_celltextattr_block::begin(*itPos->data);
-        sc::custom_celltextattr_block::iterator itEnd = sc::custom_celltextattr_block::end(*itPos->data);
+        sc::celltextattr_block::iterator it = sc::celltextattr_block::begin(*itPos->data);
+        sc::celltextattr_block::iterator itEnd = sc::celltextattr_block::end(*itPos->data);
         for (; it != itEnd; ++it, ++nRow)
         {
             if (nRow > nRow2)
@@ -2016,7 +2016,7 @@ void startListening(
         case sc::element_type_broadcaster:
         {
             // Broadcaster already exists here.
-            SvtBroadcaster* pBC = sc::custom_broadcaster_block::at(*itBlockPos->data, nElemPos);
+            SvtBroadcaster* pBC = sc::broadcaster_block::at(*itBlockPos->data, nElemPos);
             rLst.StartListening(*pBC);
         }
         break;
@@ -2109,7 +2109,7 @@ void ScColumn::EndListening( sc::EndListeningContext& rCxt, SCROW nRow, SvtListe
     if (it->type != sc::element_type_broadcaster)
         return;
 
-    SvtBroadcaster* pBC = sc::custom_broadcaster_block::at(*it->data, aPos.second);
+    SvtBroadcaster* pBC = sc::broadcaster_block::at(*it->data, aPos.second);
     OSL_ASSERT(pBC);
 
     rListener.EndListening(*pBC);
