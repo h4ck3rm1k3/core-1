@@ -45,6 +45,7 @@
 #include "rtl/strbuf.hxx"
 #include "formulagroup.hxx"
 #include "listenercontext.hxx"
+#include "types.hxx"
 
 #include <boost/bind.hpp>
 
@@ -1819,7 +1820,7 @@ bool ScFormulaCell::GetMatrixOrigin( ScAddress& rPos ) const
  (reserved: open: 32)
  */
 
-sal_uInt16 ScFormulaCell::GetMatrixEdge( ScAddress& rOrgPos )
+sal_uInt16 ScFormulaCell::GetMatrixEdge( ScAddress& rOrgPos ) const
 {
     switch ( cMatrixFlag )
     {
@@ -1834,7 +1835,7 @@ sal_uInt16 ScFormulaCell::GetMatrixEdge( ScAddress& rOrgPos )
             if ( aOrg != rOrgPos )
             {   // First time or a different matrix than last time.
                 rOrgPos = aOrg;
-                ScFormulaCell* pFCell;
+                const ScFormulaCell* pFCell;
                 if ( cMatrixFlag == MM_REFERENCE )
                     pFCell = pDocument->GetFormulaCell(aOrg);
                 else
@@ -1881,7 +1882,8 @@ sal_uInt16 ScFormulaCell::GetMatrixEdge( ScAddress& rOrgPos )
                             else
                                 bCont = false;
                         } while ( bCont );
-                        pFCell->SetMatColsRows( nC, nR );
+
+                        const_cast<ScFormulaCell*>(pFCell)->SetMatColsRows(nC, nR);
                     }
                 }
                 else
@@ -1907,15 +1909,15 @@ sal_uInt16 ScFormulaCell::GetMatrixEdge( ScAddress& rOrgPos )
             if ( dC >= 0 && dR >= 0 && dC < nC && dR < nR )
             {
                 if ( dC == 0 )
-                    nEdges |= 4;            // left edge
+                    nEdges |= sc::MatrixEdgeLeft;            // left edge
                 if ( dC+1 == nC )
-                    nEdges |= 16;           // right edge
+                    nEdges |= sc::MatrixEdgeRight;           // right edge
                 if ( dR == 0 )
-                    nEdges |= 8;            // top edge
+                    nEdges |= sc::MatrixEdgeTop;            // top edge
                 if ( dR+1 == nR )
-                    nEdges |= 2;            // bottom edge
+                    nEdges |= sc::MatrixEdgeBottom;            // bottom edge
                 if ( !nEdges )
-                    nEdges = 1;             // inside
+                    nEdges = sc::MatrixEdgeInside;             // inside
             }
 #if OSL_DEBUG_LEVEL > 0
             else
@@ -2266,7 +2268,7 @@ bool ScFormulaCell::UpdateReference(UpdateRefMode eUpdateRefMode,
                 ScFormulaCell* pFCell = new ScFormulaCell( pUndoDoc, aUndoPos,
                         pOld, eTempGrammar, cMatrixFlag );
                 pFCell->aResult.SetToken( NULL);  // to recognize it as changed later (Cut/Paste!)
-                pUndoDoc->PutCell( aUndoPos, pFCell );
+                pUndoDoc->SetFormulaCell(aUndoPos, pFCell);
             }
         }
         bValChanged = false;
