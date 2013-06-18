@@ -72,7 +72,6 @@
 #include "scresid.hxx"
 #include "hints.hxx"
 #include "detdata.hxx"
-#include "cell.hxx"
 #include "dpobject.hxx"
 #include "detfunc.hxx"      // for UpdateAllComments
 #include "scmod.hxx"
