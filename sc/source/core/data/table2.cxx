@@ -3484,8 +3484,7 @@ void ScTable::DoAutoOutline( SCCOL nStartCol, SCROW nStartRow, SCCOL nEndCol, SC
             continue;
 
         OutlineArrayFinder aFunc(aRef, nCol, nTab, pArray, bSizeChanged);
-        std::pair<sc::CellStoreType::const_iterator,size_t> aPos =
-            sc::FindFormula(aCol[nCol].maCells, nStartRow, nEndRow, aFunc);
+        sc::FindFormula(aCol[nCol].maCells, nStartRow, nEndRow, aFunc);
     }
 }
 
