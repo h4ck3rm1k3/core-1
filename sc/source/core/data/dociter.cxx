@@ -936,6 +936,7 @@ bool ScCellIterator::getCurrent()
         }
 
         maCurCell.assign(maCurColPos.first, maCurColPos.second);
+        return true;
     }
     return false;
 }
