@@ -1049,7 +1049,7 @@ bool ScCellIterator::first()
 
 bool ScCellIterator::next()
 {
-    maCurPos.IncRow();
+    incPos();
     return getCurrent();
 }
 
@@ -1839,7 +1839,7 @@ void ScHorizontalCellIterator::Advance()
             return;
         }
 
-        if (nNextRow > MAXROW)
+        if (nNextRow > static_cast<size_t>(MAXROW))
         {
             // No more blocks to search.
             bMore = false;
