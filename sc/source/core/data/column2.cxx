@@ -1349,6 +1349,9 @@ bool ScColumn::GetNextDataPos(SCROW& rRow) const        // greater than rRow
         if (it == maCells.end())
             // No more next block.
             return false;
+
+        // Next block exists, and is non-empty.
+        return true;
     }
 
     if (aPos.second < it->size - 1)
