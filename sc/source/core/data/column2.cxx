@@ -1624,6 +1624,7 @@ void ScColumn::ResetCellTextAttrs()
     CellTextAttrInitializer aFunc;
     std::for_each(maCells.begin(), maCells.end(), aFunc);
     aFunc.swap(maCellTextAttrs);
+    CellStorageModified();
 }
 
 void ScColumn::SwapCellTextAttrs( SCROW nRow1, SCROW nRow2 )
@@ -1673,6 +1674,8 @@ void ScColumn::SwapCellTextAttrs( SCROW nRow1, SCROW nRow2 )
     sc::CellTextAttr aVal1 = sc::celltextattr_block::at(*it1->data, aPos1.second); // make a copy.
     it1 = maCellTextAttrs.set_empty(it1, nRow1, nRow1);
     maCellTextAttrs.set(it1, nRow2, aVal1);
+
+    CellStorageModified();
 }
 
 SvtBroadcaster* ScColumn::GetBroadcaster(SCROW nRow)
@@ -1713,6 +1716,7 @@ void ScColumn::SetTextWidth(SCROW nRow, sal_uInt16 nWidth)
     sc::CellTextAttr aVal = maCellTextAttrs.get<sc::CellTextAttr>(nRow);
     aVal.mnTextWidth = nWidth;
     maCellTextAttrs.set(nRow, aVal);
+    CellStorageModified();
 }
 
 sal_uInt8 ScColumn::GetScriptType( SCROW nRow ) const
@@ -1736,7 +1740,7 @@ sal_uInt8 ScColumn::GetRangeScriptType(
     itPos = aRet.first; // Track the position of cell text attribute array.
 
     sal_uInt8 nScriptType = 0;
-
+    bool bUpdated = false;
     if (itPos->type == sc::element_type_celltextattr)
     {
         sc::celltextattr_block::iterator it = sc::celltextattr_block::begin(*itPos->data);
@@ -1748,7 +1752,8 @@ sal_uInt8 ScColumn::GetRangeScriptType(
                 return nScriptType;
 
             sc::CellTextAttr& rVal = *it;
-            UpdateScriptType(rVal, nRow);
+            if (UpdateScriptType(rVal, nRow))
+                bUpdated = true;
             nScriptType |= rVal.mnScriptType;
         }
     }
@@ -1779,10 +1784,15 @@ sal_uInt8 ScColumn::GetRangeScriptType(
                 return nScriptType;
 
             sc::CellTextAttr& rVal = *it;
-            UpdateScriptType(rVal, nRow);
+            if (UpdateScriptType(rVal, nRow))
+                bUpdated = true;
+
             nScriptType |= rVal.mnScriptType;
         }
     }
+
+    if (bUpdated)
+        CellStorageModified();
 
     return nScriptType;
 }
@@ -1800,12 +1810,14 @@ void ScColumn::SetScriptType( SCROW nRow, sal_uInt8 nType )
         sc::CellTextAttr aVal = maCellTextAttrs.get<sc::CellTextAttr>(nRow);
         aVal.mnScriptType = nType;
         maCellTextAttrs.set(nRow, aVal);
+        CellStorageModified();
     }
     else
     {
         sc::CellTextAttr aVal = maCellTextAttrs.get<sc::CellTextAttr>(nRow);
         aVal.mnScriptType = nType;
         maCellTextAttrs.set(nRow, aVal);
+        CellStorageModified();
     }
 }
 
