@@ -216,6 +216,7 @@ public:
     sal_uLong       GetFormatIndex() const                  { return nFormatIndex; }
     void            GetFormatInfo( short& nType, sal_uLong& nIndex ) const
                         { nType = nFormatType; nIndex = nFormatIndex; }
+    bool GetErrorOrValue( sal_uInt16& rErr, double& rVal );
     sal_uInt8       GetMatrixFlag() const                   { return cMatrixFlag; }
     ScTokenArray*   GetCode() const                         { return pCode; }
 
