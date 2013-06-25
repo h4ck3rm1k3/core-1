@@ -809,7 +809,7 @@ void ScTransferObj::StripRefs( ScDocument* pDoc,
 
                 ScSetStringParam aParam;
                 aParam.setTextInput();
-                pDestDoc->SetString(aPos, ScGlobal::GetErrorString(nErrCode));
+                pDestDoc->SetString(aPos, ScGlobal::GetErrorString(nErrCode), &aParam);
             }
             else if (pFCell->IsValue())
             {
@@ -828,7 +828,7 @@ void ScTransferObj::StripRefs( ScDocument* pDoc,
                 {
                     ScSetStringParam aParam;
                     aParam.setTextInput();
-                    pDestDoc->SetString(aPos, aStr);
+                    pDestDoc->SetString(aPos, aStr, &aParam);
                 }
             }
 
