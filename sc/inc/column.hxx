@@ -455,6 +455,8 @@ public:
     void BroadcastCells( const std::vector<SCROW>& rRows );
     void EndFormulaListening( sc::ColumnBlockPosition& rBlockPos, SCROW nRow1, SCROW nRow2 );
 
+    void InterpretDirtyCells( SCROW nRow1, SCROW nRow2 );
+
 private:
 
     void CopyCellsInRangeToColumn(
