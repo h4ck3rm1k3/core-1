@@ -137,7 +137,8 @@ void ScColumn::Delete( SCROW nRow )
     if (it == maCells.end())
         return;
 
-    if (it->type == sc::element_type_formula)
+    bool bFormulaCell = it->type == sc::element_type_formula;
+    if (bFormulaCell)
     {
         ScFormulaCell* p = sc::formula_block::at(*it->data, aPos.second);
         p->EndListeningTo(pDocument);
@@ -147,6 +148,9 @@ void ScColumn::Delete( SCROW nRow )
 
     pDocument->Broadcast(
         ScHint(SC_HINT_DATACHANGED, ScAddress(nCol, nRow, nTab)));
+
+    if (bFormulaCell)
+        RegroupFormulaCells(nRow);
 
     CellStorageModified();
 }
@@ -244,7 +248,7 @@ void ScColumn::DeleteRow( SCROW nStartRow, SCSIZE nSize )
     maBroadcasters.resize(MAXROWCOUNT);
 
     // See if we have any cells that would get deleted or shifted by deletion.
-    std::pair<sc::CellStoreType::iterator,size_t> aPos = maCells.position(nStartRow);
+    sc::CellStoreType::position_type aPos = maCells.position(nStartRow);
     sc::CellStoreType::iterator itCell = aPos.first;
     if (itCell->type == sc::element_type_empty)
     {
@@ -307,6 +311,7 @@ void ScColumn::DeleteRow( SCROW nStartRow, SCSIZE nSize )
     maCellTextAttrs.erase(nStartRow, nEndRow);
     maCellTextAttrs.resize(MAXROWCOUNT);
 
+    RegroupFormulaCells(nStartRow);
     CellStorageModified();
 
     if (!bShiftCells)
@@ -419,6 +424,7 @@ void ScColumn::CopyCellsInRangeToColumn(
         *pDestColPos = aDestColPos;
     }
 
+    rColumn.RegroupFormulaCells(nRow1, nRow2);
     rColumn.CellStorageModified();
 }
 
@@ -430,7 +436,7 @@ sc::CellStoreType::iterator ScColumn::GetPositionToInsert( SCROW nRow )
 sc::CellStoreType::iterator ScColumn::GetPositionToInsert( const sc::CellStoreType::iterator& it, SCROW nRow )
 {
     // See if we are overwriting an existing formula cell.
-    std::pair<sc::CellStoreType::iterator,size_t> aRet = maCells.position(it, nRow);
+    sc::CellStoreType::position_type aRet = maCells.position(it, nRow);
     sc::CellStoreType::iterator itRet = aRet.first;
     if (itRet->type == sc::element_type_formula && !pDocument->IsClipOrUndo())
     {
@@ -580,18 +586,20 @@ public:
 
 class EmptyCells
 {
+    ScColumn& mrColumn;
     sc::ColumnBlockPosition& mrPos;
     sc::CellStoreType::iterator miPos;
     sc::CellStoreType& mrCells;
     sc::CellTextAttrStoreType& mrAttrs;
 public:
-    EmptyCells(sc::ColumnBlockPosition& rPos, sc::CellStoreType& rCells, sc::CellTextAttrStoreType& rAttrs) :
-        mrPos(rPos), mrCells(rCells), mrAttrs(rAttrs) {}
+    EmptyCells(sc::ColumnBlockPosition& rPos, ScColumn& rColumn, sc::CellStoreType& rCells, sc::CellTextAttrStoreType& rAttrs) :
+        mrColumn(rColumn), mrPos(rPos), mrCells(rCells), mrAttrs(rAttrs) {}
 
     void operator() (const sc::SingleColumnSpanSet::Span& rSpan)
     {
         mrPos.miCellPos = mrCells.set_empty(mrPos.miCellPos, rSpan.mnRow1, rSpan.mnRow2);
         mrPos.miCellTextAttrPos = mrAttrs.set_empty(mrPos.miCellTextAttrPos, rSpan.mnRow1, rSpan.mnRow2);
+        mrColumn.RegroupFormulaCells(rSpan.mnRow1, rSpan.mnRow2);
     }
 };
 
@@ -625,7 +633,7 @@ void ScColumn::DeleteArea(SCROW nStartRow, SCROW nEndRow, sal_uInt16 nDelFlag)
         aBlockPos.miCellTextAttrPos = maCellTextAttrs.begin();
 
         // Delete the cells for real.
-        std::for_each(aSpans.begin(), aSpans.end(), EmptyCells(aBlockPos, maCells, maCellTextAttrs));
+        std::for_each(aSpans.begin(), aSpans.end(), EmptyCells(aBlockPos, *this, maCells, maCellTextAttrs));
         CellStorageModified();
     }
 
@@ -1362,6 +1370,7 @@ void ScColumn::MixData(
     sc::ParseAll(rSrcCol.maCells.begin(), rSrcCol.maCells, nRow1, nRow2, aFunc, aFunc);
 
     aFunc.commit(p);
+    RegroupFormulaCells(nRow1, nRow2);
     CellStorageModified();
 }
 
@@ -1604,6 +1613,7 @@ void ScColumn::SetEditText( SCROW nRow, EditTextObject* pEditText )
     sc::CellStoreType::iterator it = GetPositionToInsert(nRow);
     maCells.set(it, nRow, pEditText);
     maCellTextAttrs.set(nRow, sc::CellTextAttr());
+    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     BroadcastNewCell(nRow);
@@ -1615,6 +1625,7 @@ void ScColumn::SetEditText( sc::ColumnBlockPosition& rBlockPos, SCROW nRow, Edit
     rBlockPos.miCellPos = maCells.set(rBlockPos.miCellPos, nRow, pEditText);
     rBlockPos.miCellTextAttrPos = maCellTextAttrs.set(
         rBlockPos.miCellTextAttrPos, nRow, sc::CellTextAttr());
+    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     BroadcastNewCell(nRow);
@@ -1692,6 +1703,7 @@ void ScColumn::SetFormula( SCROW nRow, const ScTokenArray& rArray, formula::Form
     ScFormulaCell* pCell = new ScFormulaCell(pDocument, aPos, &rArray, eGram);
     maCells.set(it, nRow, pCell);
     maCellTextAttrs.set(nRow, sc::CellTextAttr());
+    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     ActivateNewFormulaCell(pCell);
@@ -1705,6 +1717,7 @@ void ScColumn::SetFormula( SCROW nRow, const OUString& rFormula, formula::Formul
     ScFormulaCell* pCell = new ScFormulaCell(pDocument, aPos, rFormula, eGram);
     maCells.set(it, nRow, pCell);
     maCellTextAttrs.set(nRow, sc::CellTextAttr());
+    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     ActivateNewFormulaCell(pCell);
@@ -1715,6 +1728,7 @@ void ScColumn::SetFormulaCell( SCROW nRow, ScFormulaCell* pCell )
     sc::CellStoreType::iterator it = GetPositionToInsert(nRow);
     maCells.set(it, nRow, pCell);
     maCellTextAttrs.set(nRow, sc::CellTextAttr());
+    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     ActivateNewFormulaCell(pCell);
@@ -1726,6 +1740,7 @@ void ScColumn::SetFormulaCell( sc::ColumnBlockPosition& rBlockPos, SCROW nRow, S
     rBlockPos.miCellPos = maCells.set(rBlockPos.miCellPos, nRow, pCell);
     rBlockPos.miCellTextAttrPos = maCellTextAttrs.set(
         rBlockPos.miCellTextAttrPos, nRow, sc::CellTextAttr());
+    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     ActivateNewFormulaCell(pCell);
@@ -2117,6 +2132,7 @@ void ScColumn::SetError( SCROW nRow, const sal_uInt16 nError)
     sc::CellStoreType::iterator it = GetPositionToInsert(nRow);
     maCells.set(it, nRow, pCell);
     maCellTextAttrs.set(nRow, sc::CellTextAttr());
+    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     ActivateNewFormulaCell(pCell);
@@ -2130,6 +2146,7 @@ void ScColumn::SetRawString( SCROW nRow, const OUString& rStr, bool bBroadcast )
     sc::CellStoreType::iterator it = GetPositionToInsert(nRow);
     maCells.set(it, nRow, rStr);
     maCellTextAttrs.set(nRow, sc::CellTextAttr());
+    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     if (bBroadcast)
@@ -2146,6 +2163,7 @@ void ScColumn::SetRawString(
     rBlockPos.miCellPos = maCells.set(rBlockPos.miCellPos, nRow, rStr);
     rBlockPos.miCellTextAttrPos = maCellTextAttrs.set(
         rBlockPos.miCellTextAttrPos, nRow, sc::CellTextAttr());
+    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     if (bBroadcast)
@@ -2160,6 +2178,7 @@ void ScColumn::SetValue( SCROW nRow, double fVal )
     sc::CellStoreType::iterator it = GetPositionToInsert(nRow);
     maCells.set(it, nRow, fVal);
     maCellTextAttrs.set(nRow, sc::CellTextAttr());
+    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     BroadcastNewCell(nRow);
@@ -2175,6 +2194,7 @@ void ScColumn::SetValue(
     rBlockPos.miCellPos = maCells.set(rBlockPos.miCellPos, nRow, fVal);
     rBlockPos.miCellTextAttrPos = maCellTextAttrs.set(
         rBlockPos.miCellTextAttrPos, nRow, sc::CellTextAttr());
+    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     if (bBroadcast)
