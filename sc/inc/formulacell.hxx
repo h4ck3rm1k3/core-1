@@ -306,7 +306,7 @@ public:
     void                   SetCellGroup( const ScFormulaCellGroupRef &xRef )
         { xGroup = xRef; }
 
-    CompareState CompareByTokenArray( ScFormulaCell *pOther ) const;
+    CompareState CompareByTokenArray( ScFormulaCell& rOther ) const;
 
     bool InterpretFormulaGroup();
     bool InterpretInvariantFormulaGroup();
@@ -317,6 +317,11 @@ public:
     void EndListeningTo(
         ScDocument* pDoc, ScTokenArray* pArr = NULL, ScAddress aPos = ScAddress() );
     void EndListeningTo( sc::EndListeningContext& rCxt );
+
+    bool IsShared() const;
+    bool IsSharedInvariant() const;
+    SCROW GetSharedTopRow() const;
+    SCROW GetSharedLength() const;
 };
 
 #endif
