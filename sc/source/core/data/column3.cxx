@@ -2702,11 +2702,9 @@ public:
 
 class GroupFormulaCells
 {
-    std::vector<ScFormulaCellGroupRef>& mrFnGroups;
     ScFormulaCellGroupRef mxNone;
 
 public:
-    GroupFormulaCells(std::vector<ScFormulaCellGroupRef>& rFnGroups) : mrFnGroups(rFnGroups) {}
 
     void operator() (sc::CellStoreType::value_type& node)
     {
@@ -2744,8 +2742,6 @@ public:
                 xGroup->mbInvariant = (eCompState == ScFormulaCell::EqualInvariant);
                 xGroup->mnLength = 2;
 
-                mrFnGroups.push_back(xGroup);
-
                 pCur->SetCellGroup(xGroup);
                 pPrev->SetCellGroup(xGroup);
             }
@@ -2772,10 +2768,9 @@ void ScColumn::RebuildFormulaGroups()
     ScFormulaCellGroupRef xNone;
     CellGroupSetter aFunc(xNone);
     sc::ProcessFormula(maCells, aFunc);
-    maFnGroups.clear();
 
     // re-build formula groups.
-    std::for_each(maCells.begin(), maCells.end(), GroupFormulaCells(maFnGroups));
+    std::for_each(maCells.begin(), maCells.end(), GroupFormulaCells());
 
     mbDirtyGroups = false;
 }
