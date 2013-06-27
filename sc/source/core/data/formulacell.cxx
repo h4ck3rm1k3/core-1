@@ -2115,7 +2115,7 @@ bool ScFormulaCell::UpdateReference(
     if (pUndoDoc)
         pOldCode.reset(pCode->Clone());
 
-    ScRangeData* pRangeData = NULL;
+    ScRangeData* pSharedCode = NULL;
     bool bValChanged = false;
     bool bRangeModified = false;    // any range, not only shared formula
     bool bRefSizeChanged = false;
@@ -2125,7 +2125,7 @@ bool ScFormulaCell::UpdateReference(
         // Update cell or range references.
         ScCompiler aComp(pDocument, aPos, *pCode);
         aComp.SetGrammar(pDocument->GetGrammar());
-        pRangeData = aComp.UpdateReference(eUpdateRefMode, aOldPos, rRange,
+        pSharedCode = aComp.UpdateReference(eUpdateRefMode, aOldPos, rRange,
                                          nDx, nDy, nDz,
                                          bValChanged, bRefSizeChanged);
         bRangeModified = aComp.HasModifiedRange();
@@ -2230,7 +2230,7 @@ bool ScFormulaCell::UpdateReference(
         bHasRelName = HasRelNameReference();
         // Reference changed and new listening needed?
         // Except in Insert/Delete without specialties.
-        bNewListening = (bRangeModified || pRangeData || bColRowNameCompile
+        bNewListening = (bRangeModified || pSharedCode || bColRowNameCompile
                 || (bValChanged && (eUpdateRefMode != URM_INSDEL ||
                         bInDeleteUndo || bRefSizeChanged)) ||
                 (bHasRelName && eUpdateRefMode != URM_COPY))
@@ -2246,14 +2246,14 @@ bool ScFormulaCell::UpdateReference(
 
     bool bNeedDirty = false;
     // NeedDirty for changes except for Copy and Move/Insert without RelNames
-    if ( bRangeModified || pRangeData || bColRowNameCompile ||
+    if ( bRangeModified || pSharedCode || bColRowNameCompile ||
             (bValChanged && eUpdateRefMode != URM_COPY &&
              (eUpdateRefMode != URM_MOVE || bHasRelName) &&
              (!bIsInsert || bHasRelName || bInDeleteUndo ||
               bRefSizeChanged)) || bOnRefMove)
         bNeedDirty = true;
 
-    if (pUndoDoc && (bValChanged || pRangeData || bOnRefMove))
+    if (pUndoDoc && (bValChanged || pSharedCode || bOnRefMove))
     {
         // Copy the cell to aUndoPos, which is its current position in the document,
         // so this works when UpdateReference is called before moving the cells
@@ -2273,13 +2273,13 @@ bool ScFormulaCell::UpdateReference(
 
     bValChanged = false;
 
-    if ( pRangeData )
+    if ( pSharedCode )
     {   // Replace shared formula with own formula
         pDocument->RemoveFromFormulaTree( this );   // update formula count
         delete pCode;
-        pCode = pRangeData->GetCode()->Clone();
+        pCode = pSharedCode->GetCode()->Clone();
         // #i18937# #i110008# call MoveRelWrap, but with the old position
-        ScCompiler::MoveRelWrap(*pCode, pDocument, aOldPos, pRangeData->GetMaxCol(), pRangeData->GetMaxRow());
+        ScCompiler::MoveRelWrap(*pCode, pDocument, aOldPos, pSharedCode->GetMaxCol(), pSharedCode->GetMaxRow());
         ScCompiler aComp2(pDocument, aPos, *pCode);
         aComp2.SetGrammar(pDocument->GetGrammar());
         aComp2.UpdateSharedFormulaReference( eUpdateRefMode, aOldPos, rRange,
@@ -2312,7 +2312,7 @@ bool ScFormulaCell::UpdateReference(
         }
     }
 
-    if ( bNeedDirty && (!(eUpdateRefMode == URM_INSDEL && bHasRelName) || pRangeData) )
+    if ( bNeedDirty && (!(eUpdateRefMode == URM_INSDEL && bHasRelName) || pSharedCode) )
     {   // Cut off references, invalid or similar?
         sc::AutoCalcSwitch(*pDocument, false);
         SetDirty();
