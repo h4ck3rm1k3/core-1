@@ -1608,7 +1608,7 @@ formula::FormulaTokenRef ScDocument::ResolveStaticReference( const ScRange& rRan
 }
 
 const double* ScDocument::FetchDoubleArray(
-    sc::FormulaGroupContext& rCxt, const ScAddress& rPos, SCROW nLength ) const
+    sc::FormulaGroupContext& rCxt, const ScAddress& rPos, SCROW nLength )
 {
     SCTAB nTab = rPos.Tab();
     if (!TableExists(nTab))
