@@ -273,10 +273,7 @@ public:
     void SetHybridValueString( double nVal, const OUString& r )
                         { aResult.SetHybridValueString( nVal, r ); }
 
-    void SetResultMatrix( SCCOL nCols, SCROW nRows, const ScConstMatrixRef& pMat, formula::FormulaToken* pUL )
-    {
-        aResult.SetMatrix(nCols, nRows, pMat, pUL);
-    }
+    void SetResultMatrix( SCCOL nCols, SCROW nRows, const ScConstMatrixRef& pMat, formula::FormulaToken* pUL );
 
     /** For import only: set a double result.
         Use this instead of SetHybridDouble() if there is no (temporary)
