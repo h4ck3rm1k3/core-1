@@ -2261,8 +2261,9 @@ const double* ScColumn::FetchDoubleArray( sc::FormulaGroupContext& rCxt, SCROW n
                 return &rArray[0];
             }
 
+            // Requested length goes beyond a single block.  Fill the array
+            // with the content of this formula block first.
             itEnd = sc::formula_block::end(*aPos.first->data);
-            std::advance(itEnd, nLenRequested);
             for (; it != itEnd; ++it)
             {
                 ScFormulaCell& rCell = **it;
