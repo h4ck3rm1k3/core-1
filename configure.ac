@@ -9684,17 +9684,23 @@ OPENCL_CFLAGS=
 ENABLE_OPENCL=
 AC_MSG_CHECKING([opencl sdk])
 if test "z$with_opencl_sdk" = "z"; then
-       AC_MSG_RESULT([no])
+    AC_MSG_RESULT([no])
 else
-       if test -d "$with_opencl_sdk/include"; then
-               ENABLE_OPENCL=TRUE
-               OPENCL_CFLAGS="-I$with_opencl_sdk/include"
-               OPENCL_LIBS="-L$with_opencl_sdk/lib/x86 -lOpenCL"
-               AC_MSG_RESULT([found at path $with_opencl_sdk])
-               AC_DEFINE(HAVE_FEATURE_OPENCL)
-       else
-               AC_MSG_ERROR([no headers found found at $with_opencl_sdk/include ])
-       fi
+    if test -d "$with_opencl_sdk/include"; then
+        ENABLE_OPENCL=TRUE
+        if test "$_os" = "WINNT"; then
+            PathFormat "$with_opencl_sdk"
+            OPENCL_CFLAGS="-I$formatted_path/include"
+            OPENCL_LIBS="-LIBPATH:$formatted_path/lib/x86 OpenCL.lib"
+        else
+            OPENCL_CFLAGS="-I$with_opencl_sdk/include"
+            OPENCL_LIBS="-L$with_opencl_sdk/lib/x86 -lOpenCL"
+        fi
+        AC_MSG_RESULT([found at path $with_opencl_sdk])
+        AC_DEFINE(HAVE_FEATURE_OPENCL)
+    else
+       AC_MSG_ERROR([no headers found found at $with_opencl_sdk/include ])
+    fi
 fi
 AC_SUBST(OPENCL_CFLAGS)
 AC_SUBST(OPENCL_LIBS)
