@@ -3130,12 +3130,8 @@ bool ScFormulaCell::InterpretFormulaGroup()
     if (!xGroup || !pCode)
         return false;
 
-    fprintf(stdout, "ScFormulaCell::InterpretFormulaGroup:   calc state = %d\n", xGroup->meCalcState);
     if (xGroup->meCalcState == sc::GroupCalcDisabled)
-    {
-        fprintf(stdout, "ScFormulaCell::InterpretFormulaGroup:   group calc disabled.\n");
         return false;
-    }
 
     switch (pCode->GetVectorState())
     {
@@ -3160,7 +3156,6 @@ bool ScFormulaCell::InterpretFormulaGroup()
     GroupTokenConverter aConverter(aCxt, aCode, *pDocument, *this, aTopPos);
     if (!aConverter.convert(*pCode))
     {
-        fprintf(stdout, "ScFormulaCell::InterpretFormulaGroup:   disabling group calc due to failed conversion\n");
         xGroup->meCalcState = sc::GroupCalcDisabled;
         return false;
     }
@@ -3168,7 +3163,6 @@ bool ScFormulaCell::InterpretFormulaGroup()
     xGroup->meCalcState = sc::GroupCalcRunning;
     if (!sc::FormulaGroupInterpreter::getStatic()->interpret(*pDocument, aTopPos, xGroup, aCode))
     {
-        fprintf(stdout, "ScFormulaCell::InterpretFormulaGroup:   disabling group calc due to failed calculation\n");
         xGroup->meCalcState = sc::GroupCalcDisabled;
         return false;
     }
