@@ -1765,7 +1765,6 @@ void ScColumn::SetEditText( SCROW nRow, EditTextObject* pEditText )
     sc::CellStoreType::iterator it = GetPositionToInsert(nRow);
     maCells.set(it, nRow, pEditText);
     maCellTextAttrs.set(nRow, sc::CellTextAttr());
-    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     BroadcastNewCell(nRow);
@@ -1777,7 +1776,6 @@ void ScColumn::SetEditText( sc::ColumnBlockPosition& rBlockPos, SCROW nRow, Edit
     rBlockPos.miCellPos = maCells.set(rBlockPos.miCellPos, nRow, pEditText);
     rBlockPos.miCellTextAttrPos = maCellTextAttrs.set(
         rBlockPos.miCellTextAttrPos, nRow, sc::CellTextAttr());
-    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     BroadcastNewCell(nRow);
@@ -2280,7 +2278,6 @@ void ScColumn::SetError( SCROW nRow, const sal_uInt16 nError)
     sc::CellStoreType::iterator it = GetPositionToInsert(nRow);
     it = maCells.set(it, nRow, pCell);
     maCellTextAttrs.set(nRow, sc::CellTextAttr());
-    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     ActivateNewFormulaCell(it, nRow, *pCell);
@@ -2294,7 +2291,6 @@ void ScColumn::SetRawString( SCROW nRow, const OUString& rStr, bool bBroadcast )
     sc::CellStoreType::iterator it = GetPositionToInsert(nRow);
     maCells.set(it, nRow, rStr);
     maCellTextAttrs.set(nRow, sc::CellTextAttr());
-    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     if (bBroadcast)
@@ -2311,7 +2307,6 @@ void ScColumn::SetRawString(
     rBlockPos.miCellPos = maCells.set(rBlockPos.miCellPos, nRow, rStr);
     rBlockPos.miCellTextAttrPos = maCellTextAttrs.set(
         rBlockPos.miCellTextAttrPos, nRow, sc::CellTextAttr());
-    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     if (bBroadcast)
@@ -2326,7 +2321,6 @@ void ScColumn::SetValue( SCROW nRow, double fVal )
     sc::CellStoreType::iterator it = GetPositionToInsert(nRow);
     maCells.set(it, nRow, fVal);
     maCellTextAttrs.set(nRow, sc::CellTextAttr());
-    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     BroadcastNewCell(nRow);
@@ -2342,7 +2336,6 @@ void ScColumn::SetValue(
     rBlockPos.miCellPos = maCells.set(rBlockPos.miCellPos, nRow, fVal);
     rBlockPos.miCellTextAttrPos = maCellTextAttrs.set(
         rBlockPos.miCellTextAttrPos, nRow, sc::CellTextAttr());
-    RegroupFormulaCells(nRow);
     CellStorageModified();
 
     if (bBroadcast)
