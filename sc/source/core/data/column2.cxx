@@ -1533,10 +1533,6 @@ void ScColumn::CellStorageModified()
 #endif
 }
 
-void ScColumn::RegroupFormulaCells()
-{
-}
-
 void ScColumn::RegroupFormulaCells( SCROW /*nRow*/ )
 {
 }
