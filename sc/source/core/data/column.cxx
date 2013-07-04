@@ -2783,10 +2783,7 @@ void ScColumn::UpdateDeleteTab(SCTAB nDelPos, bool bIsMove, ScColumn* /*pRefUndo
     DeleteTabUpdater aFunc(maCellTextAttrs, nDelPos, nSheets, nTab, bIsMove);
     sc::ProcessFormulaEditText(maCells, aFunc);
     if (aFunc.isModified())
-    {
-        RegroupFormulaCells();
         CellStorageModified();
-    }
 }
 
 void ScColumn::UpdateInsertTabAbs(SCTAB nNewPos)
@@ -2794,10 +2791,7 @@ void ScColumn::UpdateInsertTabAbs(SCTAB nNewPos)
     InsertAbsTabUpdater aFunc(maCellTextAttrs, nTab, nNewPos);
     sc::ProcessFormulaEditText(maCells, aFunc);
     if (aFunc.isModified())
-    {
-        RegroupFormulaCells();
         CellStorageModified();
-    }
 }
 
 void ScColumn::UpdateMoveTab( SCTAB nOldPos, SCTAB nNewPos, SCTAB nTabNo )
@@ -2808,10 +2802,7 @@ void ScColumn::UpdateMoveTab( SCTAB nOldPos, SCTAB nNewPos, SCTAB nTabNo )
     MoveTabUpdater aFunc(maCellTextAttrs, nTab, nOldPos, nNewPos);
     sc::ProcessFormulaEditText(maCells, aFunc);
     if (aFunc.isModified())
-    {
-        RegroupFormulaCells();
         CellStorageModified();
-    }
 }
 
 
