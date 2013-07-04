@@ -2809,7 +2809,6 @@ void ScColumn::UpdateCompile( bool bForceIfNameInUse )
 {
     UpdateCompileHandler aFunc(bForceIfNameInUse);
     sc::ProcessFormula(maCells, aFunc);
-    RegroupFormulaCells();
 }
 
 
