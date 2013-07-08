@@ -2114,6 +2114,7 @@ double *OclCalc::OclSimpleDeltaOperation(OpCode eOp, const double *pOpArray,
                                          const double *pSubtractSingle, size_t nElements)
 {
     KernelEnv kEnv;
+    SetKernelEnv(&kEnv);
 
     // select a kernel: cut & paste coding is utterly evil.
     const char *kernelName;
