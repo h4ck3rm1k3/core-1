@@ -11,7 +11,8 @@
 #define _OPENCL_WRAPPER_H_
 
 #include <config_features.h>
-
+#include <formula/opcode.hxx>
+#include <cassert>
 #include <CL/cl.h>
 
 #define MaxTextExtent  4096
@@ -213,6 +214,7 @@ public:
     int OclHostFormulaMax32Bits(float *fpSrcData,uint *npStartPos,uint *npEndPos,double *output,int outputSize);
     int OclHostFormulaMin32Bits(float *fpSrcData,uint *npStartPos,uint *npEndPos,double *output,int outputSize);
     int OclHostFormulaAverage32Bits(float *fpSrcData,uint *npStartPos,uint *npEndPos,double *output,int outputSize);
+    double *OclSimpleDeltaOperation(OpCode eOp, const double *pOpArray, const double *pSubtractSingle, size_t nElements);
 
     //int OclHostFormulaCount(int *startPos,int *endPos,float *output,int outputSize);
     //int OclHostFormulaSum(float *srcData,int *startPos,int *endPos,float *output,int outputSize);
