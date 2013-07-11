@@ -2372,7 +2372,7 @@ public:
     {
         sc::CellStoreType::position_type aPos = mrColumn.GetCellStore().position(miPos, nRow);
         miPos = aPos.first;
-        mrColumn.UnshareFormulaCell(aPos, *pCell);
+        sc::SharedFormulaUtil::unshareFormulaCell(aPos, *pCell);
         pCell->UpdateTranspose(maSource, maDest, mpUndoDoc);
         mrColumn.JoinNewFormulaCell(aPos, *pCell);
     }
@@ -2395,7 +2395,7 @@ public:
     {
         sc::CellStoreType::position_type aPos = mrColumn.GetCellStore().position(miPos, nRow);
         miPos = aPos.first;
-        mrColumn.UnshareFormulaCell(aPos, *pCell);
+        sc::SharedFormulaUtil::unshareFormulaCell(aPos, *pCell);
         pCell->UpdateGrow(maArea, mnGrowX, mnGrowY);
         mrColumn.JoinNewFormulaCell(aPos, *pCell);
     }
@@ -2772,7 +2772,7 @@ public:
 
         sc::CellStoreType::position_type aPos = mrColumn.GetCellStore().position(miPos, nRow);
         miPos = aPos.first;
-        mrColumn.UnshareFormulaCell(aPos, *pCell);
+        sc::SharedFormulaUtil::unshareFormulaCell(aPos, *pCell);
         pCell->GetCode()->SetCodeError(0);
         OUStringBuffer aBuf;
         pCell->GetFormula(aBuf, meGram);

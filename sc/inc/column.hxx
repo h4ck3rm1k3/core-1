@@ -479,8 +479,6 @@ public:
 
     void DetachFormulaCells( const sc::CellStoreType::position_type& aPos, size_t nLength );
 
-    void UnshareFormulaCell( const sc::CellStoreType::position_type& aPos, ScFormulaCell& rCell ) const;
-
     /**
      * Regroup formula cells for the entire column.
      */
