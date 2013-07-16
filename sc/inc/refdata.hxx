@@ -166,7 +166,7 @@ struct ScComplexRefData         // Complex reference (a range) into the sheet
         tab if one sheet, or >=0 if more than one sheets. */
     inline  bool ValidExternal() const;
 
-    ScRange toAbs( const ScAddress& rPos ) const;
+    SC_DLLPUBLIC ScRange toAbs( const ScAddress& rPos ) const;
 
     /// Absolute references have to be up-to-date when calling this!
     void PutInOrder();
