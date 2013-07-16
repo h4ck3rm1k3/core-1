@@ -1464,8 +1464,7 @@ void ScInterpreter::PopExternalSingleRef(
         return;
     }
 
-    rRef.CalcAbsIfRel(aPos);
-    ScAddress aAddr(rRef.nCol, rRef.nRow, rRef.nTab);
+    ScAddress aAddr = rRef.toAbs(aPos);
     ScExternalRefCache::CellFormat aFmt;
     ScExternalRefCache::TokenRef xNew = pRefMgr->getSingleRefToken(
         rFileId, rTabName, aAddr, &aPos, NULL, &aFmt);
@@ -1563,9 +1562,7 @@ void ScInterpreter::GetExternalDoubleRef(
     }
 
     ScComplexRefData aData(rData);
-    aData.CalcAbsIfRel(aPos);
-    ScRange aRange(aData.Ref1.nCol, aData.Ref1.nRow, aData.Ref1.nTab,
-                   aData.Ref2.nCol, aData.Ref2.nRow, aData.Ref2.nTab);
+    ScRange aRange = aData.toAbs(aPos);
     ScExternalRefCache::TokenArrayRef pArray = pRefMgr->getDoubleRefTokens(
         nFileId, rTabName, aRange, &aPos);
 
