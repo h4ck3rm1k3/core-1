@@ -24,18 +24,8 @@
 #include "address.hxx"
 #include "scdllapi.h"
 
-
-// Ref-Flags for old (until release 3.1) documents
-
-struct OldSingleRefBools
-{
-    sal_uInt8    bRelCol;    // Flag values (see further down), 2 bits each in file format
-    sal_uInt8    bRelRow;
-    sal_uInt8    bRelTab;
-    sal_uInt8    bOldFlag3D; ///< two bool flags (see further down)
-};
-
-struct SC_DLLPUBLIC ScSingleRefData        // Single reference (one address) into the sheet
+/// Single reference (one address) into the sheet
+struct SC_DLLPUBLIC ScSingleRefData
 {
     SCsCOL  nCol;       // Absolute values
     SCsROW  nRow;
