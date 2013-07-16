@@ -4298,11 +4298,9 @@ ScRangeData* ScCompiler::UpdateReference(UpdateRefMode eUpdateRefMode,
                 case svSingleRef:
                 {
                     t->CalcAbsIfRel( rOldPos );
-                    if ( ScRefUpdate::Update( pDoc, eUpdateRefMode,
-                                aPos, r, nDx, nDy, nDz,
-                                SingleDoubleRefModifier(
-                                    t->GetSingleRef()).Ref())
-                            != UR_NOTHING)
+                    SingleDoubleRefModifier aRefMod(t->GetSingleRef());
+                    ScComplexRefData& rRef = aRefMod.Ref();
+                    if (ScRefUpdate::Update(pDoc, eUpdateRefMode, aPos, r, nDx, nDy, nDz, rRef) != UR_NOTHING)
                         rChanged = true;
                 }
                 break;
