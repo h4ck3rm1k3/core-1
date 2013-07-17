@@ -13,6 +13,10 @@
 #include "fillinfo.hxx"
 #include "iconsets.hrc"
 #include "scresid.hxx"
+#include "tokenarray.hxx"
+#include "refupdatecontext.hxx"
+
+#include "formula/token.hxx"
 
 #include <algorithm>
 
@@ -120,10 +124,17 @@ void ScColorScaleEntry::UpdateMoveTab( SCTAB nOldTab, SCTAB nNewTab, SCTAB nTabN
 void ScColorScaleEntry::UpdateReference( UpdateRefMode eUpdateRefMode,
             const ScRange& rRange, SCsCOL nDx, SCsROW nDy, SCsTAB nDz )
 {
-    if(mpCell)
-    {
-        mpCell->UpdateReference( eUpdateRefMode, rRange, nDx, nDy, nDz );
-    }
+    if (!mpCell)
+        return;
+
+    sc::RefUpdateContext aCxt;
+    aCxt.meMode = eUpdateRefMode;
+    aCxt.maRange = rRange;
+    aCxt.mnColDelta = nDx;
+    aCxt.mnRowDelta = nDy;
+    aCxt.mnTabDelta = nDz;
+    mpCell->UpdateReference(aCxt);
+    mpListener.reset(new ScFormulaListener(mpCell.get()));
 }
 
 const Color& ScColorScaleEntry::GetColor() const
