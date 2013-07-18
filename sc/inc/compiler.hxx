@@ -448,7 +448,7 @@ public:
                               SCsCOL nDx, SCsROW nDy, SCsTAB nDz,
                               bool& rChanged, bool bSharedFormula = false, bool bLocal = false);
 
-    ScRangeData* UpdateReference( UpdateRefMode eUpdateRefMode,
+    void UpdateReference( UpdateRefMode eUpdateRefMode,
                                   const ScAddress& rOldPos, const ScRange&,
                                   SCsCOL nDx, SCsROW nDy, SCsTAB nDz,
                                   bool& rChanged, bool& rRefSizeChanged );
