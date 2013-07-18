@@ -2185,17 +2185,21 @@ bool ScFormulaCell::UpdateReferenceOnShift(
         // Just in case...
         return false;
 
+    bool bCellStateChanged = false;
     ScAddress aUndoPos( aPos );         // position for undo cell in pUndoDoc
     if ( pUndoCellPos )
         aUndoPos = *pUndoCellPos;
+    ScAddress aOldPos( aPos );
 
     if (rCxt.maRange.In(aPos))
     {
         // This formula cell itself is being shifted during cell range
         // insertion or deletion. Update its position.
         aPos.Move(rCxt.mnColDelta, rCxt.mnRowDelta, rCxt.mnTabDelta);
-        if (xGroup && xGroup->mnStart == aPos.Row())
+        if (xGroup && xGroup->mnStart == aOldPos.Row())
             xGroup->mnStart += rCxt.mnRowDelta;
+
+        bCellStateChanged = aPos != aOldPos;
     }
 
     // Check presence of any references or column row names.
@@ -2213,9 +2217,8 @@ bool ScFormulaCell::UpdateReferenceOnShift(
     if (!bHasRefs && !bOnRefMove)
         // This formula cell contains no references, nor needs recalculating
         // on reference update. Bail out.
-        return false;
+        return bCellStateChanged;
 
-    bool bCellStateChanged = false;
     boost::scoped_ptr<ScTokenArray> pOldCode;
     if (pUndoDoc)
         pOldCode.reset(pCode->Clone());
@@ -2230,7 +2233,7 @@ bool ScFormulaCell::UpdateReferenceOnShift(
         ScCompiler aComp(pDocument, aPos, *pCode);
         aComp.SetGrammar(pDocument->GetGrammar());
         aComp.UpdateReference(
-            URM_INSDEL, aPos, rCxt.maRange, rCxt.mnColDelta, rCxt.mnRowDelta, rCxt.mnTabDelta,
+            URM_INSDEL, aOldPos, rCxt.maRange, rCxt.mnColDelta, rCxt.mnRowDelta, rCxt.mnTabDelta,
             bValChanged, bRefSizeChanged);
         bRangeModified = aComp.HasModifiedRange();
     }
@@ -2239,7 +2242,7 @@ bool ScFormulaCell::UpdateReferenceOnShift(
 
     if (bOnRefMove)
         // Cell may reference itself, e.g. ocColumn, ocRow without parameter
-        bOnRefMove = bValChanged;
+        bOnRefMove = (bValChanged || (aPos != aOldPos));
 
     bool bColRowNameCompile = false;
     bool bHasRelName = false;
@@ -2251,7 +2254,7 @@ bool ScFormulaCell::UpdateReferenceOnShift(
         // Upon Insert ColRowNames have to be recompiled in case the
         // insertion occurs right in front of the range.
         if (bHasColRowNames)
-            bColRowNameCompile = checkCompileColRowName(rCxt, *pDocument, *pCode, aPos, aPos, bValChanged);
+            bColRowNameCompile = checkCompileColRowName(rCxt, *pDocument, *pCode, aOldPos, aPos, bValChanged);
 
         ScChangeTrack* pChangeTrack = pDocument->GetChangeTrack();
         bInDeleteUndo = (pChangeTrack && pChangeTrack->IsInDeleteUndo());
@@ -2264,7 +2267,7 @@ bool ScFormulaCell::UpdateReferenceOnShift(
                 || (bValChanged && (bInDeleteUndo || bRefSizeChanged)) || bHasRelName);
 
         if ( bNewListening )
-            EndListeningTo(pDocument, pOldCode.get(), aPos);
+            EndListeningTo(pDocument, pOldCode.get(), aOldPos);
     }
 
     bool bNeedDirty = false;
