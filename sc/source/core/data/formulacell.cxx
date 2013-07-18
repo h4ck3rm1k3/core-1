@@ -2266,18 +2266,13 @@ bool ScFormulaCell::UpdateReferenceOnShift(
             EndListeningTo(pDocument, pOldCode.get(), aOldPos);
     }
 
-    bool bNeedDirty = false;
     // NeedDirty for changes except for Copy and Move/Insert without RelNames
-    if (bRangeModified || bColRowNameCompile ||
-        (bValChanged && (bHasRelName || bInDeleteUndo || bRefSizeChanged)) || bOnRefMove)
-        bNeedDirty = true;
+    bool bNeedDirty = (bRangeModified || bValChanged || bColRowNameCompile || bOnRefMove);
 
     if (pUndoDoc && (bValChanged || bOnRefMove))
         setOldCodeToUndo(pUndoDoc, aUndoPos, pOldCode.get(), eTempGrammar, cMatrixFlag);
 
-    bValChanged = false;
-
-    if ( ( bCompile = (bCompile || bValChanged || bRangeModified || bColRowNameCompile) ) != 0 )
+    if ( ( bCompile = (bCompile || bRangeModified || bColRowNameCompile) ) != 0 )
     {
         CompileTokenArray( bNewListening ); // no Listening
         bNeedDirty = true;
@@ -2495,7 +2490,6 @@ bool ScFormulaCell::UpdateReferenceOnCopy(
         bOnRefMove = (bValChanged || (aPos != aOldPos));
 
     bool bColRowNameCompile = false;
-    bool bHasRelName = false;
     bool bNewListening = false;
     bool bInDeleteUndo = false;
 
@@ -2509,8 +2503,6 @@ bool ScFormulaCell::UpdateReferenceOnCopy(
         ScChangeTrack* pChangeTrack = pDocument->GetChangeTrack();
         bInDeleteUndo = (pChangeTrack && pChangeTrack->IsInDeleteUndo());
 
-        // RelNameRefs are always moved
-        bHasRelName = HasRelNameReference();
         // Reference changed and new listening needed?
         // Except in Insert/Delete without specialties.
         bNewListening =
