@@ -62,7 +62,7 @@ public:
     void SetValue(double nValue);
     void SetFormula(const OUString& rFormula, ScDocument* pDoc, const ScAddress& rAddr, formula::FormulaGrammar::Grammar eGrammar = formula::FormulaGrammar::GRAM_DEFAULT);
     void UpdateMoveTab(SCTAB nOldTab, SCTAB nNewTab, SCTAB nTabNo);
-    void UpdateReference( UpdateRefMode eUpdateRefMode,
+    void UpdateReference( ScDocument* pDoc, UpdateRefMode eUpdateRefMode,
             const ScRange& rRange, SCsCOL nDx, SCsROW nDy, SCsTAB nDz );
 
     const ScTokenArray* GetFormula() const;
