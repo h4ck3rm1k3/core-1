@@ -135,7 +135,6 @@ void ScColorScaleEntry::UpdateReference(
     aCxt.mnRowDelta = nDy;
     aCxt.mnTabDelta = nDz;
     mpCell->UpdateReference(aCxt);
-    mpListener.reset(new ScFormulaListener(mpCell.get()));
 }
 
 const Color& ScColorScaleEntry::GetColor() const
