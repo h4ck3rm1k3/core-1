@@ -1152,17 +1152,20 @@ void ScInterpreter::SingleRefToVars( const ScSingleRefData & rRef,
 {
     RTL_LOGFILE_CONTEXT_AUTHOR( aLogger, "sc", "er", "ScInterpreter::SingleRefToVars" );
     if ( rRef.IsColRel() )
-        rCol = aPos.Col() + rRef.nRelCol;
+        rCol = aPos.Col() + rRef.Col();
     else
-        rCol = rRef.nCol;
+        rCol = rRef.Col();
+
     if ( rRef.IsRowRel() )
-        rRow = aPos.Row() + rRef.nRelRow;
+        rRow = aPos.Row() + rRef.Row();
     else
-        rRow = rRef.nRow;
+        rRow = rRef.Row();
+
     if ( rRef.IsTabRel() )
-        rTab = aPos.Tab() + rRef.nRelTab;
+        rTab = aPos.Tab() + rRef.Tab();
     else
-        rTab = rRef.nTab;
+        rTab = rRef.Tab();
+
     if( !ValidCol( rCol) || rRef.IsColDeleted() )
         SetError( errNoRef ), rCol = 0;
     if( !ValidRow( rRow) || rRef.IsRowDeleted() )
