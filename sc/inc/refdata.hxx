@@ -99,7 +99,7 @@ struct SC_DLLPUBLIC ScSingleRefData
             bool operator!=( const ScSingleRefData& ) const;
 
 #if DEBUG_FORMULA_COMPILER
-    void Dump() const;
+    void Dump( int nIndent = 0 ) const;
 #endif
 };
 
@@ -149,7 +149,7 @@ struct ScComplexRefData
     ScComplexRefData& Extend( const ScComplexRefData & rRef, const ScAddress & rPos );
 
 #if DEBUG_FORMULA_COMPILER
-    void Dump() const;
+    void Dump( int nIndent = 0 ) const;
 #endif
 };
 
