@@ -466,7 +466,7 @@ ConvErr LotusToSc::Convert( const ScTokenArray*& rpErg, sal_Int32& rRest,
                     nNewId = aPool.Store( rR );
                 else
                 {
-                    nId = rRangeList.GetIndex( rR.nCol, rR.nRow );
+                    nId = rRangeList.GetIndex(rR.Col(), rR.Row());
 
                     if( nId == ID_FAIL )
                         // kein Range dazu
@@ -493,8 +493,7 @@ ConvErr LotusToSc::Convert( const ScTokenArray*& rpErg, sal_Int32& rRest,
                     nNewId = aPool.Store( aCRD );
                 else
                 {
-                    nId = rRangeList.GetIndex(
-                        rR.nCol, rR.nRow, aCRD.Ref2.nCol, aCRD.Ref2.nRow );
+                    nId = rRangeList.GetIndex(rR.Col(), rR.Row(), aCRD.Ref2.Col(), aCRD.Ref2.Row());
 
                     if( nId == ID_FAIL )
                         // kein Range dazu

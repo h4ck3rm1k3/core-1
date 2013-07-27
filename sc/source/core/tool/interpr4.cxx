@@ -1914,10 +1914,7 @@ void ScInterpreter::PushSingleRef(SCCOL nCol, SCROW nRow, SCTAB nTab)
     if (!IfErrorPushError())
     {
         ScSingleRefData aRef;
-        aRef.InitFlags();
-        aRef.nCol = nCol;
-        aRef.nRow = nRow;
-        aRef.nTab = nTab;
+        aRef.InitAddress(ScAddress(nCol,nRow,nTab));
         PushTempTokenWithoutError( new ScSingleRefToken( aRef ) );
     }
 }
@@ -1930,13 +1927,7 @@ void ScInterpreter::PushDoubleRef(SCCOL nCol1, SCROW nRow1, SCTAB nTab1,
     if (!IfErrorPushError())
     {
         ScComplexRefData aRef;
-        aRef.InitFlags();
-        aRef.Ref1.nCol = nCol1;
-        aRef.Ref1.nRow = nRow1;
-        aRef.Ref1.nTab = nTab1;
-        aRef.Ref2.nCol = nCol2;
-        aRef.Ref2.nRow = nRow2;
-        aRef.Ref2.nTab = nTab2;
+        aRef.InitRange(ScRange(nCol1,nRow1,nTab1,nCol2,nRow2,nTab2));
         PushTempTokenWithoutError( new ScDoubleRefToken( aRef ) );
     }
 }
@@ -1948,10 +1939,7 @@ void ScInterpreter::PushExternalSingleRef(
     if (!IfErrorPushError())
     {
         ScSingleRefData aRef;
-        aRef.InitFlags();
-        aRef.nCol = nCol;
-        aRef.nRow = nRow;
-        aRef.nTab = nTab;
+        aRef.InitAddress(ScAddress(nCol,nRow,nTab));
         PushTempTokenWithoutError( new ScExternalSingleRefToken(nFileId, rTabName, aRef)) ;
     }
 }
@@ -1964,13 +1952,7 @@ void ScInterpreter::PushExternalDoubleRef(
     if (!IfErrorPushError())
     {
         ScComplexRefData aRef;
-        aRef.InitFlags();
-        aRef.Ref1.nCol = nCol1;
-        aRef.Ref1.nRow = nRow1;
-        aRef.Ref1.nTab = nTab1;
-        aRef.Ref2.nCol = nCol2;
-        aRef.Ref2.nRow = nRow2;
-        aRef.Ref2.nTab = nTab2;
+        aRef.InitRange(ScRange(nCol1,nRow1,nTab1,nCol2,nRow2,nTab2));
         PushTempTokenWithoutError( new ScExternalDoubleRefToken(nFileId, rTabName, aRef) );
     }
 }
