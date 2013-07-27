@@ -1056,7 +1056,7 @@ ConvErr ExcelToSc8::Convert( _ScRangeListTabs& rRangeList, XclImpStream& aIn, sa
 
                 ExcRelToScRel8( nRow, nCol, aSRD, bRangeName );
 
-                rRangeList.Append( aSRD, nTab );
+                rRangeList.Append(aSRD.toAbs(aEingPos), nTab);
             }
                 break;
             case 0x45:
@@ -1084,7 +1084,7 @@ ConvErr ExcelToSc8::Convert( _ScRangeListTabs& rRangeList, XclImpStream& aIn, sa
                 else if( IsComplRowRange( nRowFirst, nRowLast ) )
                     SetComplRow( aCRD );
 
-                rRangeList.Append( aCRD, nTab );
+                rRangeList.Append(aCRD.toAbs(aEingPos), nTab);
             }
                 break;
             case 0x46:
@@ -1128,7 +1128,7 @@ ConvErr ExcelToSc8::Convert( _ScRangeListTabs& rRangeList, XclImpStream& aIn, sa
 
                 ExcRelToScRel8( nRow, nCol, aSRD, bRNorSF );
 
-                rRangeList.Append( aSRD, nTab );
+                rRangeList.Append(aSRD.toAbs(aEingPos), nTab);
             }
                 break;
             case 0x4D:
@@ -1154,7 +1154,7 @@ ConvErr ExcelToSc8::Convert( _ScRangeListTabs& rRangeList, XclImpStream& aIn, sa
                 else if( IsComplRowRange( nRowFirst, nRowLast ) )
                     SetComplRow( aCRD );
 
-                rRangeList.Append( aCRD, nTab );
+                rRangeList.Append(aCRD.toAbs(aEingPos), nTab);
             }
                 break;
             case 0x4E:
@@ -1195,10 +1195,10 @@ ConvErr ExcelToSc8::Convert( _ScRangeListTabs& rRangeList, XclImpStream& aIn, sa
                         aCRD.Ref1 = aSRD;
                         aCRD.Ref2 = aSRD;
                         aCRD.Ref2.SetAbsTab(nLastScTab);
-                        rRangeList.Append( aCRD, nTab );
+                        rRangeList.Append(aCRD.toAbs(aEingPos), nTab);
                     }
                     else
-                        rRangeList.Append( aSRD, nTab );
+                        rRangeList.Append(aSRD.toAbs(aEingPos), nTab);
                 }
             }
                 break;
@@ -1231,7 +1231,7 @@ ConvErr ExcelToSc8::Convert( _ScRangeListTabs& rRangeList, XclImpStream& aIn, sa
                     else if( IsComplRowRange( nRw1, nRw2 ) )
                         SetComplRow( aCRD );
 
-                    rRangeList.Append( aCRD, nTab );
+                    rRangeList.Append(aCRD.toAbs(aEingPos), nTab);
                 }
             }
                 break;
