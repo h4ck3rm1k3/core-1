@@ -443,27 +443,10 @@ public:
     static void MoveRelWrap( ScTokenArray& rArr, ScDocument* pDoc, const ScAddress& rPos,
                              SCCOL nMaxCol, SCROW nMaxRow );
 
-    bool UpdateNameReference( UpdateRefMode eUpdateRefMode,
-                              const ScRange&,
-                              SCsCOL nDx, SCsROW nDy, SCsTAB nDz,
-                              bool& rChanged, bool bSharedFormula = false, bool bLocal = false);
-
     void UpdateReference( UpdateRefMode eUpdateRefMode,
                                   const ScAddress& rOldPos, const ScRange&,
                                   SCsCOL nDx, SCsROW nDy, SCsTAB nDz,
                                   bool& rChanged, bool& rRefSizeChanged );
-
-    /// Only once for converted shared formulas,
-    /// token array has to be compiled afterwards.
-    void UpdateSharedFormulaReference( UpdateRefMode eUpdateRefMode,
-                                  const ScAddress& rOldPos, const ScRange&,
-                                  SCsCOL nDx, SCsROW nDy, SCsTAB nDz );
-
-    ScRangeData* UpdateInsertTab(SCTAB nTable, bool bIsName, SCTAB nNewSheets = 1 );
-    ScRangeData* UpdateDeleteTab(SCTAB nTable, bool bIsMove, bool bIsName, bool& bCompile, SCTAB nSheets = 1);
-    ScRangeData* UpdateMoveTab(SCTAB nOldPos, SCTAB nNewPos, bool bIsName );
-
-    bool HasModifiedRange();
 
     /** If the character is allowed as first character in sheet names or
         references, includes '$' and '?'. */
