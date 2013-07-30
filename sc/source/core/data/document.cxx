@@ -451,11 +451,13 @@ bool ScDocument::InsertTab( SCTAB nPos, const OUString& rName,
         {
             if (ValidTab(nPos) && (nPos < nTabCount))
             {
+                sc::RefUpdateInsertTabContext aCxt(nPos, 1);
+
                 ScRange aRange( 0,0,nPos, MAXCOL,MAXROW,MAXTAB );
                 xColNameRanges->UpdateReference( URM_INSDEL, this, aRange, 0,0,1 );
                 xRowNameRanges->UpdateReference( URM_INSDEL, this, aRange, 0,0,1 );
                 if (pRangeName)
-                    pRangeName->UpdateTabRef( nPos, 1 );
+                    pRangeName->UpdateInsertTab(aCxt);
                 pDBCollection->UpdateReference(
                                     URM_INSDEL, 0,0,nPos, MAXCOL,MAXROW,MAXTAB, 0,0,1 );
                 if (pDPCollection)
@@ -471,7 +473,7 @@ bool ScDocument::InsertTab( SCTAB nPos, const OUString& rName,
                 TableContainer::iterator it = maTabs.begin();
                 for (; it != maTabs.end(); ++it)
                     if ( *it )
-                        (*it)->UpdateInsertTab(nPos);
+                        (*it)->UpdateInsertTab(aCxt);
                 maTabs.push_back(NULL);
                 for (i = nTabCount; i > nPos; i--)
                 {
@@ -536,11 +538,12 @@ bool ScDocument::InsertTabs( SCTAB nPos, const std::vector<OUString>& rNames,
         {
             if (ValidTab(nPos) && (nPos < nTabCount))
             {
+                sc::RefUpdateInsertTabContext aCxt(nPos, nNewSheets);
                 ScRange aRange( 0,0,nPos, MAXCOL,MAXROW,MAXTAB );
                 xColNameRanges->UpdateReference( URM_INSDEL, this, aRange, 0,0,nNewSheets );
                 xRowNameRanges->UpdateReference( URM_INSDEL, this, aRange, 0,0,nNewSheets );
                 if (pRangeName)
-                    pRangeName->UpdateTabRef( nPos, 1, 0, nNewSheets);
+                    pRangeName->UpdateInsertTab(aCxt);
                 pDBCollection->UpdateReference(
                                     URM_INSDEL, 0,0,nPos, MAXCOL,MAXROW,MAXTAB, 0,0,nNewSheets );
                 if (pDPCollection)
@@ -555,7 +558,7 @@ bool ScDocument::InsertTabs( SCTAB nPos, const std::vector<OUString>& rNames,
                 TableContainer::iterator it = maTabs.begin();
                 for (; it != maTabs.end(); ++it)
                     if ( *it )
-                        (*it)->UpdateInsertTab(nPos, nNewSheets);
+                        (*it)->UpdateInsertTab(aCxt);
                 it = maTabs.begin();
                 maTabs.insert(it+nPos,nNewSheets, NULL);
                 for (SCTAB i = 0; i < nNewSheets; ++i)

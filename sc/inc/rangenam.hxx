@@ -40,6 +40,7 @@ class ScDocument;
 
 namespace sc {
     struct RefUpdateContext;
+    struct RefUpdateInsertTabContext;
 }
 
 typedef sal_uInt16 RangeType;
@@ -146,7 +147,8 @@ public:
     SC_DLLPUBLIC bool           IsValidReference( ScRange& rRef ) const;
     bool                        IsRangeAtBlock( const ScRange& ) const;
 
-    void            UpdateTabRef(SCTAB nOldTable, sal_uInt16 nFlag, SCTAB nNewTable, SCTAB nNewSheets);
+    void UpdateTabRef(SCTAB nOldTable, TabRefUpdateMode eMode, SCTAB nNewTable, SCTAB nNewSheets);
+    void UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt, SCTAB nLocalTab = -1 );
 
     void            ValidateTabRefs();
 
@@ -195,6 +197,7 @@ public:
     SC_DLLPUBLIC const ScRangeData* findByUpperName(const OUString& rName) const;
     SC_DLLPUBLIC ScRangeData* findByIndex(sal_uInt16 i) const;
     void UpdateReference( sc::RefUpdateContext& rCxt, SCTAB nLocalTab = -1 );
+    void UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt, SCTAB nLocalTab = -1 );
     void UpdateTabRef(SCTAB nTable, ScRangeData::TabRefUpdateMode eMode, SCTAB nNewTable = 0, SCTAB nNewSheets = 1);
     void UpdateTranspose(const ScRange& rSource, const ScAddress& rDest);
     void UpdateGrow(const ScRange& rArea, SCCOL nGrowX, SCROW nGrowY);

@@ -30,6 +30,7 @@
 namespace sc {
 
 struct RefUpdateContext;
+struct RefUpdateInsertTabContext;
 struct RefUpdateResult;
 
 }
@@ -152,6 +153,10 @@ public:
      * @return true if at least one reference has changed its sheet reference.
      */
     bool AdjustReferenceOnDeletedTab( SCTAB nDelPos, SCTAB nSheets, const ScAddress& rOldPos );
+
+    sc::RefUpdateResult AdjustReferenceOnInsertedTab( sc::RefUpdateInsertTabContext& rCxt, const ScAddress& rOldPos );
+
+    void AdjustReferenceOnMovedTab( SCTAB nOldPos, SCTAB nNewPos, const ScAddress& rOldPos );
 
 #if DEBUG_FORMULA_COMPILER
     void Dump() const;

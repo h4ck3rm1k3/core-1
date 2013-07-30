@@ -273,12 +273,10 @@ void ScRangeData::UpdateSymbol( OUStringBuffer& rBuffer, const ScAddress& rPos,
 
 void ScRangeData::UpdateReference( sc::RefUpdateContext& rCxt, SCTAB nLocalTab )
 {
-    OUString aStr;
-    rCxt.maRange.Format(aStr, SCR_ABS_3D, pDoc);
     sc::RefUpdateResult aRes = pCode->AdjustReferenceInName(rCxt, aPos);
     bModified = aRes.mbReferenceModified;
     if (aRes.mbReferenceModified)
-        rCxt.setUpdatedName(nLocalTab, nIndex);
+        rCxt.maUpdatedNames.setUpdatedName(nLocalTab, nIndex);
 }
 
 void ScRangeData::UpdateTranspose( const ScRange& rSource, const ScAddress& rDest )
@@ -404,11 +402,13 @@ void ScRangeData::UpdateTabRef(SCTAB nOldTable, sal_uInt16 nFlag, SCTAB nNewTabl
     pCode->Reset();
     if( pCode->GetNextReference() )
     {
-        ScRangeData* pRangeData = NULL;     // must not be dereferenced
-        bool bChanged;
-        ScCompiler aComp( pDoc, aPos, *pCode);
-        aComp.SetGrammar(pDoc->GetGrammar());
-        switch (nFlag)
+        case Delete:
+            pCode->AdjustReferenceOnDeletedTab(nOldTable, nNewSheets, aPos);
+        break;
+        case Move:
+            pCode->AdjustReferenceOnMovedTab(nOldTable, nNewTable, aPos);
+        break;
+        default:
         {
             case 1:                                     // simple InsertTab (doc.cxx)
                 pRangeData = aComp.UpdateInsertTab(nOldTable, true, nNewSheets );   // und CopyTab (doc2.cxx)
@@ -437,6 +437,12 @@ void ScRangeData::UpdateTabRef(SCTAB nOldTable, sal_uInt16 nFlag, SCTAB nNewTabl
     }
 }
 
+void ScRangeData::UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt, SCTAB nLocalTab )
+{
+    sc::RefUpdateResult aRes = pCode->AdjustReferenceOnInsertedTab(rCxt, aPos);
+    if (aRes.mbReferenceModified)
+        rCxt.maUpdatedNames.setUpdatedName(nLocalTab, nIndex);
+}
 
 void ScRangeData::MakeValidName( String& rName )
 {
@@ -737,7 +743,14 @@ void ScRangeName::UpdateReference(sc::RefUpdateContext& rCxt, SCTAB nLocalTab )
         itr->second->UpdateReference(rCxt, nLocalTab);
 }
 
-void ScRangeName::UpdateTabRef(SCTAB nTable, sal_uInt16 nFlag, SCTAB nNewTable, SCTAB nNewSheets)
+void ScRangeName::UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt, SCTAB nLocalTab )
+{
+    DataType::iterator itr = maData.begin(), itrEnd = maData.end();
+    for (; itr != itrEnd; ++itr)
+        itr->second->UpdateInsertTab(rCxt, nLocalTab);
+}
+
+void ScRangeName::UpdateTabRef(SCTAB nTable, ScRangeData::TabRefUpdateMode eMode, SCTAB nNewTable, SCTAB nNewSheets)
 {
     DataType::iterator itr = maData.begin(), itrEnd = maData.end();
     for (; itr != itrEnd; ++itr)
