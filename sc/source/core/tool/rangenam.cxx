@@ -402,9 +402,6 @@ void ScRangeData::UpdateTabRef(SCTAB nOldTable, sal_uInt16 nFlag, SCTAB nNewTabl
     pCode->Reset();
     if( pCode->GetNextReference() )
     {
-        case Delete:
-            pCode->AdjustReferenceOnDeletedTab(nOldTable, nNewSheets, aPos);
-        break;
         case Move:
             pCode->AdjustReferenceOnMovedTab(nOldTable, nNewTable, aPos);
         break;
@@ -440,6 +437,13 @@ void ScRangeData::UpdateTabRef(SCTAB nOldTable, sal_uInt16 nFlag, SCTAB nNewTabl
 void ScRangeData::UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt, SCTAB nLocalTab )
 {
     sc::RefUpdateResult aRes = pCode->AdjustReferenceOnInsertedTab(rCxt, aPos);
+    if (aRes.mbReferenceModified)
+        rCxt.maUpdatedNames.setUpdatedName(nLocalTab, nIndex);
+}
+
+void ScRangeData::UpdateDeleteTab( sc::RefUpdateDeleteTabContext& rCxt, SCTAB nLocalTab )
+{
+    sc::RefUpdateResult aRes = pCode->AdjustReferenceOnDeletedTab(rCxt, aPos);
     if (aRes.mbReferenceModified)
         rCxt.maUpdatedNames.setUpdatedName(nLocalTab, nIndex);
 }
@@ -748,6 +752,13 @@ void ScRangeName::UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt, SCTAB nL
     DataType::iterator itr = maData.begin(), itrEnd = maData.end();
     for (; itr != itrEnd; ++itr)
         itr->second->UpdateInsertTab(rCxt, nLocalTab);
+}
+
+void ScRangeName::UpdateDeleteTab( sc::RefUpdateDeleteTabContext& rCxt, SCTAB nLocalTab )
+{
+    DataType::iterator itr = maData.begin(), itrEnd = maData.end();
+    for (; itr != itrEnd; ++itr)
+        itr->second->UpdateDeleteTab(rCxt, nLocalTab);
 }
 
 void ScRangeName::UpdateTabRef(SCTAB nTable, ScRangeData::TabRefUpdateMode eMode, SCTAB nNewTable, SCTAB nNewSheets)

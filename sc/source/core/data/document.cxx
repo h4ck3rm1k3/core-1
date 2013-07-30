@@ -611,8 +611,9 @@ bool ScDocument::DeleteTab( SCTAB nTab, ScDocument* pRefUndoDoc )
             SCTAB nTabCount = static_cast<SCTAB>(maTabs.size());
             if (nTabCount > 1)
             {
-                bool bOldAutoCalc = GetAutoCalc();
-                SetAutoCalc( false );   // avoid multiple calculations
+                sc::AutoCalcSwitch aACSwitch(*this, false);
+                sc::RefUpdateDeleteTabContext aCxt(nTab, 1);
+
                 ScRange aRange( 0, 0, nTab, MAXCOL, MAXROW, nTab );
                 DelBroadcastAreasInRange( aRange );
 
@@ -634,7 +635,7 @@ bool ScDocument::DeleteTab( SCTAB nTab, ScDocument* pRefUndoDoc )
                 xColNameRanges->UpdateReference( URM_INSDEL, this, aRange, 0,0,-1 );
                 xRowNameRanges->UpdateReference( URM_INSDEL, this, aRange, 0,0,-1 );
                 if (pRangeName)
-                    pRangeName->UpdateTabRef( nTab, 2 );
+                    pRangeName->UpdateDeleteTab(aCxt);
                 pDBCollection->UpdateReference(
                                     URM_INSDEL, 0,0,nTab, MAXCOL,MAXROW,MAXTAB, 0,0,-1 );
                 if (pDPCollection)
@@ -650,8 +651,7 @@ bool ScDocument::DeleteTab( SCTAB nTab, ScDocument* pRefUndoDoc )
 
                 for (SCTAB i = 0, n = static_cast<SCTAB>(maTabs.size()); i < n; ++i)
                     if (maTabs[i])
-                        maTabs[i]->UpdateDeleteTab(
-                            nTab, false, pRefUndoDoc ? pRefUndoDoc->maTabs[i] : 0);
+                        maTabs[i]->UpdateDeleteTab(aCxt);
 
                 TableContainer::iterator it = maTabs.begin() + nTab;
                 delete *it;
@@ -677,7 +677,6 @@ bool ScDocument::DeleteTab( SCTAB nTab, ScDocument* pRefUndoDoc )
                 // sheet names of references are not valid until sheet is deleted
                 pChartListenerCollection->UpdateScheduledSeriesRanges();
 
-                SetAutoCalc( bOldAutoCalc );
                 bValid = true;
             }
         }
@@ -696,8 +695,9 @@ bool ScDocument::DeleteTabs( SCTAB nTab, SCTAB nSheets, ScDocument* pRefUndoDoc 
             SCTAB nTabCount = static_cast<SCTAB>(maTabs.size());
             if (nTabCount > nSheets)
             {
-                bool bOldAutoCalc = GetAutoCalc();
-                SetAutoCalc( false );   // avoid multiple calculations
+                sc::AutoCalcSwitch aACSwitch(*this, false);
+                sc::RefUpdateDeleteTabContext aCxt(nTab, nSheets);
+
                 for (SCTAB aTab = 0; aTab < nSheets; ++aTab)
                 {
                     ScRange aRange( 0, 0, nTab, MAXCOL, MAXROW, nTab + aTab );
@@ -714,9 +714,11 @@ bool ScDocument::DeleteTabs( SCTAB nTab, SCTAB nSheets, ScDocument* pRefUndoDoc 
                     if (pDetOpList)
                         pDetOpList->DeleteOnTab( nTab + aTab );
                     DeleteAreaLinksOnTab( nTab + aTab );
-                    if (pRangeName)
-                        pRangeName->UpdateTabRef( nTab + aTab, 2 );
                 }
+
+                if (pRangeName)
+                    pRangeName->UpdateDeleteTab(aCxt);
+
                 // normal reference update
 
                 ScRange aRange( 0, 0, nTab, MAXCOL, MAXROW, nTabCount - 1 );
@@ -737,8 +739,7 @@ bool ScDocument::DeleteTabs( SCTAB nTab, SCTAB nSheets, ScDocument* pRefUndoDoc 
 
                 for (SCTAB i = 0, n = static_cast<SCTAB>(maTabs.size()); i < n; ++i)
                     if (maTabs[i])
-                        maTabs[i]->UpdateDeleteTab(
-                            nTab, false, pRefUndoDoc ? pRefUndoDoc->maTabs[i] : 0,nSheets);
+                        maTabs[i]->UpdateDeleteTab(aCxt);
 
                 TableContainer::iterator it = maTabs.begin() + nTab;
                 TableContainer::iterator itEnd = it + nSheets;
@@ -765,7 +766,6 @@ bool ScDocument::DeleteTabs( SCTAB nTab, SCTAB nSheets, ScDocument* pRefUndoDoc 
                 // sheet names of references are not valid until sheet is deleted
                 pChartListenerCollection->UpdateScheduledSeriesRanges();
 
-                SetAutoCalc( bOldAutoCalc );
                 bValid = true;
             }
         }
