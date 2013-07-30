@@ -62,8 +62,10 @@ public:
     void SetValue(double nValue);
     void SetFormula(const OUString& rFormula, ScDocument* pDoc, const ScAddress& rAddr, formula::FormulaGrammar::Grammar eGrammar = formula::FormulaGrammar::GRAM_DEFAULT);
     void UpdateMoveTab(SCTAB nOldTab, SCTAB nNewTab, SCTAB nTabNo);
-    void UpdateReference( ScDocument* pDoc, UpdateRefMode eUpdateRefMode,
-            const ScRange& rRange, SCsCOL nDx, SCsROW nDy, SCsTAB nDz );
+    void UpdateReference( sc::RefUpdateContext& rCxt );
+    void UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt );
+    void UpdateDeleteTab( sc::RefUpdateDeleteTabContext& rCxt );
+    void UpdateMoveTab( sc::RefUpdateMoveTabContext& rCxt );
 
     const ScTokenArray* GetFormula() const;
     OUString GetFormula( formula::FormulaGrammar::Grammar eGrammar ) const;
@@ -239,9 +241,10 @@ public:
     void AddEntry(ScColorScaleEntry* pEntry);
 
     virtual void DataChanged(const ScRange& rRange);
-    virtual void UpdateMoveTab(SCTAB nOldTab, SCTAB nNewTab);
-    virtual void UpdateReference( UpdateRefMode eUpdateRefMode,
-            const ScRange& rRange, SCsCOL nDx, SCsROW nDy, SCsTAB nDz );
+    virtual void UpdateReference( sc::RefUpdateContext& rCxt );
+    virtual void UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt );
+    virtual void UpdateDeleteTab( sc::RefUpdateDeleteTabContext& rCxt );
+    virtual void UpdateMoveTab( sc::RefUpdateMoveTabContext& rCxt );
 
     virtual condformat::ScFormatEntryType GetType() const;
     typedef ColorScaleEntries::iterator iterator;
@@ -267,9 +270,10 @@ public:
     const ScDataBarFormatData* GetDataBarData() const;
 
     virtual void DataChanged(const ScRange& rRange);
-    virtual void UpdateMoveTab(SCTAB nOldTab, SCTAB nNewTab);
-    virtual void UpdateReference( UpdateRefMode eUpdateRefMode,
-            const ScRange& rRange, SCsCOL nDx, SCsROW nDy, SCsTAB nDz );
+    virtual void UpdateReference( sc::RefUpdateContext& rCxt );
+    virtual void UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt );
+    virtual void UpdateDeleteTab( sc::RefUpdateDeleteTabContext& rCxt );
+    virtual void UpdateMoveTab( sc::RefUpdateMoveTabContext& rCxt );
 
     virtual condformat::ScFormatEntryType GetType() const;
 
@@ -309,9 +313,10 @@ public:
     const ScIconSetFormatData* GetIconSetData() const;
 
     virtual void DataChanged(const ScRange& rRange);
-    virtual void UpdateMoveTab(SCTAB nOldTab, SCTAB nNewTab);
-    virtual void UpdateReference( UpdateRefMode eUpdateRefMode,
-            const ScRange& rRange, SCsCOL nDx, SCsROW nDy, SCsTAB nDz );
+    virtual void UpdateReference( sc::RefUpdateContext& rCxt );
+    virtual void UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt );
+    virtual void UpdateDeleteTab( sc::RefUpdateDeleteTabContext& rCxt );
+    virtual void UpdateMoveTab( sc::RefUpdateMoveTabContext& rCxt );
 
     virtual condformat::ScFormatEntryType GetType() const;
 
