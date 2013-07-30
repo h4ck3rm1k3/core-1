@@ -397,43 +397,6 @@ bool ScRangeData::IsValidReference( ScRange& rRange ) const
     return false;
 }
 
-void ScRangeData::UpdateTabRef(SCTAB nOldTable, sal_uInt16 nFlag, SCTAB nNewTable, SCTAB nNewSheets)
-{
-    pCode->Reset();
-    if( pCode->GetNextReference() )
-    {
-        case Move:
-            pCode->AdjustReferenceOnMovedTab(nOldTable, nNewTable, aPos);
-        break;
-        default:
-        {
-            case 1:                                     // simple InsertTab (doc.cxx)
-                pRangeData = aComp.UpdateInsertTab(nOldTable, true, nNewSheets );   // und CopyTab (doc2.cxx)
-                break;
-            case 2:                                     // simple delete (doc.cxx)
-                pRangeData = aComp.UpdateDeleteTab(nOldTable, false, true, bChanged);
-                break;
-            case 3:                                     // move (doc2.cxx)
-            {
-                pRangeData = aComp.UpdateMoveTab(nOldTable, nNewTable, true );
-            }
-                break;
-            default:
-            {
-                OSL_FAIL("ScRangeName::UpdateTabRef: Unknown Flag");
-            }
-                break;
-        }
-        if (eType&RT_SHARED)
-        {
-            if (pRangeData)
-                eType = eType | RT_SHAREDMOD;
-            else
-                eType = eType & ~RT_SHAREDMOD;
-        }
-    }
-}
-
 void ScRangeData::UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt, SCTAB nLocalTab )
 {
     sc::RefUpdateResult aRes = pCode->AdjustReferenceOnInsertedTab(rCxt, aPos);
@@ -444,6 +407,13 @@ void ScRangeData::UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt, SCTAB nL
 void ScRangeData::UpdateDeleteTab( sc::RefUpdateDeleteTabContext& rCxt, SCTAB nLocalTab )
 {
     sc::RefUpdateResult aRes = pCode->AdjustReferenceOnDeletedTab(rCxt, aPos);
+    if (aRes.mbReferenceModified)
+        rCxt.maUpdatedNames.setUpdatedName(nLocalTab, nIndex);
+}
+
+void ScRangeData::UpdateMoveTab( sc::RefUpdateMoveTabContext& rCxt, SCTAB nLocalTab )
+{
+    sc::RefUpdateResult aRes = pCode->AdjustReferenceOnMovedTab(rCxt, aPos);
     if (aRes.mbReferenceModified)
         rCxt.maUpdatedNames.setUpdatedName(nLocalTab, nIndex);
 }
@@ -761,11 +731,11 @@ void ScRangeName::UpdateDeleteTab( sc::RefUpdateDeleteTabContext& rCxt, SCTAB nL
         itr->second->UpdateDeleteTab(rCxt, nLocalTab);
 }
 
-void ScRangeName::UpdateTabRef(SCTAB nTable, ScRangeData::TabRefUpdateMode eMode, SCTAB nNewTable, SCTAB nNewSheets)
+void ScRangeName::UpdateMoveTab( sc::RefUpdateMoveTabContext& rCxt, SCTAB nLocalTab )
 {
     DataType::iterator itr = maData.begin(), itrEnd = maData.end();
     for (; itr != itrEnd; ++itr)
-        itr->second->UpdateTabRef(nTable, nFlag, nNewTable, nNewSheets);
+        itr->second->UpdateMoveTab(rCxt, nLocalTab);
 }
 
 void ScRangeName::UpdateTranspose(const ScRange& rSource, const ScAddress& rDest)
