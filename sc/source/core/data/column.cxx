@@ -2444,7 +2444,6 @@ class DeleteTabUpdater
     SCTAB mnDelPos;
     SCTAB mnSheets;
     SCTAB mnTab;
-    bool mbIsMove;
     bool mbModified;
 public:
     DeleteTabUpdater(sc::RefUpdateDeleteTabContext& rCxt, sc::CellTextAttrStoreType& rTextAttrs, SCTAB nTab) :
@@ -2452,7 +2451,6 @@ public:
         mrTextAttrs(rTextAttrs),
         miAttrPos(rTextAttrs.begin()),
         mnTab(nTab),
-        mbIsMove(bIsMove),
         mbModified(false) {}
 
     void operator() (size_t, ScFormulaCell* pCell)

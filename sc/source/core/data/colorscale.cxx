@@ -119,7 +119,6 @@ void ScColorScaleEntry::UpdateMoveTab( SCTAB nOldTab, SCTAB nNewTab, SCTAB nTabN
     {
         sc::RefUpdateMoveTabContext aCxt(nOldTab, nNewTab);
         mpCell->UpdateMoveTab(aCxt, nTabNo);
-        mpListener.reset(new ScFormulaListener(mpCell.get()));
     }
 }
 
@@ -129,7 +128,6 @@ void ScColorScaleEntry::UpdateReference( sc::RefUpdateContext& rCxt )
         return;
 
     mpCell->UpdateReference(rCxt);
-    mpListener.reset(new ScFormulaListener(mpCell.get()));
 }
 
 void ScColorScaleEntry::UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt )
@@ -138,7 +136,6 @@ void ScColorScaleEntry::UpdateInsertTab( sc::RefUpdateInsertTabContext& rCxt )
         return;
 
     mpCell->UpdateInsertTab(rCxt);
-    mpListener.reset(new ScFormulaListener(mpCell.get()));
 }
 
 void ScColorScaleEntry::UpdateDeleteTab( sc::RefUpdateDeleteTabContext& rCxt )
@@ -147,7 +144,6 @@ void ScColorScaleEntry::UpdateDeleteTab( sc::RefUpdateDeleteTabContext& rCxt )
         return;
 
     mpCell->UpdateDeleteTab(rCxt);
-    mpListener.reset(new ScFormulaListener(mpCell.get()));
 }
 
 void ScColorScaleEntry::UpdateMoveTab( sc::RefUpdateMoveTabContext& rCxt )
@@ -157,15 +153,6 @@ void ScColorScaleEntry::UpdateMoveTab( sc::RefUpdateMoveTabContext& rCxt )
 
     SCTAB nTabNo = rCxt.getNewTab(mpCell->aPos.Tab());
     mpCell->UpdateMoveTab(rCxt, nTabNo);
-    mpListener.reset(new ScFormulaListener(mpCell.get()));
-}
-
-bool ScColorScaleEntry::NeedsRepaint() const
-{
-    if(mpListener)
-        return mpListener->NeedsRepaint();
-
-    return false;
 }
 
 const Color& ScColorScaleEntry::GetColor() const

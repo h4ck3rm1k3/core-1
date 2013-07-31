@@ -1461,9 +1461,9 @@ r1c1_add_row( OUStringBuffer &rBuf, const ScSingleRefData& rRef, const ScAddress
     rBuf.append( sal_Unicode( 'R' ) );
     if( rRef.IsRowRel() )
     {
-        if (rRef.nRelRow != 0)
+        if (rRef.Row() != 0)
         {
-            rBuf.append("[").append( OUString::number( rRef.nRelRow ) ).append("]");
+            rBuf.append("[").append( OUString::number(rRef.Row()) ).append("]");
         }
     }
     else
@@ -2740,11 +2740,11 @@ bool ScCompiler::IsSingleReference( const String& rName )
         if( !( nFlags & SCA_VALID ) )
         {
             if( !( nFlags & SCA_VALID_COL ) )
-                aRef.nCol = MAXCOL+1;
+                aRef.SetColDeleted(true);
             if( !( nFlags & SCA_VALID_ROW ) )
-                aRef.nRow = MAXROW+1;
+                aRef.SetRowDeleted(true);
             if( !( nFlags & SCA_VALID_TAB ) )
-                aRef.nTab = MAXTAB+3;
+                aRef.SetTabDeleted(true);
             nFlags |= SCA_VALID;
         }
         aRef.SetAddress(aAddr, aPos);

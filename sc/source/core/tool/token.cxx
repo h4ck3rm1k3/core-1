@@ -2665,6 +2665,26 @@ bool adjustSingleRefOnDeletedTab( ScSingleRefData& rRef, SCTAB nDelPos, SCTAB nS
     return false;
 }
 
+bool adjustSingleRefOnInsertedTab( ScSingleRefData& rRef, SCTAB nInsPos, SCTAB nSheets, const ScAddress& rOldPos, const ScAddress& rNewPos )
+{
+    ScAddress aAbs = rRef.toAbs(rOldPos);
+    if (nInsPos <= aAbs.Tab())
+    {
+        // Reference sheet needs to be adjusted.
+        aAbs.IncTab(nSheets);
+        rRef.SetAddress(aAbs, rNewPos);
+        return true;
+    }
+    else if (rOldPos.Tab() != rNewPos.Tab())
+    {
+        // Cell itself has moved.
+        rRef.SetAddress(aAbs, rNewPos);
+        return true;
+    }
+
+    return false;
+}
+
 }
 
 sc::RefUpdateResult ScTokenArray::AdjustReferenceOnDeletedTab( sc::RefUpdateDeleteTabContext& rCxt, const ScAddress& rOldPos )

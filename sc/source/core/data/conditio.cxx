@@ -1355,21 +1355,21 @@ void ScConditionEntry::SourceChanged( const ScAddress& rChanged )
                         nCol2 = rChanged.Col() - aProv.Ref1.Col();
                     else
                     {
-                        bHit &= ( rChanged.Col() >= aProv.Ref1.nCol );
+                        bHit &= (rChanged.Col() >= aProv.Ref1.Col());
                         nCol2 = MAXCOL;
                     }
                     if ( aProv.Ref1.IsRowRel() )
-                        nRow2 = rChanged.Row() - aProv.Ref1.nRelRow;
+                        nRow2 = rChanged.Row() - aProv.Ref1.Row();
                     else
                     {
-                        bHit &= ( rChanged.Row() >= aProv.Ref1.nRow );
+                        bHit &= ( rChanged.Row() >= aProv.Ref1.Row() );
                         nRow2 = MAXROW;
                     }
                     if ( aProv.Ref1.IsTabRel() )
-                        nTab2 = rChanged.Tab() - aProv.Ref1.nRelTab;
+                        nTab2 = rChanged.Tab() - aProv.Ref1.Tab();
                     else
                     {
-                        bHit &= ( rChanged.Tab() >= aProv.Ref1.nTab );
+                        bHit &= (rChanged.Tab() >= aProv.Ref1.Tab());
                         nTab2 = MAXTAB;
                     }
 
@@ -1377,21 +1377,21 @@ void ScConditionEntry::SourceChanged( const ScAddress& rChanged )
                         nCol1 = rChanged.Col() - aProv.Ref2.Col();
                     else
                     {
-                        bHit &= ( rChanged.Col() <= aProv.Ref2.nCol );
+                        bHit &= ( rChanged.Col() <= aProv.Ref2.Col() );
                         nCol1 = 0;
                     }
                     if ( aProv.Ref2.IsRowRel() )
-                        nRow1 = rChanged.Row() - aProv.Ref2.nRelRow;
+                        nRow1 = rChanged.Row() - aProv.Ref2.Row();
                     else
                     {
-                        bHit &= ( rChanged.Row() <= aProv.Ref2.nRow );
+                        bHit &= (rChanged.Row() <= aProv.Ref2.Row());
                         nRow1 = 0;
                     }
                     if ( aProv.Ref2.IsTabRel() )
-                        nTab1 = rChanged.Tab() - aProv.Ref2.nRelTab;
+                        nTab1 = rChanged.Tab() - aProv.Ref2.Tab();
                     else
                     {
-                        bHit &= ( rChanged.Tab() <= aProv.Ref2.nTab );
+                        bHit &= (rChanged.Tab() <= aProv.Ref2.Tab());
                         nTab1 = 0;
                     }
 

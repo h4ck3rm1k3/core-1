@@ -603,7 +603,7 @@ bool ScDocument::InsertTabs( SCTAB nPos, const std::vector<OUString>& rNames,
 }
 
 
-bool ScDocument::DeleteTab( SCTAB nTab, ScDocument* pRefUndoDoc )
+bool ScDocument::DeleteTab( SCTAB nTab, ScDocument* /*pRefUndoDoc*/ )
 {
     bool bValid = false;
     if (ValidTab(nTab) && nTab < static_cast<SCTAB>(maTabs.size()))
@@ -687,7 +687,7 @@ bool ScDocument::DeleteTab( SCTAB nTab, ScDocument* pRefUndoDoc )
 }
 
 
-bool ScDocument::DeleteTabs( SCTAB nTab, SCTAB nSheets, ScDocument* pRefUndoDoc )
+bool ScDocument::DeleteTabs( SCTAB nTab, SCTAB nSheets, ScDocument* /*pRefUndoDoc*/ )
 {
     bool bValid = false;
     if (ValidTab(nTab) && (nTab + nSheets) < static_cast<SCTAB>(maTabs.size()))
