@@ -557,8 +557,8 @@ void Chart2Positioner::glueState()
         if (n2 > nEndCol)
             nEndCol = static_cast<SCCOL>(n2);
 
-        n1 = aData.Ref1.nRow;
-        n2 = aData.Ref2.nRow;
+        n1 = aData.Ref1.Row();
+        n2 = aData.Ref2.Row();
         if (n1 > MAXROW)
             n1 = MAXROW;
         if (n2 > MAXROW)
@@ -1622,7 +1622,7 @@ public:
             return;
 
         const ScSingleRefData& r = pToken->GetSingleRef();
-        mpTabNumList->push_back(r.nTab);
+        mpTabNumList->push_back(r.Tab());
     }
 
     void getList(list<SCTAB>& rList)
@@ -1687,7 +1687,7 @@ void RangeAnalyzer::initRangeAnalyzer( const vector<ScTokenRef>& rTokens )
         if (eVar == svDoubleRef || eVar == svExternalDoubleRef)
         {
             const ScComplexRefData& r = aRefToken->GetDoubleRef();
-            if (r.Ref1.nTab == r.Ref2.nTab)
+            if (r.Ref1.Tab() == r.Ref2.Tab())
             {
                 mnColumnCount = std::max<SCCOL>( mnColumnCount, static_cast<SCCOL>(abs(r.Ref2.nCol - r.Ref1.nCol)+1) );
                 mnRowCount = std::max<SCROW>( mnRowCount, static_cast<SCROW>(abs(r.Ref2.nRow - r.Ref1.nRow)+1) );

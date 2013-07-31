@@ -773,9 +773,8 @@ ConvErr ExcelToSc8::Convert( const ScTokenArray*& rpTokArray, XclImpStream& aIn,
                     break;
                 }
 
-                aSRD.nTab = nTabFirst;
-                aSRD.SetFlag3D( sal_True );
-                aSRD.SetTabRel( false );
+                aSRD.SetAbsTab(nTabFirst);
+                aSRD.SetFlag3D(true);
 
                 ExcRelToScRel8( nRw, nGrbitCol, aSRD, bRangeName );
 
@@ -800,7 +799,7 @@ ConvErr ExcelToSc8::Convert( const ScTokenArray*& rpTokArray, XclImpStream& aIn,
                     if (nTabLast != nTabFirst)
                     {
                         aCRD.Ref1 = aCRD.Ref2 = aSRD;
-                        aCRD.Ref2.nTab = nTabLast;
+                        aCRD.Ref2.SetAbsTab(nTabLast);
                         aStack << aPool.StoreExtRef(aExtInfo.mnFileId, aExtInfo.maTabName, aCRD);
                     }
                     else
@@ -814,7 +813,7 @@ ConvErr ExcelToSc8::Convert( const ScTokenArray*& rpTokArray, XclImpStream& aIn,
                     if( nTabLast != nTabFirst )
                     {
                         aCRD.Ref1 = aCRD.Ref2 = aSRD;
-                        aCRD.Ref2.nTab = nTabLast;
+                        aCRD.Ref2.SetAbsTab(nTabLast);
                         aCRD.Ref2.SetTabDeleted( !ValidTab(nTabLast) );
                         aStack << aPool.Store( aCRD );
                     }
@@ -845,12 +844,10 @@ ConvErr ExcelToSc8::Convert( const ScTokenArray*& rpTokArray, XclImpStream& aIn,
                 ScSingleRefData &rR2 = aCRD.Ref2;
 
 
-                rR1.nTab = nTabFirst;
-                rR2.nTab = nTabLast;
-                rR1.SetFlag3D( sal_True );
-                rR1.SetTabRel( false );
+                rR1.SetAbsTab(nTabFirst);
+                rR2.SetAbsTab(nTabLast);
+                rR1.SetFlag3D(true);
                 rR2.SetFlag3D( nTabFirst != nTabLast );
-                rR2.SetTabRel( false );
 
                 ExcRelToScRel8( nRw1, nGrbitCol1, aCRD.Ref1, bRangeName );
                 ExcRelToScRel8( nRw2, nGrbitCol2, aCRD.Ref2, bRangeName );
@@ -1184,9 +1181,8 @@ ConvErr ExcelToSc8::Convert( _ScRangeListTabs& rRangeList, XclImpStream& aIn, sa
                 SCTAB nFirstScTab, nLastScTab;
                 if( rLinkMan.GetScTabRange( nFirstScTab, nLastScTab, nIxti ) )
                 {
-                    aSRD.nTab = nFirstScTab;
-                    aSRD.SetFlag3D( sal_True );
-                    aSRD.SetTabRel( false );
+                    aSRD.SetAbsTab(nFirstScTab);
+                    aSRD.SetFlag3D(true);
 
                     ExcRelToScRel8( nRw, nGrbitCol, aSRD, bRangeName );
 
@@ -1216,12 +1212,10 @@ ConvErr ExcelToSc8::Convert( _ScRangeListTabs& rRangeList, XclImpStream& aIn, sa
                     ScSingleRefData &rR1 = aCRD.Ref1;
                     ScSingleRefData &rR2 = aCRD.Ref2;
 
-                    rR1.nTab = nFirstScTab;
-                    rR2.nTab = nLastScTab;
-                    rR1.SetFlag3D( sal_True );
-                    rR1.SetTabRel( false );
+                    rR1.SetAbsTab(nFirstScTab);
+                    rR2.SetAbsTab(nLastScTab);
+                    rR1.SetFlag3D(true);
                     rR2.SetFlag3D( nFirstScTab != nLastScTab );
-                    rR2.SetTabRel( false );
 
                     ExcRelToScRel8( nRw1, nGrbitCol1, aCRD.Ref1, bRangeName );
                     ExcRelToScRel8( nRw2, nGrbitCol2, aCRD.Ref2, bRangeName );
@@ -1342,9 +1336,8 @@ ConvErr ExcelToSc8::ConvertExternName( const ScTokenArray*& rpArray, XclImpStrea
                     break;
                 }
 
-                aSRD.nTab = nExtTab1;
+                aSRD.SetAbsTab(nExtTab1);
                 aSRD.SetFlag3D(true);
-                aSRD.SetTabRel(false);
                 ExcRelToScRel8(nRow, nGrbitCol, aSRD, true);
                 aCRD.Ref1 = aCRD.Ref2 = aSRD;
                 String aTabName = rTabNames[nExtTab1];
@@ -1357,7 +1350,7 @@ ConvErr ExcelToSc8::ConvertExternName( const ScTokenArray*& rpArray, XclImpStrea
                 else
                 {
                     // area reference
-                    aCRD.Ref2.nTab = nExtTab2;
+                    aCRD.Ref2.SetAbsTab(nExtTab2);
                     aStack << aPool.StoreExtRef(nFileId, aTabName, aCRD);
                 }
             }
@@ -1370,14 +1363,12 @@ ConvErr ExcelToSc8::ConvertExternName( const ScTokenArray*& rpArray, XclImpStrea
                 ScSingleRefData& rR1 = aCRD.Ref1;
                 ScSingleRefData& rR2 = aCRD.Ref2;
 
-                rR1.nTab = nExtTab1;
+                rR1.SetAbsTab(nExtTab1);
                 rR1.SetFlag3D(true);
-                rR1.SetTabRel(false);
                 ExcRelToScRel8(nRow1, nGrbitCol1, rR1, true);
 
-                rR2.nTab = nExtTab2;
+                rR2.SetAbsTab(nExtTab2);
                 rR2.SetFlag3D(true);
-                rR2.SetTabRel(false);
                 ExcRelToScRel8(nRow2, nGrbitCol2, rR2, true);
 
                 String aTabName = rTabNames[nExtTab1];
