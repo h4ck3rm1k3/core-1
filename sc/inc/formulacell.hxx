@@ -250,8 +250,9 @@ public:
     void            GetFormatInfo( short& nType, sal_uLong& nIndex ) const
                         { nType = nFormatType; nIndex = nFormatIndex; }
     bool GetErrorOrValue( sal_uInt16& rErr, double& rVal );
-    sal_uInt8       GetMatrixFlag() const                   { return cMatrixFlag; }
-    ScTokenArray*   GetCode() const                         { return pCode; }
+    sal_uInt8       GetMatrixFlag() const;
+    ScTokenArray* GetCode();
+    const ScTokenArray* GetCode() const;
 
     bool            IsRunning() const                       { return bRunning; }
     void            SetRunning( bool bVal )                 { bRunning = bVal; }
