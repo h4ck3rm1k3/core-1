@@ -2646,13 +2646,8 @@ public:
             if (!xGroup)
             {
                 // create a new group ...
-                xGroup.reset(new ScFormulaCellGroup);
-                xGroup->mnStart = nRow - 1;
-                xGroup->mbInvariant = (eCompState == ScFormulaCell::EqualInvariant);
-                xGroup->mnLength = 2;
-
+                xGroup = pPrev->CreateCellGroup(nRow - 1, 2, eCompState == ScFormulaCell::EqualInvariant);
                 pCur->SetCellGroup(xGroup);
-                pPrev->SetCellGroup(xGroup);
             }
             else
             {

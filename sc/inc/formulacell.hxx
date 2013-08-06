@@ -330,7 +330,10 @@ public:
 
     void            MaybeInterpret();
 
-    // Temporary formula cell grouping API
+    /**
+     * Turn a non-grouped cell into the top of a grouped cell.
+     */
+    ScFormulaCellGroupRef CreateCellGroup( SCROW nStart, SCROW nLen, bool bInvariant );
     ScFormulaCellGroupRef GetCellGroup();
     void SetCellGroup( const ScFormulaCellGroupRef &xRef );
 
@@ -350,6 +353,8 @@ public:
     bool IsSharedInvariant() const;
     SCROW GetSharedTopRow() const;
     SCROW GetSharedLength() const;
+    ScTokenArray* GetSharedCode();
+    const ScTokenArray* GetSharedCode() const;
 };
 
 #endif
