@@ -381,16 +381,17 @@ sc::CellStoreType::iterator ScColumn::GetPositionToInsert( const sc::CellStoreTy
 }
 
 void ScColumn::ActivateNewFormulaCell(
-    const sc::CellStoreType::iterator& itPos, SCROW nRow, ScFormulaCell& rCell )
+    const sc::CellStoreType::iterator& itPos, SCROW nRow, ScFormulaCell& rCell, bool bJoin )
 {
-    ActivateNewFormulaCell(maCells.position(itPos, nRow), rCell);
+    ActivateNewFormulaCell(maCells.position(itPos, nRow), rCell, bJoin);
 }
 
 void ScColumn::ActivateNewFormulaCell(
-    const sc::CellStoreType::position_type& aPos, ScFormulaCell& rCell )
+    const sc::CellStoreType::position_type& aPos, ScFormulaCell& rCell, bool bJoin )
 {
-    // See if this new formula cell can join an existing shared formula group.
-    JoinNewFormulaCell(aPos, rCell);
+    if (bJoin)
+        // See if this new formula cell can join an existing shared formula group.
+        JoinNewFormulaCell(aPos, rCell);
 
     // When we insert from the Clipboard we still have wrong (old) References!
     // First they are rewired in CopyBlockFromClip via UpdateReference and the
@@ -1704,6 +1705,17 @@ void ScColumn::SetFormulaCell( sc::ColumnBlockPosition& rBlockPos, SCROW nRow, S
     CellStorageModified();
 
     ActivateNewFormulaCell(rBlockPos.miCellPos, nRow, *pCell);
+}
+
+bool ScColumn::SetGroupFormulaCell( SCROW nRow, ScFormulaCell* pCell )
+{
+    sc::CellStoreType::iterator it = GetPositionToInsert(nRow);
+    it = maCells.set(it, nRow, pCell);
+    maCellTextAttrs.set(nRow, sc::CellTextAttr());
+    CellStorageModified();
+
+    ActivateNewFormulaCell(it, nRow, *pCell, false);
+    return true;
 }
 
 namespace {

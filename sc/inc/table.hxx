@@ -334,6 +334,7 @@ public:
         SCCOL nCol, SCROW nRow, const OUString& rFormula, formula::FormulaGrammar::Grammar eGram );
 
     void SetFormulaCell( SCCOL nCol, SCROW nRow, ScFormulaCell* pCell );
+    bool SetGroupFormulaCell( SCCOL nCol, SCROW nRow, ScFormulaCell* pCell );
 
     void        SetValue( SCCOL nCol, SCROW nRow, const double& rVal );
     void        SetError( SCCOL nCol, SCROW nRow, sal_uInt16 nError);

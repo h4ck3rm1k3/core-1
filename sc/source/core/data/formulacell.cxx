@@ -397,6 +397,14 @@ ScFormulaCellGroup::~ScFormulaCellGroup()
     delete mpCode;
 }
 
+void ScFormulaCellGroup::setCode( const ScTokenArray& rCode )
+{
+    delete mpCode;
+    mpCode = rCode.Clone();
+    mbInvariant = mpCode->IsInvariant();
+    mpCode->GenHash();
+}
+
 // ============================================================================
 
 ScFormulaCell::ScFormulaCell( ScDocument* pDoc, const ScAddress& rPos,
@@ -521,8 +529,6 @@ ScFormulaCell::ScFormulaCell(
 
     if (bSubTotal)
         pDocument->AddSubTotalCell(this);
-
-    pCode->GenHash();
 }
 
 ScFormulaCell::ScFormulaCell( const ScFormulaCell& rCell, ScDocument& rDoc, const ScAddress& rPos, int nCloneFlags ) :
@@ -3303,7 +3309,7 @@ bool ScFormulaCell::InterpretFormulaGroup()
 
     // Re-build formulae groups if necessary - ideally this is done at
     // import / insert / delete etc. and is integral to the data structures
-    pDocument->RebuildFormulaGroups();
+//  pDocument->RebuildFormulaGroups();
 
     if (!mxGroup || !pCode)
         return false;

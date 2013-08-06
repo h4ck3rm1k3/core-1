@@ -33,6 +33,8 @@
 #include "cellform.hxx"
 #include "drwlayer.hxx"
 #include "userdat.hxx"
+#include "formulacell.hxx"
+
 #include <svx/svdpage.hxx>
 
 using namespace ::com::sun::star;
@@ -315,6 +317,7 @@ void ScFiltersTest::testContentLotus123()
     testContentImpl(pDoc, LOTUS123);
     xDocSh->DoClose();
 }
+
 void impl_testLegacyCellAnchoredRotatedShape( ScDocument* pDoc, Rectangle& aRect, ScDrawObjData& aAnchor, long TOLERANCE = 30 /* 30 hmm */ )
 {
     ScDrawLayer* pDrawLayer = pDoc->GetDrawLayer();
