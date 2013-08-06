@@ -47,6 +47,7 @@ struct SC_DLLPUBLIC ScFormulaCellGroup
 {
     mutable size_t mnRefCount;
 
+    ScTokenArray* mpCode;
     SCROW mnStart;  // Start offset of that cell
     SCROW mnLength; // How many of these do we have ?
     bool mbInvariant;
@@ -77,6 +78,7 @@ enum ScMatrixMode {
 class SC_DLLPUBLIC ScFormulaCell : public SvtListener
 {
 private:
+    ScFormulaCellGroupRef mxGroup;       // re-factoring hack - group of formulae we're part of.
     ScFormulaResult aResult;
     formula::FormulaGrammar::Grammar  eTempGrammar;   // used between string (creation) and (re)compilation
     ScTokenArray*   pCode;              // The (new) token array
@@ -85,7 +87,6 @@ private:
     ScFormulaCell*  pNext;
     ScFormulaCell*  pPreviousTrack;
     ScFormulaCell*  pNextTrack;
-    ScFormulaCellGroupRef xGroup;       // re-factoring hack - group of formulae we're part of.
     sal_uLong       nFormatIndex;       // Number format set by calculation
     short           nFormatType;        // Number format type set by calculation
     sal_uInt16      nSeenInIteration;   // Iteration cycle in which the cell was last encountered
@@ -146,6 +147,10 @@ public:
     ScFormulaCell( ScDocument*, const ScAddress&, const ScTokenArray* = NULL,
                     const formula::FormulaGrammar::Grammar = formula::FormulaGrammar::GRAM_DEFAULT,
                     sal_uInt8 = MM_NONE );
+
+    ScFormulaCell( ScDocument* pDoc, const ScAddress& rPos, const ScFormulaCellGroupRef& xGroup,
+                   const formula::FormulaGrammar::Grammar = formula::FormulaGrammar::GRAM_DEFAULT,
+                   sal_uInt8 = MM_NONE );
 
     /** With formula string and grammar to compile with.
        formula::FormulaGrammar::GRAM_DEFAULT effectively isformula::FormulaGrammar::GRAM_NATIVE_UI that
@@ -251,14 +256,14 @@ public:
     void            CompileDBFormula( bool bCreateFormulaString );
     void            CompileNameFormula( bool bCreateFormulaString );
     void            CompileColRowNameFormula();
-    ScFormulaCell*  GetPrevious() const                 { return pPrevious; }
-    ScFormulaCell*  GetNext() const                     { return pNext; }
-    void            SetPrevious( ScFormulaCell* pF )    { pPrevious = pF; }
-    void            SetNext( ScFormulaCell* pF )        { pNext = pF; }
-    ScFormulaCell*  GetPreviousTrack() const                { return pPreviousTrack; }
-    ScFormulaCell*  GetNextTrack() const                    { return pNextTrack; }
-    void            SetPreviousTrack( ScFormulaCell* pF )   { pPreviousTrack = pF; }
-    void            SetNextTrack( ScFormulaCell* pF )       { pNextTrack = pF; }
+    ScFormulaCell*  GetPrevious() const;
+    ScFormulaCell*  GetNext() const;
+    void            SetPrevious( ScFormulaCell* pF );
+    void            SetNext( ScFormulaCell* pF );
+    ScFormulaCell*  GetPreviousTrack() const;
+    ScFormulaCell*  GetNextTrack() const;
+    void            SetPreviousTrack( ScFormulaCell* pF );
+    void            SetNextTrack( ScFormulaCell* pF );
 
     virtual void    Notify( SvtBroadcaster& rBC, const SfxHint& rHint);
     void            SetCompile( bool bVal ) { bCompile = bVal; }
@@ -323,10 +328,8 @@ public:
     void            MaybeInterpret();
 
     // Temporary formula cell grouping API
-    ScFormulaCellGroupRef  GetCellGroup()
-        { return xGroup; }
-    void                   SetCellGroup( const ScFormulaCellGroupRef &xRef )
-        { xGroup = xRef; }
+    ScFormulaCellGroupRef GetCellGroup();
+    void SetCellGroup( const ScFormulaCellGroupRef &xRef );
 
     CompareState CompareByTokenArray( ScFormulaCell& rOther ) const;
 
