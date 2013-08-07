@@ -2780,8 +2780,6 @@ void ScFormulaCell::UpdateTranspose( const ScRange& rSource, const ScAddress& rD
             {
                 if (pName->IsModified())
                     bRefChanged = true;
-                if (pName->HasType(RT_SHAREDMOD))
-                    pShared = pName;
             }
         }
         else if( t->GetType() != svIndex )
@@ -2857,8 +2855,6 @@ void ScFormulaCell::UpdateGrow( const ScRange& rArea, SCCOL nGrowX, SCROW nGrowY
             {
                 if (pName->IsModified())
                     bRefChanged = true;
-                if (pName->HasType(RT_SHAREDMOD))
-                    pShared = pName;
             }
         }
         else if( t->GetType() != svIndex )
