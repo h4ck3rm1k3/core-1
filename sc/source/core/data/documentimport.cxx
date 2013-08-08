@@ -121,6 +121,23 @@ void ScDocumentImport::setFormulaCell(const ScAddress& rPos, const ScTokenArray&
         rPos.Row(), new ScFormulaCell(&mpImpl->mrDoc, rPos, &rArray));
 }
 
+void ScDocumentImport::setFormulaCell(const ScAddress& rPos, ScFormulaCell* pCell)
+{
+    ScTable* pTab = mpImpl->mrDoc.FetchTable(rPos.Tab());
+    if (!pTab)
+        return;
+
+    sc::ColumnBlockPosition* pBlockPos =
+        mpImpl->maBlockPosSet.getBlockPosition(rPos.Tab(), rPos.Col());
+
+    if (!pBlockPos)
+        return;
+
+    sc::CellStoreType& rCells = pTab->aCol[rPos.Col()].maCells;
+    pBlockPos->miCellPos =
+        rCells.set(pBlockPos->miCellPos, rPos.Row(), pCell);
+}
+
 void ScDocumentImport::finalize()
 {
     // Populate the text width and script type arrays in all columns.

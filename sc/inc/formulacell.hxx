@@ -254,8 +254,8 @@ public:
     ScTokenArray* GetCode();
     const ScTokenArray* GetCode() const;
 
-    bool            IsRunning() const                       { return bRunning; }
-    void            SetRunning( bool bVal )                 { bRunning = bVal; }
+    bool IsRunning() const;
+    void SetRunning( bool bVal );
     void            CompileDBFormula();
     void            CompileDBFormula( bool bCreateFormulaString );
     void            CompileNameFormula( bool bCreateFormulaString );

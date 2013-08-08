@@ -20,6 +20,7 @@
 class ScDocument;
 class ScAddress;
 class ScTokenArray;
+class ScFormulaCell;
 struct ScDocumentImportImpl;
 
 /**
@@ -59,6 +60,7 @@ public:
     void setStringCell(const ScAddress& rPos, const OUString& rStr);
     void setFormulaCell(const ScAddress& rPos, const OUString& rFormula, formula::FormulaGrammar::Grammar eGrammar);
     void setFormulaCell(const ScAddress& rPos, const ScTokenArray& rArray);
+    void setFormulaCell(const ScAddress& rPos, ScFormulaCell* pCell);
 
     void finalize();
 };
