@@ -3774,6 +3774,14 @@ bool ScFormulaCell::IsSharedInvariant() const
     return mxGroup ? mxGroup->mbInvariant : false;
 }
 
+bool ScFormulaCell::IsSharedTop() const
+{
+    if (!mxGroup)
+        return false;
+
+    return mxGroup->mnStart == aPos.Row();
+}
+
 SCROW ScFormulaCell::GetSharedTopRow() const
 {
     return mxGroup ? mxGroup->mnStart : -1;
