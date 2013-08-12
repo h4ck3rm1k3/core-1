@@ -297,7 +297,7 @@ public:
     CPPUNIT_TEST(testHorizontalIterator);
     CPPUNIT_TEST(testFormulaDepTracking);
     CPPUNIT_TEST(testFormulaDepTracking2);
-//  CPPUNIT_TEST(testCellBroadcaster);
+    CPPUNIT_TEST(testCellBroadcaster);
     CPPUNIT_TEST(testFuncParam);
     CPPUNIT_TEST(testNamedRange);
     CPPUNIT_TEST(testCSV);
@@ -341,8 +341,8 @@ public:
     CPPUNIT_TEST(testSetBackgroundColor);
     CPPUNIT_TEST(testRenameTable);
     CPPUNIT_TEST(testAutoFill);
-//  CPPUNIT_TEST(testCopyPasteFormulas);
-//  CPPUNIT_TEST(testCopyPasteFormulasExternalDoc);
+    CPPUNIT_TEST(testCopyPasteFormulas);
+    CPPUNIT_TEST(testCopyPasteFormulasExternalDoc);
     CPPUNIT_TEST(testFindAreaPosVertical);
     CPPUNIT_TEST(testFindAreaPosColRight);
     CPPUNIT_TEST(testSort);
