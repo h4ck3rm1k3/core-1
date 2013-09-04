@@ -48,6 +48,8 @@
 #include <boost/scoped_ptr.hpp>
 
 namespace editeng { class SvxBorderLine; }
+namespace formula { struct VectorRefArray; }
+
 namespace sc {
     struct FormulaGroupContext;
     class StartListeningContext;
@@ -57,6 +59,7 @@ namespace sc {
     struct ColumnBlockPosition;
     struct RefUpdateContext;
 }
+
 class SvxFontItem;
 
 class KeyEvent;
@@ -1987,7 +1990,7 @@ public:
     formula::FormulaTokenRef ResolveStaticReference( const ScAddress& rPos );
     formula::FormulaTokenRef ResolveStaticReference( const ScRange& rRange );
 
-    const double* FetchDoubleArray(
+    formula::VectorRefArray FetchVectorRefArray(
         sc::FormulaGroupContext& rCxt, const ScAddress& rPos, SCROW nLength );
 
     SvtBroadcaster* GetBroadcaster( const ScAddress& rPos );

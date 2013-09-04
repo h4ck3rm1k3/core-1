@@ -792,7 +792,7 @@ bool FormulaGroupInterpreterOpenCL::interpret( ScDocument& rDoc, const ScAddress
                 else if( ocPush == p->GetOpCode() && formula::svDoubleVectorRef == p->GetType())
                 {
                     const formula::DoubleVectorRefToken* pDvr = static_cast< const formula::DoubleVectorRefToken* >( p );
-                    const std::vector< const double* >& rArrays = pDvr->GetArrays();
+                    const std::vector<formula::VectorRefArray>& rArrays = pDvr->GetArrays();
                     uint rArraysSize = rArrays.size();
                     int nMoreColSize = 0;
                     DoubleVectorFormula *SvDoubleTemp = new DoubleVectorFormula();
@@ -801,7 +801,7 @@ bool FormulaGroupInterpreterOpenCL::interpret( ScDocument& rDoc, const ScAddress
                         double *dpMoreColData = NULL;
                         for ( uint loop=0; loop < rArraysSize; loop++ )
                         {
-                            dpOclSrcData = rArrays[loop];
+                            dpOclSrcData = rArrays[loop].mpNumericArray;
                             nSrcDataSize = pDvr->GetArrayLength();
                             nMoreColSize += nSrcDataSize;
                             dpMoreColData = (double *) realloc(dpMoreColData,nMoreColSize * sizeof(double));
@@ -815,7 +815,7 @@ bool FormulaGroupInterpreterOpenCL::interpret( ScDocument& rDoc, const ScAddress
                     }
                     else
                     {
-                        dpOclSrcData = rArrays[0];
+                        dpOclSrcData = rArrays[0].mpNumericArray;
                         nSrcDataSize = pDvr->GetArrayLength();
                         SvDoubleTemp->mdpInputData = dpOclSrcData;
                         SvDoubleTemp->mnInputDataSize = nSrcDataSize;
@@ -830,7 +830,7 @@ bool FormulaGroupInterpreterOpenCL::interpret( ScDocument& rDoc, const ScAddress
                 else if( ocPush == p->GetOpCode() && formula::svSingleVectorRef == p->GetType() )
                 {
                     const formula::SingleVectorRefToken* pSvr = static_cast<const formula::SingleVectorRefToken*>( p );
-                    dpBinaryData = pSvr->GetArray();
+                    dpBinaryData = pSvr->GetArray().mpNumericArray;
                     uint nArrayLen = pSvr->GetArrayLength();
                     SingleVectorFormula *SignleTemp = new SingleVectorFormula() ;
                     if(isSingle)
@@ -884,7 +884,7 @@ bool FormulaGroupInterpreterOpenCL::interpret( ScDocument& rDoc, const ScAddress
                 else if( ocPush == p->GetOpCode() && formula::svDoubleVectorRef == p->GetType())
                 {
                     const formula::DoubleVectorRefToken* pDvr = static_cast< const formula::DoubleVectorRefToken* >( p );
-                    const std::vector< const double* >& rArrays = pDvr->GetArrays();
+                    const std::vector<formula::VectorRefArray>& rArrays = pDvr->GetArrays();
                     unsigned int rArraysSize = rArrays.size();
                     int nMoreColSize = 0;
                     if(rArraysSize > 1)
@@ -892,7 +892,7 @@ bool FormulaGroupInterpreterOpenCL::interpret( ScDocument& rDoc, const ScAddress
                         double *dpMoreColData = NULL;
                         for( uint loop=0; loop < rArraysSize; loop++ )
                         {
-                            dpOclSrcData = rArrays[loop];
+                            dpOclSrcData = rArrays[loop].mpNumericArray;
                             nSrcDataSize = pDvr->GetArrayLength();
                             nMoreColSize += nSrcDataSize;
                             dpMoreColData = (double *) realloc(dpMoreColData,nMoreColSize * sizeof(double));
@@ -907,7 +907,7 @@ bool FormulaGroupInterpreterOpenCL::interpret( ScDocument& rDoc, const ScAddress
                     }
                     else
                     {
-                        dpOclSrcData = rArrays[0];
+                        dpOclSrcData = rArrays[0].mpNumericArray;
                         nSrcDataSize = pDvr->GetArrayLength();
                     }
                     srdDataPush( new SourceData( dpOclSrcData,nSrcDataSize,rArraysSize ) );
@@ -915,7 +915,7 @@ bool FormulaGroupInterpreterOpenCL::interpret( ScDocument& rDoc, const ScAddress
                 else if( ocPush == p->GetOpCode() && formula::svSingleVectorRef == p->GetType() )
                 {
                     const formula::SingleVectorRefToken* pSvr = static_cast<const formula::SingleVectorRefToken*>( p );
-                    dpBinaryData = pSvr->GetArray();
+                    dpBinaryData = pSvr->GetArray().mpNumericArray;
                     nSrcDataSize = pSvr->GetArrayLength();
                     srdDataPush( new SourceData( dpBinaryData, nSrcDataSize ) );
                 }
@@ -1004,11 +1004,11 @@ bool FormulaGroupInterpreterGroundwater::interpretCL(ScDocument& rDoc, const ScA
         RETURN_IF_FAIL(p != NULL && p->GetOpCode() == ocPush && p->GetType() == formula::svDoubleVectorRef, "double vector ref expected");
         // Get the range reference vector.
         const formula::DoubleVectorRefToken* pDvr = static_cast<const formula::DoubleVectorRefToken*>(p);
-        const std::vector<const double*>& rArrays = pDvr->GetArrays();
+        const std::vector<formula::VectorRefArray>& rArrays = pDvr->GetArrays();
         RETURN_IF_FAIL(rArrays.size() == 1, "unexpectedly large double ref array");
         RETURN_IF_FAIL(pDvr->GetArrayLength() == (size_t)xGroup->mnLength, "wrong double ref length");
         RETURN_IF_FAIL(pDvr->IsStartFixed() && pDvr->IsEndFixed(), "non-fixed ranges )");
-        pGroundWaterDataArray = rArrays[0];
+        pGroundWaterDataArray = rArrays[0].mpNumericArray;
 
         // Function:
         p = rCode.NextRPN();
@@ -1022,7 +1022,7 @@ bool FormulaGroupInterpreterGroundwater::interpretCL(ScDocument& rDoc, const ScA
 
     // Get the single reference vector.
     const formula::SingleVectorRefToken* pSvr = static_cast<const formula::SingleVectorRefToken*>(p);
-    pArrayToSubtractOneElementFrom = pSvr->GetArray();
+    pArrayToSubtractOneElementFrom = pSvr->GetArray().mpNumericArray;
     RETURN_IF_FAIL(pSvr->GetArrayLength() == (size_t)xGroup->mnLength, "wrong single ref length");
 
     p = rCode.NextRPN();
