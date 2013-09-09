@@ -104,7 +104,7 @@ public:
 
 };
 
-class FormulaGroupInterpreterOpenCL : public FormulaGroupInterpreterSoftware
+class FormulaGroupInterpreterOpenCL : public FormulaGroupInterpreter
 {
     SourceData *mSrcDataStack[SRCDATASIZE];
     unsigned int mnStackPointer,mnDoublePtrCount;
@@ -124,7 +124,7 @@ class FormulaGroupInterpreterOpenCL : public FormulaGroupInterpreterSoftware
     size_t mnRowSize;
 public:
     FormulaGroupInterpreterOpenCL() :
-        FormulaGroupInterpreterSoftware()
+        FormulaGroupInterpreter()
     {
         mnStackPointer = 0;
         mnpOclEndPos = NULL;
@@ -959,6 +959,9 @@ bool FormulaGroupInterpreterOpenCL::interpret( ScDocument& rDoc, const ScAddress
 /// Special case of formula compiler for groundwatering
 class FormulaGroupInterpreterGroundwater : public FormulaGroupInterpreterSoftware
 {
+    bool interpretCL(ScDocument& rDoc, const ScAddress& rTopPos,
+                     const ScFormulaCellGroupRef& xGroup, ScTokenArray& rCode);
+
 public:
     FormulaGroupInterpreterGroundwater() :
         FormulaGroupInterpreterSoftware()
@@ -972,8 +975,6 @@ public:
     }
 
     virtual ScMatrixRef inverseMatrix(const ScMatrix& /* rMat */) { return ScMatrixRef(); }
-    virtual bool interpretCL(ScDocument& rDoc, const ScAddress& rTopPos,
-                             const ScFormulaCellGroupRef& xGroup, ScTokenArray& rCode);
     virtual bool interpret(ScDocument& rDoc, const ScAddress& rTopPos,
                            const ScFormulaCellGroupRef& xGroup, ScTokenArray& rCode);
 };
