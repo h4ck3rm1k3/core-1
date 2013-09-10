@@ -18,6 +18,8 @@
 
 #include "openclwrapper.hxx"
 
+#define USE_GROUNDWATER_INTERPRETER 0
+
 #define SRCDATASIZE 100
 #define SINGLEARRAYLEN 100
 #define DOUBLEARRAYLEN 100
@@ -954,6 +956,8 @@ bool FormulaGroupInterpreterOpenCL::interpret( ScDocument& rDoc, const ScAddress
         return false;
 }
 
+#if USE_GROUNDWATER_INTERPRETER
+
 /// Special case of formula compiler for groundwatering
 class FormulaGroupInterpreterGroundwater : public FormulaGroupInterpreterSoftware
 {
@@ -1068,13 +1072,17 @@ bool FormulaGroupInterpreterGroundwater::interpret(ScDocument& rDoc, const ScAdd
         return true;
 }
 
+#endif
+
 sc::FormulaGroupInterpreter *createFormulaGroupInterpreter()
 {
     if (getenv("SC_SOFTWARE"))
         return NULL;
 
+#if USE_GROUNDWATER_INTERPRETER
     if (getenv("SC_GROUNDWATER"))
         return new FormulaGroupInterpreterGroundwater();
+#endif
 
     return new FormulaGroupInterpreterOpenCL();
 }
