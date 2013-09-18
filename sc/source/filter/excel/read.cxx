@@ -629,7 +629,6 @@ FltError ImportExcel::Read( void )
                         case 0x0223: Externname34(); break; // EXTERNNAME   [  34 ]
                         case 0x0225: Defrowheight345();break;//DEFAULTROWHEI[  345]
                         case 0x023E: rTabViewSett.ReadWindow2( maStrm, false );break;
-                        case 0x04BC: Shrfmla(); break;      // SHRFMLA      [    5]
                     }
                 }
             }
@@ -653,6 +652,7 @@ FltError ImportExcel::Read( void )
                     case EXC_ID2_FORMULA:
                     case EXC_ID3_FORMULA:
                     case EXC_ID4_FORMULA:       Formula25(); break;
+                    case EXC_ID_SHRFMLA: Shrfmla(); break;
                     case 0x0A:  Eof(); eAkt = Z_Biff5E;                 break;
                     case 0x14:
                     case 0x15:  rPageSett.ReadHeaderFooter( maStrm );   break;
@@ -828,7 +828,9 @@ FltError ImportExcel8::Read( void )
     std::vector<OUString> aCodeNames;
     std::vector < SCTAB > nTabsWithNoCodeName;
 
-    while( eAkt != EXC_STATE_END )
+    sal_uInt16 nRecId = 0;
+
+    for (; eAkt != EXC_STATE_END; mnLastRecId = nRecId)
     {
         if( eAkt == EXC_STATE_BEFORE_SHEET )
         {
@@ -932,7 +934,7 @@ FltError ImportExcel8::Read( void )
         if( eAkt != EXC_STATE_SHEET_PRE && eAkt != EXC_STATE_GLOBALS_PRE )
             pProgress->ProgressAbs( nProgressBaseSize + aIn.GetSvStreamPos() - nProgressBasePos );
 
-        sal_uInt16 nRecId = aIn.GetRecId();
+        nRecId = aIn.GetRecId();
 
         /*  #i39464# Ignore records between USERSVIEWBEGIN and USERSVIEWEND
             completely (user specific view settings). Otherwise view settings
@@ -1140,7 +1142,6 @@ FltError ImportExcel8::Read( void )
                     case EXC_ID2_ARRAY:
                     case EXC_ID3_ARRAY: Array34(); break;      // ARRAY        [  34    ]
                     case 0x0225: Defrowheight345();break;//DEFAULTROWHEI[  345   ]
-                    case EXC_ID_SHRFMLA: Shrfmla(); break;      // SHRFMLA      [    5   ]
                     case 0x0867: SheetProtection(); break; // SHEETPROTECTION
                 }
             }
@@ -1174,6 +1175,7 @@ FltError ImportExcel8::Read( void )
                     case EXC_ID2_FORMULA:
                     case EXC_ID3_FORMULA:
                     case EXC_ID4_FORMULA:       Formula25();            break;
+                    case EXC_ID_SHRFMLA:        Shrfmla();              break;
                     case 0x000C:    Calccount();            break;  // CALCCOUNT
                     case 0x0010:    Delta();                break;  // DELTA
                     case 0x0011:    Iteration();            break;  // ITERATION

@@ -32,7 +32,7 @@
 #include "excdefs.hxx"
 #include <boost/shared_ptr.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-
+#include <boost/unordered_map.hpp>
 
 class SvStream;
 
@@ -79,6 +79,16 @@ private:
 class ImportExcel : public ImportTyp, protected XclImpRoot
 {
 protected:
+    struct LastFormula
+    {
+        SCCOL mnCol;
+        SCROW mnRow;
+        double mfValue;
+        sal_uInt16 mnXF;
+        ScFormulaCell* mpCell;
+    };
+    typedef boost::unordered_map<SCCOL, LastFormula> LastFormulaMapType;
+
     static const double     fExcToTwips;        // Umrechnung 1/256 Zeichen -> Twips
 
     RootData*               pExcRoot;
@@ -99,16 +109,23 @@ protected:
     typedef boost::ptr_vector< XclImpOutlineDataBuffer > XclImpOutlineListBuffer;
     XclImpOutlineListBuffer* pOutlineListBuffer;
 
+    LastFormulaMapType maLastFormulaCells; // Keep track of last formula cells in each column.
+    LastFormula* mpLastFormula;
+
     sal_Int16               mnLastRefIdx;
     sal_uInt16              mnIxfeIndex;        /// Current XF identifier from IXFE record.
-    bool                    mbBiff2HasXfs;      /// Select XF formatting or direct formatting in BIFF2.
-    bool                    mbBiff2HasXfsValid; /// False = mbBiff2HasXfs is undetermined yet.
+    sal_uInt16 mnLastRecId;
 
     SCTAB                   nBdshtTab;          // Counter fuer Boundsheet
-    ScFormulaCell*          pLastFormCell;      // fuer String-Records
 
     sal_Bool                    bTabTruncated;      // wenn Bereichsueberschreitung zum
                                                 //  Abschneiden von Zellen fuehrt
+
+    bool mbBiff2HasXfs:1;      /// Select XF formatting or direct formatting in BIFF2.
+    bool mbBiff2HasXfsValid:1; /// False = mbBiff2HasXfs is undetermined yet.
+
+    void SetLastFormula( SCCOL nCol, SCROW nRow, double fVal, sal_uInt16 nXF, ScFormulaCell* pCell );
+    LastFormula* GetLastFormula( SCCOL nCol );
 
     // Record-Funktionen
     void                    ReadFileSharing();
