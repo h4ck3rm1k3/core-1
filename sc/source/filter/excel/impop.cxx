@@ -887,12 +887,11 @@ void ImportExcel::Shrfmla( void )
     ScFormulaCellGroupRef xGroup = pExcRoot->pShrfmlaBuff->Find(aPos);
     if (xGroup)
     {
-        ScDocumentImport& rDoc = GetDocImport();
-        xGroup->compileCode(rDoc.getDoc(), aPos, formula::FormulaGrammar::GRAM_DEFAULT);
+        xGroup->compileCode(*pD, aPos, formula::FormulaGrammar::GRAM_DEFAULT);
 
         ScFormulaCell* pCell = new ScFormulaCell(pD, aPos, xGroup);
-        rDoc.getDoc().EnsureTable(aPos.Tab());
-        rDoc.setFormulaCell(aPos, pCell);
+        pD->EnsureTable(aPos.Tab());
+        pD->SetGroupFormulaCell(aPos, pCell);
         pCell->SetNeedNumberFormat(false);
         if (!rtl::math::isNan(mpLastFormula->mfValue))
             pCell->SetResultDouble(mpLastFormula->mfValue);

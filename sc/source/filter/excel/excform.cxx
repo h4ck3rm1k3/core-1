@@ -130,7 +130,7 @@ void ImportExcel::Formula(
                 if (pLast && pLast->mpCell && pLast->mnRow == (aScPos.Row()-1))
                 {
                     ScFormulaCell* pCell = new ScFormulaCell(pD, aScPos, xGroup);
-                    rDoc.getDoc().EnsureTable(aScPos.Tab());
+                    pD->EnsureTable(aScPos.Tab());
                     bool bInserted = pD->SetGroupFormulaCell(aScPos, pCell);
                     if (!bInserted)
                     {
