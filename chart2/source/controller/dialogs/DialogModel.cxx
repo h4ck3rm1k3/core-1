@@ -493,7 +493,7 @@ void DialogModel::moveSeries(
     eMoveDirection eDirection )
 {
     m_aTimerTriggeredControllerLock.startTimer();
-    ControllerLockGuard aLockedControllers( Reference< frame::XModel >( m_xChartDocument, uno::UNO_QUERY ) );
+    ControllerLockGuardUNO aLockedControllers( Reference< frame::XModel >( m_xChartDocument, uno::UNO_QUERY ) );
 
     Reference< XDiagram > xDiagram( m_xChartDocument->getFirstDiagram());
     DiagramHelper::moveSeries( xDiagram, xSeries, eDirection==MOVE_UP );
@@ -505,7 +505,7 @@ Reference< chart2::XDataSeries > DialogModel::insertSeriesAfter(
     bool bCreateDataCachedSequences /* = false */ )
 {
     m_aTimerTriggeredControllerLock.startTimer();
-    ControllerLockGuard aLockedControllers( Reference< frame::XModel >( m_xChartDocument, uno::UNO_QUERY ) );
+    ControllerLockGuardUNO aLockedControllers( Reference< frame::XModel >( m_xChartDocument, uno::UNO_QUERY ) );
     Reference< XDataSeries > xNewSeries;
 
     try
@@ -564,7 +564,7 @@ void DialogModel::deleteSeries(
     const Reference< XChartType > & xChartType )
 {
     m_aTimerTriggeredControllerLock.startTimer();
-    ControllerLockGuard aLockedControllers( Reference< frame::XModel >( m_xChartDocument, uno::UNO_QUERY ) );
+    ControllerLockGuardUNO aLockedControllers( Reference< frame::XModel >( m_xChartDocument, uno::UNO_QUERY ) );
 
     DataSeriesHelper::deleteSeries( xSeries, xChartType );
 }
@@ -665,7 +665,7 @@ bool DialogModel::setData(
     const Sequence< beans::PropertyValue > & rArguments )
 {
     m_aTimerTriggeredControllerLock.startTimer();
-    ControllerLockGuard aLockedControllers( Reference< frame::XModel >( m_xChartDocument, uno::UNO_QUERY ) );
+    ControllerLockGuardUNO aLockedControllers( Reference< frame::XModel >( m_xChartDocument, uno::UNO_QUERY ) );
 
     Reference< data::XDataProvider > xDataProvider( getDataProvider());
     if( ! xDataProvider.is() ||
