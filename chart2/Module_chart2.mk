@@ -13,6 +13,7 @@ $(eval $(call gb_Module_add_targets,chart2,\
     AllLangResTarget_chartcontroller \
     Library_chartcontroller \
     Library_chartcore \
+	Library_chartopengl \
 	UIConfig_chart2 \
 ))
 
