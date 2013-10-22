@@ -186,8 +186,6 @@ ChartModel::~ChartModel()
     OSL_TRACE( "ChartModel: DTOR called" );
     if( m_xOldModelAgg.is())
         m_xOldModelAgg->setDelegator( NULL );
-
-    delete mpChartView;
 }
 
 void SAL_CALL ChartModel::initialize( const Sequence< Any >& /*rArguments*/ )
@@ -1200,7 +1198,10 @@ Reference< uno::XInterface > SAL_CALL ChartModel::createInstance( const OUString
             case SERVICE_MARKER_TABLE:
                 {
                     if(!mpChartView)
+                    {
                         mpChartView = new ChartView( m_xContext, *this);
+                        xChartView = static_cast< ::cppu::OWeakObject* >( mpChartView );
+                    }
                     return mpChartView->createInstance( rServiceSpecifier );
                 }
                 break;
@@ -1211,7 +1212,10 @@ Reference< uno::XInterface > SAL_CALL ChartModel::createInstance( const OUString
     else if(rServiceSpecifier == CHART_VIEW_SERVICE_NAME)
     {
         if(!mpChartView)
+        {
             mpChartView = new ChartView( m_xContext, *this);
+            xChartView = static_cast< ::cppu::OWeakObject* >( mpChartView );
+        }
 
         return static_cast< ::cppu::OWeakObject* >( mpChartView );
     }
