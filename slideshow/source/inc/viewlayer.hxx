@@ -24,8 +24,9 @@
 #include <boost/shared_ptr.hpp>
 #include <com/sun/star/uno/Reference.hxx>
 #include <com/sun/star/geometry/IntegerSize2D.hpp>
-#include <com/sun/star/rendering/XCanvas.hpp>
 #include <com/sun/star/rendering/XCustomSprite.hpp>
+
+#include "canvas.hxx"
 
 namespace basegfx
 {
@@ -45,6 +46,14 @@ namespace slideshow
     {
         class View;
 
+        /** One layer in a View
+
+            One out of possibly many layers in one View (in the MVC
+            sense of view) of the slideshow. We use ViewLayers to
+            group shapes with similar animation state, such that
+            animated effects display at the right 'z' order (i.e. in
+            front or behind other shapes).
+         */
         class ViewLayer
         {
         public:
@@ -62,7 +71,7 @@ namespace slideshow
                 The canvas returned by this method must not change, as
                 long as this object is alive.
             */
-            virtual css::uno::Reference< css::rendering::XCanvas > getCanvas() const = 0;
+            virtual const Canvas& getCanvas() const = 0;
 
             /** Clear the clipped view layer area
 
@@ -98,8 +107,8 @@ namespace slideshow
                 canvas does not support sprites).
             */
             virtual css::uno::Reference< css::rendering::XCustomSprite >
-            createSprite( const basegfx::B2DVector& rSpriteSizePixel,
-                          double                    nPriority ) const = 0;
+                createSprite( const basegfx::B2DVector& rSpriteSizePixel,
+                              double                    nPriority ) const = 0;
 
             /** Set the layer priority range
 

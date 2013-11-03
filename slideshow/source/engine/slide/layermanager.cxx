@@ -608,9 +608,10 @@ namespace slideshow
                     return true; // visible on all views
                 }
 
-                virtual css::uno::Reference< css::rendering::XCanvas > getCanvas() const
+                virtual const Canvas& getCanvas() const
                 {
-                    return mpCanvas;
+                    // TODO-NYI
+                    //return mpCanvas;
                 }
 
                 virtual void clear() const

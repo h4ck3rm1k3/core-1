@@ -1,6 +1,8 @@
 Stuff left doing
 ================
 
+ - remove extraneous throw specs from canvas and slideshow - or does
+   that break dbgutil builds?
  - grep for TODO-NYI
  - migrate emf+ renderer over to primitives
  - implement stateful canvas processor (e.g. for the color changes?)
@@ -10,5 +12,3 @@ Stuff left doing
  - how much of the wrapper state in cppcanvas _was_ actually useful?
  - review canvas api - e.g. for the createBitmap / createSprite
    methods, is anyone *not* creating a Size struct on the fly?
-
- - when all of that is done -> git rm cppcanvas

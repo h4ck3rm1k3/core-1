@@ -591,7 +591,7 @@ private:
         return rView.get() == mpParentView;
     }
 
-    virtual uno::Reference<rendering::XCanvas> getCanvas() const
+    virtual const Canvas& getCanvas() const
     {
         if( !mpOutputCanvas.is() )
         {
@@ -652,7 +652,8 @@ private:
 #endif
         }
 
-        return mpOutputCanvas;
+        // TODO-NYI
+        // return mpOutputCanvas;
     }
 
     virtual void setClip( const basegfx::B2DPolyPolygon& rClip )
@@ -719,7 +720,7 @@ private:
     virtual bool isOnView(boost::shared_ptr<View> const& rView) const;
     virtual void clear() const;
     virtual void clearAll() const;
-    virtual css::uno::Reference<rendering::XCanvas> getCanvas() const;
+    virtual const Canvas& getCanvas() const;
     virtual css::uno::Reference<rendering::XCustomSprite> createSprite( const ::basegfx::B2DSize& rSpriteSizePixel,
                                                            double                    nPriority ) const;
     virtual void setPriority( const basegfx::B1DRange& rRange );
@@ -942,14 +943,15 @@ bool SlideView::isOnView(boost::shared_ptr<View> const& rView) const
     return rView.get() == this;
 }
 
-css::uno::Reference< css::rendering::XCanvas > SlideView::getCanvas() const
+const Canvas& SlideView::getCanvas() const
 {
     osl::MutexGuard aGuard( m_aMutex );
 
     ENSURE_OR_THROW( mpCanvas.is(),
                       "SlideView::getCanvas(): Disposed" );
 
-    return mpCanvas;
+    // TODO-NYI
+    // return mpCanvas;
 }
 
 css::uno::Reference< css::rendering::XCustomSprite > SlideView::createSprite(
