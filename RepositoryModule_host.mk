@@ -118,6 +118,7 @@ $(eval $(call gb_Module_add_moduledirs,libreoffice,\
 	$(call gb_Helper_optional,DESKTOP,l10ntools) \
 	$(call gb_Helper_optional,MARIADB,libmariadb) \
 	$(call gb_Helper_optional,MDDS,mdds) \
+	$(call gb_Helper_optional,GLM,glm) \
 	$(call gb_Helper_optional,MORE_FONTS,more_fonts) \
 	$(call gb_Helper_optional,MOZ,moz) \
 	$(call gb_Helper_optional,MARIADBC,mysqlc) \
