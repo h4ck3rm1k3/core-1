@@ -88,6 +88,7 @@ AbstractShapeFactory* AbstractShapeFactory::getOrCreateShapeFactory(uno::Referen
             {
 
                 pShapeFactory = reinterpret_cast<__getOpenglShapeFactory>(fn)();
+                pShapeFactory->setShapeFactory(xFactory);
             }
         }
     }

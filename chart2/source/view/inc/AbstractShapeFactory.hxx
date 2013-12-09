@@ -58,7 +58,14 @@ class Stripe;
 
 class AbstractShapeFactory
 {
+protected:
+
+    ::com::sun::star::uno::Reference< ::com::sun::star::lang::XMultiServiceFactory>
+        m_xShapeFactory;
 public:
+
+    void setShapeFactory(com::sun::star::uno::Reference< ::com::sun::star::lang::XMultiServiceFactory> xFactory)
+        { m_xShapeFactory = xFactory; }
 
     static AbstractShapeFactory* getOrCreateShapeFactory(::com::sun::star::uno::Reference< ::com::sun::star::lang::XMultiServiceFactory> xFactory);
 
