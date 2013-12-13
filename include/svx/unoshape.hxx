@@ -863,6 +863,29 @@ protected:
     virtual bool getPropertyValueImpl( const OUString& rName, const SfxItemPropertySimpleEntry* pProperty, ::com::sun::star::uno::Any& rValue ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
 };
 
+/*
+ * This is a really ugly hack for the chart2 OpenGL backend
+ * SvxShapeGroup::add only accepts objects derived from SvxShape and silently drops
+ * other objects. This fixes my life time problems but I will burn for it in hell.
+ *
+ * The object does nothing and should not be painted. It is just there to ensure that the
+ * wrapped object is not deleted prematurely.
+ */
+class SVX_DLLPUBLIC SvxDummyShapeContainer : public SvxShape
+{
+private:
+    com::sun::star::uno::Reference< com::sun::star::drawing::XShapes >
+        m_xDummyObject;
+
+public:
+    SvxDummyShapeContainer( com::sun::star::uno::Reference< com::sun::star::drawing::XShapes > xWrappedObject );
+    virtual ~SvxDummyShapeContainer() throw();
+
+    com::sun::star::uno::Reference< com::sun::star::drawing::XShapes > getWrappedShape()
+            { return m_xDummyObject; }
+
+};
+
 #endif
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
