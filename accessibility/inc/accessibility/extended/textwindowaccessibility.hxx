@@ -188,10 +188,10 @@ private:
     virtual ::sal_Int16 SAL_CALL getAccessibleRole()
         throw (css::uno::RuntimeException);
 
-    virtual OUString SAL_CALL getAccessibleDescription()
+    virtual rtl::OUString SAL_CALL getAccessibleDescription()
         throw (css::uno::RuntimeException);
 
-    virtual OUString SAL_CALL getAccessibleName()
+    virtual rtl::OUString SAL_CALL getAccessibleName()
         throw (css::uno::RuntimeException);
 
     virtual
@@ -248,7 +248,7 @@ private:
                css::uno::RuntimeException);
 
     virtual css::uno::Sequence< css::beans::PropertyValue > SAL_CALL
-    getCharacterAttributes(::sal_Int32 nIndex, const ::com::sun::star::uno::Sequence< OUString >& aRequestedAttributes )
+    getCharacterAttributes(::sal_Int32 nIndex, const ::com::sun::star::uno::Sequence< rtl::OUString >& aRequestedAttributes )
         throw (css::lang::IndexOutOfBoundsException,
                css::uno::RuntimeException);
 
@@ -264,7 +264,7 @@ private:
     getIndexAtPoint(css::awt::Point const & rPoint)
         throw (css::uno::RuntimeException);
 
-    virtual OUString SAL_CALL getSelectedText()
+    virtual rtl::OUString SAL_CALL getSelectedText()
         throw (css::uno::RuntimeException);
 
     virtual ::sal_Int32 SAL_CALL getSelectionStart()
@@ -278,10 +278,10 @@ private:
         throw (css::lang::IndexOutOfBoundsException,
                css::uno::RuntimeException);
 
-    virtual OUString SAL_CALL getText()
+    virtual rtl::OUString SAL_CALL getText()
         throw (css::uno::RuntimeException);
 
-    virtual OUString SAL_CALL getTextRange(::sal_Int32 nStartIndex,
+    virtual rtl::OUString SAL_CALL getTextRange(::sal_Int32 nStartIndex,
                                                   ::sal_Int32 nEndIndex)
         throw (css::lang::IndexOutOfBoundsException,
                css::uno::RuntimeException);
@@ -309,14 +309,14 @@ private:
         throw (css::lang::IndexOutOfBoundsException,
                css::uno::RuntimeException);
 
-    virtual ::sal_Bool SAL_CALL insertText(OUString const & rText,
+    virtual ::sal_Bool SAL_CALL insertText(rtl::OUString const & rText,
                                            ::sal_Int32 nIndex)
         throw (css::lang::IndexOutOfBoundsException,
                css::uno::RuntimeException);
 
     virtual ::sal_Bool SAL_CALL replaceText(
         ::sal_Int32 nStartIndex, ::sal_Int32 nEndIndex,
-        OUString const & rReplacement)
+        rtl::OUString const & rReplacement)
         throw (css::lang::IndexOutOfBoundsException,
                css::uno::RuntimeException);
 
@@ -327,15 +327,15 @@ private:
         throw (css::lang::IndexOutOfBoundsException,
                css::uno::RuntimeException);
 
-    virtual ::sal_Bool SAL_CALL setText(OUString const & rText)
+    virtual ::sal_Bool SAL_CALL setText(rtl::OUString const & rText)
         throw (css::uno::RuntimeException);
 
     virtual css::uno::Sequence< css::beans::PropertyValue > SAL_CALL
-    getDefaultAttributes(const css::uno::Sequence< OUString >& RequestedAttributes)
+    getDefaultAttributes(const css::uno::Sequence< rtl::OUString >& RequestedAttributes)
         throw (css::uno::RuntimeException);
 
     virtual css::uno::Sequence< css::beans::PropertyValue > SAL_CALL
-    getRunAttributes(::sal_Int32 Index, const css::uno::Sequence< OUString >& RequestedAttributes)
+    getRunAttributes(::sal_Int32 Index, const css::uno::Sequence< rtl::OUString >& RequestedAttributes)
         throw (css::lang::IndexOutOfBoundsException,
                css::uno::RuntimeException);
 
@@ -365,7 +365,7 @@ private:
 
     virtual void SAL_CALL disposing();
 
-    virtual OUString implGetText();
+    virtual rtl::OUString implGetText();
 
     virtual css::lang::Locale implGetLocale();
 
@@ -382,14 +382,14 @@ private:
     /// client id in the AccessibleEventNotifier queue
     sal_uInt32 m_nClientId;
 
-    OUString m_aParagraphText;
+    rtl::OUString m_aParagraphText;
 };
 
 
-typedef ::boost::unordered_map< OUString,
+typedef ::boost::unordered_map< rtl::OUString,
                          css::beans::PropertyValue,
-                         OUStringHash,
-                         ::std::equal_to< OUString > > tPropValMap;
+                         rtl::OUStringHash,
+                         ::std::equal_to< rtl::OUString > > tPropValMap;
 
 class Document: public ::VCLXAccessibleComponent, public ::SfxListener
 {
@@ -430,7 +430,7 @@ public:
     // within Paragraph's constructor (i.e., when the Paragraph's ref count is
     // still zero), pass a "ParagraphImpl const &" instead of a
     // "::rtl::Reference< ParagraphImpl > const &".
-    OUString retrieveParagraphText(ParagraphImpl const * pParagraph);
+    rtl::OUString retrieveParagraphText(ParagraphImpl const * pParagraph);
 
     // Must be called only after init has been called.
     // To make it possible for this method to be (indirectly) called from
@@ -473,7 +473,7 @@ public:
     // Throws css::lang::IndexOutOfBoundsException.
     css::uno::Sequence< css::beans::PropertyValue > retrieveCharacterAttributes(
         ParagraphImpl const * pParagraph, ::sal_Int32 nIndex,
-        const css::uno::Sequence< OUString >& aRequestedAttributes);
+        const css::uno::Sequence< rtl::OUString >& aRequestedAttributes);
 
     // Must be called only after init has been called.
     // To make it possible for this method to be (indirectly) called from
@@ -482,7 +482,7 @@ public:
     // "::rtl::Reference< ParagraphImpl > const &".
     css::uno::Sequence< css::beans::PropertyValue > retrieveDefaultAttributes(
         ParagraphImpl const * pParagraph,
-        const css::uno::Sequence< OUString >& RequestedAttributes);
+        const css::uno::Sequence< rtl::OUString >& RequestedAttributes);
 
     // Must be called only after init has been called.
     // To make it possible for this method to be (indirectly) called from
@@ -492,7 +492,7 @@ public:
     // Throws css::lang::IndexOutOfBoundsException.
     css::uno::Sequence< css::beans::PropertyValue > retrieveRunAttributes(
         ParagraphImpl const * pParagraph, ::sal_Int32 Index,
-        const css::uno::Sequence< OUString >& RequestedAttributes);
+        const css::uno::Sequence< rtl::OUString >& RequestedAttributes);
 
     // Must be called only after init has been called.
     // To make it possible for this method to be (indirectly) called from
@@ -500,7 +500,7 @@ public:
     // still zero), pass a "ParagraphImpl const &" instead of a
     // "::rtl::Reference< ParagraphImpl > const &".
     void changeParagraphText(ParagraphImpl * pParagraph,
-                             OUString const & rText);
+                             rtl::OUString const & rText);
 
     // Must be called only after init has been called.
     // To make it possible for this method to be (indirectly) called from
@@ -510,7 +510,7 @@ public:
     // Throws css::lang::IndexOutOfBoundsException.
     void changeParagraphText(ParagraphImpl * pParagraph, ::sal_Int32 nBegin,
                              ::sal_Int32 nEnd, bool bCut, bool bPaste,
-                             OUString const & rText);
+                             rtl::OUString const & rText);
 
     // Must be called only after init has been called.
     // To make it possible for this method to be (indirectly) called from
@@ -616,7 +616,7 @@ private:
     // locked, and after init has been called:
     void changeParagraphText(::sal_uLong nNumber, ::sal_uInt16 nBegin, ::sal_uInt16 nEnd,
                              bool bCut, bool bPaste,
-                             OUString const & rText);
+                             rtl::OUString const & rText);
 
     void
     handleParagraphNotifications();
@@ -641,12 +641,12 @@ private:
 
     void retrieveDefaultAttributesImpl(
         ParagraphImpl const * pParagraph,
-        const css::uno::Sequence< OUString >& RequestedAttributes,
+        const css::uno::Sequence< rtl::OUString >& RequestedAttributes,
         tPropValMap& rDefAttrSeq);
 
     void retrieveRunAttributesImpl(
         ParagraphImpl const * pParagraph, ::sal_Int32 Index,
-        const css::uno::Sequence< OUString >& RequestedAttributes,
+        const css::uno::Sequence< rtl::OUString >& RequestedAttributes,
         tPropValMap& rRunAttrSeq);
 
     static css::uno::Sequence< css::beans::PropertyValue >

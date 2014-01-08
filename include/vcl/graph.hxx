@@ -146,7 +146,7 @@ public:
     void                Draw( OutputDevice* pOutDev,
                               const Point& rDestPt,
                               const Size& rDestSize ) const;
-    static void         DrawEx( OutputDevice* pOutDev, const OUString& rText,
+    static void         DrawEx( OutputDevice* pOutDev, const rtl::OUString& rText,
                               Font& rFont, const BitmapEx& rBitmap,
                               const Point& rDestPt, const Size& rDestSize );
 
@@ -172,8 +172,8 @@ public:
 
 public:
 
-    void                SetDocFileName( const OUString& rName, sal_uLong nFilePos );
-    const OUString&       GetDocFileName() const;
+    void                SetDocFileName( const rtl::OUString& rName, sal_uLong nFilePos );
+    const rtl::OUString&       GetDocFileName() const;
     sal_uLong               GetDocFilePos() const;
 
     sal_Bool                SwapOut();

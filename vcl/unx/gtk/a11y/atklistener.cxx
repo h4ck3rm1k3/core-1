@@ -60,7 +60,7 @@ AtkListener::~AtkListener()
 
 AtkStateType mapState( const uno::Any &rAny )
 {
-    sal_Int16 nState = accessibility::AccessibleStateType::INVALID;
+    sal_Int16 nState = ::com::sun::star::accessibility::AccessibleStateType::INVALID;
     rAny >>= nState;
     return mapAtkState( nState );
 }
@@ -112,7 +112,7 @@ void AtkListener::disposing( const lang::EventObject& ) throw (uno::RuntimeExcep
 
 static AtkObject *getObjFromAny( const uno::Any &rAny )
 {
-    uno::Reference< accessibility::XAccessible > xAccessible;
+    uno::Reference< ::com::sun::star::accessibility::XAccessible > xAccessible;
     rAny >>= xAccessible;
     return xAccessible.is() ? atk_object_wrapper_ref( xAccessible ) : NULL;
 }
@@ -120,14 +120,14 @@ static AtkObject *getObjFromAny( const uno::Any &rAny )
 /*****************************************************************************/
 
 // Updates the child list held to provide the old IndexInParent on children_changed::remove
-void AtkListener::updateChildList(accessibility::XAccessibleContext* pContext)
+void AtkListener::updateChildList(::com::sun::star::accessibility::XAccessibleContext* pContext)
 {
      m_aChildList.clear();
 
-     uno::Reference< accessibility::XAccessibleStateSet > xStateSet = pContext->getAccessibleStateSet();
+     uno::Reference< ::com::sun::star::accessibility::XAccessibleStateSet > xStateSet = pContext->getAccessibleStateSet();
      if( xStateSet.is()
-         && !xStateSet->contains(accessibility::AccessibleStateType::DEFUNC)
-         && !xStateSet->contains(accessibility::AccessibleStateType::MANAGES_DESCENDANTS) )
+         && !xStateSet->contains(::com::sun::star::accessibility::AccessibleStateType::DEFUNC)
+         && !xStateSet->contains(::com::sun::star::accessibility::AccessibleStateType::MANAGES_DESCENDANTS) )
      {
          sal_Int32 nChildren = pContext->getAccessibleChildCount();
          m_aChildList.resize(nChildren);
@@ -149,8 +149,8 @@ void AtkListener::updateChildList(accessibility::XAccessibleContext* pContext)
 /*****************************************************************************/
 
 void AtkListener::handleChildAdded(
-    const uno::Reference< accessibility::XAccessibleContext >& rxParent,
-    const uno::Reference< accessibility::XAccessible>& rxAccessible)
+    const uno::Reference< ::com::sun::star::accessibility::XAccessibleContext >& rxParent,
+    const uno::Reference< ::com::sun::star::accessibility::XAccessible>& rxAccessible)
 {
     AtkObject * pChild = rxAccessible.is() ? atk_object_wrapper_ref( rxAccessible ) : NULL;
 
@@ -168,8 +168,8 @@ void AtkListener::handleChildAdded(
 /*****************************************************************************/
 
 void AtkListener::handleChildRemoved(
-    const uno::Reference< accessibility::XAccessibleContext >& rxParent,
-    const uno::Reference< accessibility::XAccessible>& rxChild)
+    const uno::Reference< ::com::sun::star::accessibility::XAccessibleContext >& rxParent,
+    const uno::Reference< ::com::sun::star::accessibility::XAccessible>& rxChild)
 {
     sal_Int32 nIndex = -1;
 
@@ -209,7 +209,7 @@ void AtkListener::handleChildRemoved(
 /*****************************************************************************/
 
 void AtkListener::handleInvalidateChildren(
-    const uno::Reference< accessibility::XAccessibleContext >& rxParent)
+    const uno::Reference< ::com::sun::star::accessibility::XAccessibleContext >& rxParent)
 {
     // Send notifications for all previous children
     size_t n = m_aChildList.size();
@@ -247,17 +247,17 @@ void AtkListener::handleInvalidateChildren(
 
 /*****************************************************************************/
 
-static uno::Reference< accessibility::XAccessibleContext >
+static uno::Reference< ::com::sun::star::accessibility::XAccessibleContext >
 getAccessibleContextFromSource( const uno::Reference< uno::XInterface >& rxSource )
 {
-    uno::Reference< accessibility::XAccessibleContext > xContext(rxSource, uno::UNO_QUERY);
+    uno::Reference< ::com::sun::star::accessibility::XAccessibleContext > xContext(rxSource, uno::UNO_QUERY);
     if( ! xContext.is() )
     {
          g_warning( "ERROR: Event source does not implement XAccessibleContext" );
 
          // Second try - query for XAccessible, which should give us access to
          // XAccessibleContext.
-         uno::Reference< accessibility::XAccessible > xAccessible(rxSource, uno::UNO_QUERY);
+         uno::Reference< ::com::sun::star::accessibility::XAccessible > xAccessible(rxSource, uno::UNO_QUERY);
          if( xAccessible.is() )
              xContext = xAccessible->getAccessibleContext();
     }
@@ -268,7 +268,7 @@ getAccessibleContextFromSource( const uno::Reference< uno::XInterface >& rxSourc
 /*****************************************************************************/
 
 // XAccessibleEventListener
-void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEvent ) throw( uno::RuntimeException )
+void AtkListener::notifyEvent( const ::com::sun::star::accessibility::AccessibleEventObject& aEvent ) throw( uno::RuntimeException )
 {
     if( !mpWrapper )
         return;
@@ -279,10 +279,10 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
     {
     // AtkObject signals:
         // Hierarchy signals
-        case accessibility::AccessibleEventId::CHILD:
+        case ::com::sun::star::accessibility::AccessibleEventId::CHILD:
         {
-            uno::Reference< accessibility::XAccessibleContext > xParent;
-            uno::Reference< accessibility::XAccessible > xChild;
+            uno::Reference< ::com::sun::star::accessibility::XAccessibleContext > xParent;
+            uno::Reference< ::com::sun::star::accessibility::XAccessible > xChild;
 
             xParent = getAccessibleContextFromSource(aEvent.Source);
             g_return_if_fail( xParent.is() );
@@ -295,9 +295,9 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
         }
             break;
 
-        case accessibility::AccessibleEventId::INVALIDATE_ALL_CHILDREN:
+        case ::com::sun::star::accessibility::AccessibleEventId::INVALIDATE_ALL_CHILDREN:
         {
-            uno::Reference< accessibility::XAccessibleContext > xParent;
+            uno::Reference< ::com::sun::star::accessibility::XAccessibleContext > xParent;
 
             xParent = getAccessibleContextFromSource(aEvent.Source);
             g_return_if_fail( xParent.is() );
@@ -306,7 +306,7 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
         }
             break;
 
-        case accessibility::AccessibleEventId::NAME_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::NAME_CHANGED:
         {
             OUString aName;
             if( aEvent.NewValue >>= aName )
@@ -317,7 +317,7 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
         }
             break;
 
-        case accessibility::AccessibleEventId::DESCRIPTION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::DESCRIPTION_CHANGED:
         {
             OUString aDescription;
             if( aEvent.NewValue >>= aDescription )
@@ -328,7 +328,7 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
         }
             break;
 
-        case accessibility::AccessibleEventId::STATE_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::STATE_CHANGED:
         {
             AtkStateType eOldState = mapState( aEvent.OldValue );
             AtkStateType eNewState = mapState( aEvent.NewValue );
@@ -340,7 +340,7 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
             break;
         }
 
-        case accessibility::AccessibleEventId::BOUNDRECT_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::BOUNDRECT_CHANGED:
 
 #ifdef HAS_ATKRECTANGLE
             if( ATK_IS_COMPONENT( atk_obj ) )
@@ -362,11 +362,11 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
 
             break;
 
-        case accessibility::AccessibleEventId::VISIBLE_DATA_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::VISIBLE_DATA_CHANGED:
             g_signal_emit_by_name( atk_obj, "visible-data-changed" );
             break;
 
-        case accessibility::AccessibleEventId::ACTIVE_DESCENDANT_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::ACTIVE_DESCENDANT_CHANGED:
         {
             AtkObject *pChild = getObjFromAny( aEvent.NewValue );
             if( pChild )
@@ -378,7 +378,7 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
         }
 
         // #i92103#
-        case accessibility::AccessibleEventId::LISTBOX_ENTRY_EXPANDED:
+        case ::com::sun::star::accessibility::AccessibleEventId::LISTBOX_ENTRY_EXPANDED:
         {
             AtkObject *pChild = getObjFromAny( aEvent.NewValue );
             if( pChild )
@@ -390,7 +390,7 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
             break;
         }
 
-        case accessibility::AccessibleEventId::LISTBOX_ENTRY_COLLAPSED:
+        case ::com::sun::star::accessibility::AccessibleEventId::LISTBOX_ENTRY_COLLAPSED:
         {
             AtkObject *pChild = getObjFromAny( aEvent.NewValue );
             if( pChild )
@@ -403,24 +403,24 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
         }
 
         // AtkAction signals ...
-        case accessibility::AccessibleEventId::ACTION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::ACTION_CHANGED:
             g_signal_emit_by_name( G_OBJECT( atk_obj ), "property_change::accessible-actions");
             break;
 
         // AtkText
-        case accessibility::AccessibleEventId::CARET_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::CARET_CHANGED:
         {
             sal_Int32 nPos=0;
             aEvent.NewValue >>= nPos;
             g_signal_emit_by_name( atk_obj, "text_caret_moved", nPos );
             break;
         }
-        case accessibility::AccessibleEventId::TEXT_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::TEXT_CHANGED:
         {
             // TESTME: and remove this comment:
             // cf. comphelper/source/misc/accessibletexthelper.cxx (implInitTextChangedEvent)
-            accessibility::TextSegment aDeletedText;
-            accessibility::TextSegment aInsertedText;
+            ::com::sun::star::accessibility::TextSegment aDeletedText;
+            ::com::sun::star::accessibility::TextSegment aInsertedText;
 
             // TODO: when GNOME starts to send "update" kind of events, change
             // we need to re-think this implementation as well
@@ -448,36 +448,36 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
             break;
         }
 
-        case accessibility::AccessibleEventId::TEXT_SELECTION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::TEXT_SELECTION_CHANGED:
         {
             g_signal_emit_by_name( atk_obj, "text-selection-changed" );
             break;
         }
 
-        case accessibility::AccessibleEventId::TEXT_ATTRIBUTE_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::TEXT_ATTRIBUTE_CHANGED:
             g_signal_emit_by_name( atk_obj, "text-attributes-changed" );
             break;
 
         // AtkValue
-        case accessibility::AccessibleEventId::VALUE_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::VALUE_CHANGED:
             g_object_notify( G_OBJECT( atk_obj ), "accessible-value" );
             break;
 
-        case accessibility::AccessibleEventId::CONTENT_FLOWS_FROM_RELATION_CHANGED:
-        case accessibility::AccessibleEventId::CONTENT_FLOWS_TO_RELATION_CHANGED:
-        case accessibility::AccessibleEventId::CONTROLLED_BY_RELATION_CHANGED:
-        case accessibility::AccessibleEventId::CONTROLLER_FOR_RELATION_CHANGED:
-        case accessibility::AccessibleEventId::LABEL_FOR_RELATION_CHANGED:
-        case accessibility::AccessibleEventId::LABELED_BY_RELATION_CHANGED:
-        case accessibility::AccessibleEventId::MEMBER_OF_RELATION_CHANGED:
-        case accessibility::AccessibleEventId::SUB_WINDOW_OF_RELATION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::CONTENT_FLOWS_FROM_RELATION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::CONTENT_FLOWS_TO_RELATION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::CONTROLLED_BY_RELATION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::CONTROLLER_FOR_RELATION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::LABEL_FOR_RELATION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::LABELED_BY_RELATION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::MEMBER_OF_RELATION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::SUB_WINDOW_OF_RELATION_CHANGED:
             // FIXME: ask Bill how Atk copes with this little lot ...
             break;
 
         // AtkTable
-        case accessibility::AccessibleEventId::TABLE_MODEL_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::TABLE_MODEL_CHANGED:
         {
-            accessibility::AccessibleTableModelChange aChange;
+            ::com::sun::star::accessibility::AccessibleTableModelChange aChange;
             aEvent.NewValue >>= aChange;
 
             sal_Int32 nRowsChanged = aChange.LastRow - aChange.FirstRow + 1;
@@ -494,8 +494,8 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
             };
             switch( aChange.Type )
             {
-            case accessibility::AccessibleTableModelChangeType::INSERT:
-            case accessibility::AccessibleTableModelChangeType::DELETE:
+            case ::com::sun::star::accessibility::AccessibleTableModelChangeType::INSERT:
+            case ::com::sun::star::accessibility::AccessibleTableModelChangeType::DELETE:
                 if( nRowsChanged > 0 )
                     g_signal_emit_by_name( G_OBJECT( atk_obj ),
                                            aSignalNames[aChange.Type].row,
@@ -506,7 +506,7 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
                                            aChange.FirstColumn, nColumnsChanged );
                 break;
 
-            case accessibility::AccessibleTableModelChangeType::UPDATE:
+            case ::com::sun::star::accessibility::AccessibleTableModelChangeType::UPDATE:
                 // This is not really a model change, is it ?
                 break;
             default:
@@ -517,35 +517,35 @@ void AtkListener::notifyEvent( const accessibility::AccessibleEventObject& aEven
             break;
         }
 
-        case accessibility::AccessibleEventId::TABLE_COLUMN_HEADER_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::TABLE_COLUMN_HEADER_CHANGED:
             g_signal_emit_by_name( G_OBJECT( atk_obj ), "property_change::accessible-table-column-header");
             break;
 
-        case accessibility::AccessibleEventId::TABLE_CAPTION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::TABLE_CAPTION_CHANGED:
             g_signal_emit_by_name( G_OBJECT( atk_obj ), "property_change::accessible-table-caption");
             break;
 
-        case accessibility::AccessibleEventId::TABLE_COLUMN_DESCRIPTION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::TABLE_COLUMN_DESCRIPTION_CHANGED:
             g_signal_emit_by_name( G_OBJECT( atk_obj ), "property_change::accessible-table-column-description");
             break;
 
-        case accessibility::AccessibleEventId::TABLE_ROW_DESCRIPTION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::TABLE_ROW_DESCRIPTION_CHANGED:
             g_signal_emit_by_name( G_OBJECT( atk_obj ), "property_change::accessible-table-row-description");
             break;
 
-        case accessibility::AccessibleEventId::TABLE_ROW_HEADER_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::TABLE_ROW_HEADER_CHANGED:
             g_signal_emit_by_name( G_OBJECT( atk_obj ), "property_change::accessible-table-row-header");
             break;
 
-        case accessibility::AccessibleEventId::TABLE_SUMMARY_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::TABLE_SUMMARY_CHANGED:
             g_signal_emit_by_name( G_OBJECT( atk_obj ), "property_change::accessible-table-summary");
             break;
 
-        case accessibility::AccessibleEventId::SELECTION_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::SELECTION_CHANGED:
             g_signal_emit_by_name( G_OBJECT( atk_obj ), "selection_changed");
             break;
 
-        case accessibility::AccessibleEventId::HYPERTEXT_CHANGED:
+        case ::com::sun::star::accessibility::AccessibleEventId::HYPERTEXT_CHANGED:
             g_signal_emit_by_name( G_OBJECT( atk_obj ), "property_change::accessible-hypertext-offset");
             break;
 

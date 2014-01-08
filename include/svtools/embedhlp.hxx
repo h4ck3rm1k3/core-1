@@ -53,18 +53,18 @@ class SVT_DLLPUBLIC EmbeddedObjectRef
     EmbeddedObjectRef& operator = ( const EmbeddedObjectRef& );
 
 public:
-    static void DrawPaintReplacement( const Rectangle &rRect, const OUString &rText, OutputDevice *pOut );
+    static void DrawPaintReplacement( const Rectangle &rRect, const rtl::OUString &rText, OutputDevice *pOut );
     static void DrawShading( const Rectangle &rRect, OutputDevice *pOut );
     static bool TryRunningState( const ::com::sun::star::uno::Reference < ::com::sun::star::embed::XEmbeddedObject >& );
     static void SetGraphicToContainer( const Graphic& rGraphic,
                                         comphelper::EmbeddedObjectContainer& aContainer,
-                                        const OUString& aName,
-                                        const OUString& aMediaType );
+                                        const rtl::OUString& aName,
+                                        const rtl::OUString& aMediaType );
 
     static ::com::sun::star::uno::Reference< ::com::sun::star::io::XInputStream > GetGraphicReplacementStream(
                                         sal_Int64 nViewAspect,
                                         const ::com::sun::star::uno::Reference < ::com::sun::star::embed::XEmbeddedObject >&,
-                                        OUString* pMediaType )
+                                        rtl::OUString* pMediaType )
                             throw();
 
     const com::sun::star::uno::Reference <com::sun::star::embed::XEmbeddedObject>& operator->() const;
@@ -83,21 +83,21 @@ public:
     EmbeddedObjectRef( const EmbeddedObjectRef& );
 
     // assigning to a container enables the object to exchange graphical representations with a storage
-    void            AssignToContainer( comphelper::EmbeddedObjectContainer* pContainer, const OUString& rPersistName );
+    void            AssignToContainer( comphelper::EmbeddedObjectContainer* pContainer, const rtl::OUString& rPersistName );
     comphelper::EmbeddedObjectContainer* GetContainer() const;
 
     sal_Int64       GetViewAspect() const;
     void            SetViewAspect( sal_Int64 nAspect );
-    const Graphic* GetGraphic( OUString* pMediaType = NULL ) const;
+    const Graphic* GetGraphic( rtl::OUString* pMediaType = NULL ) const;
 
     // the original size of the object ( size of the icon for iconified object )
     // no conversion is done if no target mode is provided
     Size            GetSize( MapMode* pTargetMapMode = NULL ) const;
 
-    void            SetGraphic( const Graphic& rGraphic, const OUString& rMediaType );
+    void            SetGraphic( const Graphic& rGraphic, const rtl::OUString& rMediaType );
     void            SetGraphicStream(
                         const ::com::sun::star::uno::Reference< ::com::sun::star::io::XInputStream >& xInGrStream,
-                        const OUString& rMediaType );
+                        const rtl::OUString& rMediaType );
 
     void            UpdateReplacement();
     void            UpdateReplacementOnDemand();
@@ -108,7 +108,7 @@ public:
     bool IsLocked() const;
     bool IsChart() const;
 
-    OUString GetChartType();
+    rtl::OUString GetChartType();
 
     // #i104867#
     // Provides a graphic version number for the fetchable Graphic during this object's lifetime. Internally,

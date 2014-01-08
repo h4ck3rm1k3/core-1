@@ -138,14 +138,14 @@ public:
 
 struct TEIMEInfos
 {
-    OUString    aOldTextAfterStartPos;
+    rtl::OUString    aOldTextAfterStartPos;
     sal_uInt16* pAttribs;
     TextPaM aPos;
     sal_uInt16  nLen;
     sal_Bool    bCursor;
     sal_Bool    bWasCursorOverwrite;
 
-            TEIMEInfos( const TextPaM& rPos, const OUString& rOldTextAfterStartPos );
+            TEIMEInfos( const TextPaM& rPos, const rtl::OUString& rOldTextAfterStartPos );
             ~TEIMEInfos();
 
     void    CopyAttribs( const sal_uInt16* pA, sal_uInt16 nL );

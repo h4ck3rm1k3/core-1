@@ -133,7 +133,7 @@ namespace editeng {
 
         sal_Bool            operator==( const SvxBorderLine &rCmp ) const;
 
-        OUString        GetValueString( SfxMapUnit eSrcUnit, SfxMapUnit eDestUnit,
+        rtl::OUString        GetValueString( SfxMapUnit eSrcUnit, SfxMapUnit eDestUnit,
                                         const IntlWrapper* pIntl,
                                         sal_Bool bMetricStr = sal_False ) const;
 

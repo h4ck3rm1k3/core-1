@@ -89,7 +89,7 @@ public:
         Font(), nBorderWidth(-1) { Impl_Init(); }
     SmFace(const Font& rFont) :
         Font(rFont), nBorderWidth(-1) { Impl_Init(); }
-    SmFace(const OUString& rName, const Size& rSize) :
+    SmFace(const rtl::OUString& rName, const Size& rSize) :
         Font(rName, rSize), nBorderWidth(-1) { Impl_Init(); }
     SmFace( FontFamily eFamily, const Size& rSize) :
         Font(eFamily, rSize), nBorderWidth(-1) { Impl_Init(); }
@@ -126,7 +126,7 @@ protected:
     std::deque<Font> aFontVec;
 
     bool     CompareItem(const Font & rFirstFont, const Font & rSecondFont) const;
-    OUString GetStringItem(const Font &rItem);
+    rtl::OUString GetStringItem(const Font &rItem);
 
 public:
     SmFontPickList(sal_uInt16 nMax = 5) : nMaxItems(nMax) {}

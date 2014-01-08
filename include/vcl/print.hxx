@@ -93,10 +93,10 @@ class VCL_DLLPUBLIC QueueInfo
     friend class Printer;
 
 private:
-    OUString                   maPrinterName;
-    OUString                   maDriver;
-    OUString                   maLocation;
-    OUString                   maComment;
+    rtl::OUString                   maPrinterName;
+    rtl::OUString                   maDriver;
+    rtl::OUString                   maLocation;
+    rtl::OUString                   maComment;
     sal_uInt32                  mnStatus;
     sal_uInt32                  mnJobs;
 
@@ -105,10 +105,10 @@ public:
                                 QueueInfo( const QueueInfo& rInfo );
                                 ~QueueInfo();
 
-    const OUString&            GetPrinterName() const { return maPrinterName; }
-    const OUString&            GetDriver() const { return maDriver; }
-    const OUString&            GetLocation() const { return maLocation; }
-    const OUString&            GetComment() const { return maComment; }
+    const rtl::OUString&            GetPrinterName() const { return maPrinterName; }
+    const rtl::OUString&            GetDriver() const { return maDriver; }
+    const rtl::OUString&            GetLocation() const { return maLocation; }
+    const rtl::OUString&            GetComment() const { return maComment; }
     sal_uInt32                  GetStatus() const { return mnStatus; }
     sal_uInt32                  GetJobs() const { return mnJobs; }
 
@@ -223,10 +223,10 @@ private:
     Printer*                    mpNext;
     VirtualDevice*              mpDisplayDev;
     PrinterOptions*             mpPrinterOptions;
-    OUString                   maPrinterName;
-    OUString                   maDriver;
-    OUString                   maPrintFile;
-    OUString                   maJobName;
+    rtl::OUString                   maPrinterName;
+    rtl::OUString                   maDriver;
+    rtl::OUString                   maPrintFile;
+    rtl::OUString                   maJobName;
     JobSetup                    maJobSetup;
     Point                       maPageOffset;
     Size                        maPaperSize;
@@ -250,13 +250,13 @@ private:
     SAL_DLLPRIVATE void         ImplInitData();
     SAL_DLLPRIVATE void         ImplInit( SalPrinterQueueInfo* pInfo );
     SAL_DLLPRIVATE void         ImplInitDisplay( const Window* pWindow );
-    SAL_DLLPRIVATE static SalPrinterQueueInfo* ImplGetQueueInfo( const OUString& rPrinterName,
-                                                  const OUString* pDriver );
+    SAL_DLLPRIVATE static SalPrinterQueueInfo* ImplGetQueueInfo( const rtl::OUString& rPrinterName,
+                                                  const rtl::OUString* pDriver );
     SAL_DLLPRIVATE void         ImplUpdatePageData();
     SAL_DLLPRIVATE void         ImplUpdateFontList();
     SAL_DLLPRIVATE void         ImplFindPaperFormatForUserSize( JobSetup&, bool bMatchNearest );
 
-    SAL_DLLPRIVATE bool StartJob( const OUString& rJobName, boost::shared_ptr<vcl::PrinterController>& );
+    SAL_DLLPRIVATE bool StartJob( const rtl::OUString& rJobName, boost::shared_ptr<vcl::PrinterController>& );
 
     static SAL_DLLPRIVATE sal_uLong ImplSalPrinterErrorCodeToVCL( sal_uLong nError );
 
@@ -279,17 +279,17 @@ public:
                                 Printer();
                                 Printer( const JobSetup& rJobSetup );
                                 Printer( const QueueInfo& rQueueInfo );
-                                Printer( const OUString& rPrinterName );
+                                Printer( const rtl::OUString& rPrinterName );
     virtual                     ~Printer();
 
-    static const std::vector< OUString >& GetPrinterQueues();
-    static const QueueInfo*     GetQueueInfo( const OUString& rPrinterName, bool bStatusUpdate );
-    static OUString            GetDefaultPrinterName();
+    static const std::vector< rtl::OUString >& GetPrinterQueues();
+    static const QueueInfo*     GetQueueInfo( const rtl::OUString& rPrinterName, bool bStatusUpdate );
+    static rtl::OUString            GetDefaultPrinterName();
 
     virtual void                Error();
 
-    const OUString&            GetName() const             { return maPrinterName; }
-    const OUString&            GetDriverName() const       { return maDriver; }
+    const rtl::OUString&            GetName() const             { return maPrinterName; }
+    const rtl::OUString&            GetDriverName() const       { return maDriver; }
     sal_Bool                        IsDefPrinter() const        { return mbDefPrinter; }
     sal_Bool                        IsDisplayPrinter() const    { return mpDisplayDev != NULL; }
     sal_Bool                        IsValid() const             { return !IsDisplayPrinter(); }
@@ -299,7 +299,7 @@ public:
 
     sal_Bool                        SetJobSetup( const JobSetup& rSetup );
     const JobSetup&             GetJobSetup() const { return maJobSetup; }
-    void                        SetJobValue( const OUString& rKey, const OUString& rValue ) { maJobSetup.SetValue( rKey, rValue ); }
+    void                        SetJobValue( const rtl::OUString& rKey, const rtl::OUString& rValue ) { maJobSetup.SetValue( rKey, rValue ); }
 
     sal_Bool                        Setup( Window* pWindow = NULL );
     sal_Bool                        SetPrinterProps( const Printer* pPrinter );
@@ -325,16 +325,16 @@ public:
     sal_Bool                        SetPaperSizeUser( const Size& rSize );
     sal_Bool                        SetPaperSizeUser( const Size& rSize, bool bMatchNearest );
     Paper                   GetPaper() const;
-    static OUString        GetPaperName( Paper ePaper );
+    static rtl::OUString        GetPaperName( Paper ePaper );
     // return a UI string for the current paper; i_bPaperUser == false means an empty string for PAPER_USER
-    OUString               GetPaperName( bool i_bPaperUser = true ) const;
+    rtl::OUString               GetPaperName( bool i_bPaperUser = true ) const;
 
     // returns number of available paper formats
     int                         GetPaperInfoCount() const;
     // returns info about paper format nPaper
     const PaperInfo&            GetPaperInfo( int nPaper ) const;
     sal_uInt16                      GetPaperBinCount() const;
-    OUString                   GetPaperBinName( sal_uInt16 nPaperBin ) const;
+    rtl::OUString                   GetPaperBinName( sal_uInt16 nPaperBin ) const;
 
     const Size&                 GetPaperSizePixel() const { return maPaperSize; }
     Size                        GetPaperSize() const { return PixelToLogic( maPaperSize ); }
@@ -347,7 +347,7 @@ public:
 
     sal_Bool                        IsPrinting() const { return mbPrinting; }
 
-    const OUString&            GetCurJobName() const { return maJobName; }
+    const rtl::OUString&            GetCurJobName() const { return maJobName; }
     sal_uInt16                      GetCurPage() const { return mnCurPage; }
     sal_Bool                        IsJobActive() const { return mbJobActive; }
 
@@ -443,20 +443,20 @@ public:
 
     /* get the PropertyValue of a Property
     */
-    com::sun::star::beans::PropertyValue* getValue( const OUString& i_rPropertyName );
-    const com::sun::star::beans::PropertyValue* getValue( const OUString& i_rPropertyName ) const;
+    com::sun::star::beans::PropertyValue* getValue( const rtl::OUString& i_rPropertyName );
+    const com::sun::star::beans::PropertyValue* getValue( const rtl::OUString& i_rPropertyName ) const;
     /* get a bool property
        in case the property is unknown or not convertible to bool, i_bFallback is returned
     */
-    sal_Bool getBoolProperty( const OUString& i_rPropertyName, sal_Bool i_bFallback ) const;
+    sal_Bool getBoolProperty( const rtl::OUString& i_rPropertyName, sal_Bool i_bFallback ) const;
     /* get an int property
        in case the property is unknown or not convertible to bool, i_nFallback is returned
     */
-    sal_Int32 getIntProperty( const OUString& i_rPropertyName, sal_Int32 i_nFallback ) const;
+    sal_Int32 getIntProperty( const rtl::OUString& i_rPropertyName, sal_Int32 i_nFallback ) const;
 
     /* set a property value - can also be used to add another UI property
     */
-    void setValue( const OUString& i_rPropertyName, const com::sun::star::uno::Any& i_rValue );
+    void setValue( const rtl::OUString& i_rPropertyName, const com::sun::star::uno::Any& i_rValue );
     void setValue( const com::sun::star::beans::PropertyValue& i_rValue );
 
     /* return the currently active UI options. These are the same that were passed to setUIOptions.
@@ -468,12 +468,12 @@ public:
     void setUIOptions( const com::sun::star::uno::Sequence< com::sun::star::beans::PropertyValue >& );
     /* enable/disable an option; this can be used to implement dialog logic.
     */
-    bool isUIOptionEnabled( const OUString& rPropName ) const;
-    bool isUIChoiceEnabled( const OUString& rPropName, sal_Int32 nChoice ) const;
+    bool isUIOptionEnabled( const rtl::OUString& rPropName ) const;
+    bool isUIChoiceEnabled( const rtl::OUString& rPropName, sal_Int32 nChoice ) const;
     /* returns the property name rPropName depends on or an empty string
        if no dependency exists.
     */
-    OUString getDependency( const OUString& rPropName ) const;
+    rtl::OUString getDependency( const rtl::OUString& rPropName ) const;
     /* makeEnabled will chage the property rPropName depends on to the value
        that makes rPropName enabled. If the dependency itself is also disabled,
        no action will be performed.
@@ -481,7 +481,7 @@ public:
        returns the property name rPropName depends on or an empty string
        if no change was made.
     */
-    OUString makeEnabled( const OUString& rPropName );
+    rtl::OUString makeEnabled( const rtl::OUString& rPropName );
 
     virtual int  getPageCount() const = 0; // must be overloaded by the app
     /* get the page parameters, namely the jobsetup that should be active for the page
@@ -538,7 +538,7 @@ public:
 class VCL_DLLPUBLIC PrinterOptionsHelper
 {
     protected:
-    boost::unordered_map< OUString, com::sun::star::uno::Any, OUStringHash >        m_aPropertyMap;
+    boost::unordered_map< rtl::OUString, com::sun::star::uno::Any, rtl::OUStringHash >        m_aPropertyMap;
     com::sun::star::uno::Sequence< com::sun::star::beans::PropertyValue >              m_aUIProperties;
 
     public:
@@ -554,7 +554,7 @@ class VCL_DLLPUBLIC PrinterOptionsHelper
      * if the optional output set is not NULL then the names of the changed properties are returned
     **/
     bool processProperties( const com::sun::star::uno::Sequence< com::sun::star::beans::PropertyValue >& i_rNewProp,
-                            std::set< OUString >* o_pChangeProp = NULL );
+                            std::set< rtl::OUString >* o_pChangeProp = NULL );
     /* append  to a sequence of property values the ui property sequence passed at creation
      * as the "ExtraPrintUIOptions" property. if that sequence was empty, no "ExtraPrintUIOptions" property
      * will be appended.
@@ -562,38 +562,38 @@ class VCL_DLLPUBLIC PrinterOptionsHelper
     void appendPrintUIOptions( com::sun::star::uno::Sequence< com::sun::star::beans::PropertyValue >& io_rProps ) const;
 
     // returns an empty Any for not existing properties
-    com::sun::star::uno::Any getValue( const OUString& i_rPropertyName ) const;
+    com::sun::star::uno::Any getValue( const rtl::OUString& i_rPropertyName ) const;
 
-    sal_Bool getBoolValue( const OUString& i_rPropertyName, sal_Bool i_bDefault = sal_False ) const;
+    sal_Bool getBoolValue( const rtl::OUString& i_rPropertyName, sal_Bool i_bDefault = sal_False ) const;
     // convenience for fixed strings
     sal_Bool getBoolValue( const char* i_pPropName, sal_Bool i_bDefault = sal_False ) const
-    { return getBoolValue( OUString::createFromAscii( i_pPropName ), i_bDefault ); }
+    { return getBoolValue( rtl::OUString::createFromAscii( i_pPropName ), i_bDefault ); }
 
-    sal_Int64 getIntValue( const OUString& i_rPropertyName, sal_Int64 i_nDefault = 0 ) const;
+    sal_Int64 getIntValue( const rtl::OUString& i_rPropertyName, sal_Int64 i_nDefault = 0 ) const;
     // convenience for fixed strings
     sal_Int64 getIntValue( const char* i_pPropName, sal_Int64 i_nDefault = 0 ) const
-    { return getIntValue( OUString::createFromAscii( i_pPropName ), i_nDefault ); }
+    { return getIntValue( rtl::OUString::createFromAscii( i_pPropName ), i_nDefault ); }
 
-    OUString getStringValue( const OUString& i_rPropertyName, const OUString& i_rDefault = OUString() ) const;
+    rtl::OUString getStringValue( const rtl::OUString& i_rPropertyName, const rtl::OUString& i_rDefault = rtl::OUString() ) const;
     // convenience for fixed strings
-    OUString getStringValue( const char* i_pPropName, const OUString& i_rDefault = OUString() ) const
-    { return getStringValue( OUString::createFromAscii( i_pPropName ), i_rDefault ); }
+    rtl::OUString getStringValue( const char* i_pPropName, const rtl::OUString& i_rDefault = rtl::OUString() ) const
+    { return getStringValue( rtl::OUString::createFromAscii( i_pPropName ), i_rDefault ); }
 
     // helper functions for user to create a single control
     struct UIControlOptions
     {
-        OUString   maDependsOnName;
+        rtl::OUString   maDependsOnName;
         sal_Int32       mnDependsOnEntry;
         sal_Bool        mbAttachToDependency;
-        OUString   maGroupHint;
+        rtl::OUString   maGroupHint;
         sal_Bool        mbInternalOnly;
         sal_Bool        mbEnabled;
         com::sun::star::uno::Sequence< com::sun::star::beans::PropertyValue > maAddProps;
 
-        UIControlOptions( const OUString& i_rDependsOnName = OUString(),
+        UIControlOptions( const rtl::OUString& i_rDependsOnName = rtl::OUString(),
                           sal_Int32 i_nDependsOnEntry = -1,
                           sal_Bool i_bAttachToDependency = sal_False,
-                          const OUString& i_rGroupHint = OUString(),
+                          const rtl::OUString& i_rGroupHint = rtl::OUString(),
                           sal_Bool i_bInternalOnly = sal_False,
                           sal_Bool i_bEnabled = sal_True
                          )
@@ -605,56 +605,56 @@ class VCL_DLLPUBLIC PrinterOptionsHelper
         , mbEnabled( i_bEnabled ) {}
     };
 
-    // note: in the following helper functions HelpIds are expected as an OUString
-    // the normal HelpId form is OString (byte string instead of UTF16 string)
+    // note: in the following helper functions HelpIds are expected as an rtl::OUString
+    // the normal HelpId form is rtl::OString (byte string instead of UTF16 string)
     // this is because the whole interface is base on UNO properties; in fact the structures
     // are passed over UNO interfaces. UNO does not know a byte string, hence the string is
     // transported via UTF16 strings.
 
     // Show general control
-    static com::sun::star::uno::Any setUIControlOpt( const com::sun::star::uno::Sequence< OUString >& i_rIDs,
-                                                     const OUString& i_rTitle,
-                                                     const com::sun::star::uno::Sequence< OUString >& i_rHelpId,
-                                                     const OUString& i_rType,
+    static com::sun::star::uno::Any setUIControlOpt( const com::sun::star::uno::Sequence< rtl::OUString >& i_rIDs,
+                                                     const rtl::OUString& i_rTitle,
+                                                     const com::sun::star::uno::Sequence< rtl::OUString >& i_rHelpId,
+                                                     const rtl::OUString& i_rType,
                                                      const com::sun::star::beans::PropertyValue* i_pValue = NULL,
                                                      const UIControlOptions& i_rControlOptions = UIControlOptions()
                                                      );
 
     // Show and set the title of a TagPage of id i_rID
-    static com::sun::star::uno::Any setGroupControlOpt(const OUString& i_rID,
-                                                       const OUString& i_rTitle,
-                                                       const OUString& i_rHelpId);
+    static com::sun::star::uno::Any setGroupControlOpt(const rtl::OUString& i_rID,
+                                                       const rtl::OUString& i_rTitle,
+                                                       const rtl::OUString& i_rHelpId);
 
     // Show and set the label of a VclFrame of id i_rID
-    static com::sun::star::uno::Any setSubgroupControlOpt(const OUString& i_rID,
-                                                          const OUString& i_rTitle,
-                                                          const OUString& i_rHelpId,
+    static com::sun::star::uno::Any setSubgroupControlOpt(const rtl::OUString& i_rID,
+                                                          const rtl::OUString& i_rTitle,
+                                                          const rtl::OUString& i_rHelpId,
                                                           const UIControlOptions& i_rControlOptions = UIControlOptions());
 
     // Show a bool option as a checkbox
-    static com::sun::star::uno::Any setBoolControlOpt(const OUString& i_rID,
-                                                      const OUString& i_rTitle,
-                                                      const OUString& i_rHelpId,
-                                                      const OUString& i_rProperty,
+    static com::sun::star::uno::Any setBoolControlOpt(const rtl::OUString& i_rID,
+                                                      const rtl::OUString& i_rTitle,
+                                                      const rtl::OUString& i_rHelpId,
+                                                      const rtl::OUString& i_rProperty,
                                                       sal_Bool i_bValue,
                                                       const UIControlOptions& i_rControlOptions = UIControlOptions());
 
     // Show a set of choices in a list box
-    static com::sun::star::uno::Any setChoiceListControlOpt(const OUString& i_rID,
-                                                            const OUString& i_rTitle,
-                                                            const com::sun::star::uno::Sequence< OUString >& i_rHelpId,
-                                                            const OUString& i_rProperty,
-                                                            const com::sun::star::uno::Sequence< OUString >& i_rChoices,
+    static com::sun::star::uno::Any setChoiceListControlOpt(const rtl::OUString& i_rID,
+                                                            const rtl::OUString& i_rTitle,
+                                                            const com::sun::star::uno::Sequence< rtl::OUString >& i_rHelpId,
+                                                            const rtl::OUString& i_rProperty,
+                                                            const com::sun::star::uno::Sequence< rtl::OUString >& i_rChoices,
                                                             sal_Int32 i_nValue,
                                                             const com::sun::star::uno::Sequence< sal_Bool >& i_rDisabledChoices = com::sun::star::uno::Sequence< sal_Bool >(),
                                                             const UIControlOptions& i_rControlOptions = UIControlOptions());
 
     // show a set of choices as radio buttons
-    static com::sun::star::uno::Any setChoiceRadiosControlOpt(const com::sun::star::uno::Sequence< OUString >& i_rIDs,
-                                                            const OUString& i_rTitle,
-                                                            const com::sun::star::uno::Sequence< OUString >& i_rHelpId,
-                                                            const OUString& i_rProperty,
-                                                            const com::sun::star::uno::Sequence< OUString >& i_rChoices,
+    static com::sun::star::uno::Any setChoiceRadiosControlOpt(const com::sun::star::uno::Sequence< rtl::OUString >& i_rIDs,
+                                                            const rtl::OUString& i_rTitle,
+                                                            const com::sun::star::uno::Sequence< rtl::OUString >& i_rHelpId,
+                                                            const rtl::OUString& i_rProperty,
+                                                            const com::sun::star::uno::Sequence< rtl::OUString >& i_rChoices,
                                                             sal_Int32 i_nValue,
                                                             const com::sun::star::uno::Sequence< sal_Bool >& i_rDisabledChoices = com::sun::star::uno::Sequence< sal_Bool >(),
                                                             const UIControlOptions& i_rControlOptions = UIControlOptions());
@@ -662,10 +662,10 @@ class VCL_DLLPUBLIC PrinterOptionsHelper
 
     // show an integer range (e.g. a spin field)
     // note: max value < min value means do not apply min/max values
-    static com::sun::star::uno::Any setRangeControlOpt(const OUString& i_rID,
-                                                       const OUString& i_rTitle,
-                                                       const OUString& i_rHelpId,
-                                                       const OUString& i_rProperty,
+    static com::sun::star::uno::Any setRangeControlOpt(const rtl::OUString& i_rID,
+                                                       const rtl::OUString& i_rTitle,
+                                                       const rtl::OUString& i_rHelpId,
+                                                       const rtl::OUString& i_rProperty,
                                                        sal_Int32 i_nValue,
                                                        sal_Int32 i_nMinValue = -1,
                                                        sal_Int32 i_nMaxValue = -2,
@@ -673,11 +673,11 @@ class VCL_DLLPUBLIC PrinterOptionsHelper
 
     // show a string field
     // note: max value < min value means do not apply min/max values
-    static com::sun::star::uno::Any setEditControlOpt(const OUString& i_rID,
-                                                      const OUString& i_rTitle,
-                                                      const OUString& i_rHelpId,
-                                                      const OUString& i_rProperty,
-                                                      const OUString& i_rValue,
+    static com::sun::star::uno::Any setEditControlOpt(const rtl::OUString& i_rID,
+                                                      const rtl::OUString& i_rTitle,
+                                                      const rtl::OUString& i_rHelpId,
+                                                      const rtl::OUString& i_rProperty,
+                                                      const rtl::OUString& i_rValue,
                                                       const UIControlOptions& i_rControlOptions = UIControlOptions());
 };
 

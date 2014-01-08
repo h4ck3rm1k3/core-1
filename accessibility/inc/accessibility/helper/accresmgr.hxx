@@ -56,7 +56,7 @@ protected:
 
 public:
     // loads the string with the specified resource id
-    static OUString loadString( sal_uInt16 nResId );
+    static rtl::OUString loadString( sal_uInt16 nResId );
 };
 
 }

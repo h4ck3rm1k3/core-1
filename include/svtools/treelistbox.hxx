@@ -301,9 +301,9 @@ protected:
 
     // In-place editing
     SvInplaceEdit2*  pEdCtrl;
-    void            EditText( const OUString&, const Rectangle&,const Selection&);
-    void            EditText( const OUString&, const Rectangle&,const Selection&, sal_Bool bMulti);
-    void            EditTextMultiLine( const OUString&, const Rectangle&,const Selection&);
+    void            EditText( const rtl::OUString&, const Rectangle&,const Selection&);
+    void            EditText( const rtl::OUString&, const Rectangle&,const Selection&, sal_Bool bMulti);
+    void            EditTextMultiLine( const rtl::OUString&, const Rectangle&,const Selection&);
     void            CancelTextEditing();
     sal_Bool            EditingCanceled() const;
     bool            IsEmptyTextAllowed() const;
@@ -332,14 +332,14 @@ protected:
     void            OnCurrentEntryChanged();
 
     // IMnemonicEntryList
-    virtual const void* FirstSearchEntry( OUString& _rEntryText ) const;
-    virtual const void* NextSearchEntry( const void* _pCurrentSearchEntry, OUString& _rEntryText ) const;
+    virtual const void* FirstSearchEntry( rtl::OUString& _rEntryText ) const;
+    virtual const void* NextSearchEntry( const void* _pCurrentSearchEntry, rtl::OUString& _rEntryText ) const;
     virtual void        SelectSearchEntry( const void* _pEntry );
     virtual void        ExecuteSearchEntry( const void* _pEntry ) const;
 
     // ISearchableStringList
-    virtual ::vcl::StringEntryIdentifier    CurrentEntry( OUString& _out_entryText ) const;
-    virtual ::vcl::StringEntryIdentifier    NextEntry( ::vcl::StringEntryIdentifier _currentEntry, OUString& _out_entryText ) const;
+    virtual ::vcl::StringEntryIdentifier    CurrentEntry( rtl::OUString& _out_entryText ) const;
+    virtual ::vcl::StringEntryIdentifier    NextEntry( ::vcl::StringEntryIdentifier _currentEntry, rtl::OUString& _out_entryText ) const;
     virtual void                            SelectEntry( ::vcl::StringEntryIdentifier _entry );
 
 public:
@@ -514,14 +514,14 @@ public:
 
     sal_uInt16          GetTreeFlags() const {return nTreeFlags;}
 
-    OUString            headString;
-    OUString            SearchEntryTextWithHeadTitle(SvTreeListEntry* pEntry);
-    virtual OUString    GetEntryAltText(SvTreeListEntry* pEntry) const;
-    virtual OUString    GetEntryLongDescription(SvTreeListEntry* pEntry) const;
+    rtl::OUString            headString;
+    rtl::OUString            SearchEntryTextWithHeadTitle(SvTreeListEntry* pEntry);
+    virtual rtl::OUString    GetEntryAltText(SvTreeListEntry* pEntry) const;
+    virtual rtl::OUString    GetEntryLongDescription(SvTreeListEntry* pEntry) const;
 
     void set_min_width_in_chars(sal_Int32 nChars);
 
-    virtual bool set_property(const OString &rKey, const OString &rValue);
+    virtual bool set_property(const rtl::OString &rKey, const rtl::OString &rValue);
 
 protected:
     using SvListView::Expand;
@@ -550,7 +550,7 @@ protected:
 
     void            EditItemText( SvTreeListEntry* pEntry, SvLBoxString* pItem,
                         const Selection& );
-    void            EditedText(const OUString&);
+    void            EditedText(const rtl::OUString&);
 
     // Recalculate all tabs depending on TreeListStyle and Bitmap sizes
     // Is called automatically when inserting/changing Bitmaps, changing the Model etc.
@@ -566,7 +566,7 @@ protected:
     SvLBoxTab*      GetTab( SvTreeListEntry*, SvLBoxItem* ) const;
     void            ClearTabList();
 
-    virtual void InitEntry(SvTreeListEntry*, const OUString&, const Image&, const Image&, SvLBoxButtonKind);
+    virtual void InitEntry(SvTreeListEntry*, const rtl::OUString&, const Image&, const Image&, SvLBoxButtonKind);
 
     virtual void    NotifyBeginScroll();
     virtual void    NotifyEndScroll();
@@ -630,12 +630,12 @@ public:
         );
     }
 
-    virtual SvTreeListEntry*    InsertEntry( const OUString& rText, SvTreeListEntry* pParent = 0,
+    virtual SvTreeListEntry*    InsertEntry( const rtl::OUString& rText, SvTreeListEntry* pParent = 0,
                                          sal_Bool bChildrenOnDemand = sal_False,
                                          sal_uLong nPos=LIST_APPEND, void* pUserData = 0,
                                          SvLBoxButtonKind eButtonKind = SvLBoxButtonKind_enabledCheckbox );
 
-    virtual SvTreeListEntry*    InsertEntry( const OUString& rText,
+    virtual SvTreeListEntry*    InsertEntry( const rtl::OUString& rText,
                                          const Image& rExpandedEntryBmp,
                                          const Image& rCollapsedEntryBmp,
                                          SvTreeListEntry* pParent = 0,
@@ -653,12 +653,12 @@ public:
     void            SetCheckButtonInvisible( SvTreeListEntry* );
     SvButtonState   GetCheckButtonState( SvTreeListEntry* ) const;
 
-    void            SetEntryText(SvTreeListEntry*, const OUString& );
+    void            SetEntryText(SvTreeListEntry*, const rtl::OUString& );
     void            SetExpandedEntryBmp( SvTreeListEntry* _pEntry, const Image& _rImage );
     void            SetCollapsedEntryBmp( SvTreeListEntry* _pEntry, const Image& _rImage );
 
-    virtual OUString GetEntryText( SvTreeListEntry* pEntry ) const;
-    OUString        SearchEntryText( SvTreeListEntry* pEntry ) const;
+    virtual rtl::OUString GetEntryText( SvTreeListEntry* pEntry ) const;
+    rtl::OUString        SearchEntryText( SvTreeListEntry* pEntry ) const;
     const Image&    GetExpandedEntryBmp(const SvTreeListEntry* _pEntry ) const;
     const Image&    GetCollapsedEntryBmp(const SvTreeListEntry* _pEntry ) const;
 
@@ -673,7 +673,7 @@ public:
     // Edits the Entry's first StringItem, 0 == Cursor
     void            EditEntry( SvTreeListEntry* pEntry = NULL );
     virtual sal_Bool    EditingEntry( SvTreeListEntry* pEntry, Selection& );
-    virtual sal_Bool    EditedEntry( SvTreeListEntry* pEntry, const OUString& rNewText );
+    virtual sal_Bool    EditedEntry( SvTreeListEntry* pEntry, const rtl::OUString& rNewText );
 
     virtual void    Paint( const Rectangle& rRect );
     virtual void    MouseButtonDown( const MouseEvent& rMEvt );
@@ -814,14 +814,14 @@ class SvInplaceEdit2
 
 public:
                 SvInplaceEdit2( Window* pParent, const Point& rPos, const Size& rSize,
-                   const OUString& rData, const Link& rNotifyEditEnd,
+                   const rtl::OUString& rData, const Link& rNotifyEditEnd,
                    const Selection&, sal_Bool bMultiLine = sal_False );
                ~SvInplaceEdit2();
     sal_Bool        KeyInput( const KeyEvent& rKEvt );
     void        LoseFocus();
     sal_Bool        EditingCanceled() const { return bCanceled; }
-    OUString    GetText() const;
-    OUString    GetSavedValue() const;
+    rtl::OUString    GetText() const;
+    rtl::OUString    GetSavedValue() const;
     void        StopEditing( sal_Bool bCancel = sal_False );
     void        Hide();
 };

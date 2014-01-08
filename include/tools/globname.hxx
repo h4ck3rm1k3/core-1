@@ -90,8 +90,8 @@ public:
                       { return !(*this == rObj); }
 
     void          MakeFromMemory( void * pData );
-    bool          MakeId( const OUString & rId );
-    OUString      GetHexName() const;
+    bool          MakeId( const rtl::OUString & rId );
+    rtl::OUString      GetHexName() const;
 
                   SvGlobalName( const CLSID & rId );
     const CLSID & GetCLSID() const { return *(CLSID *)pImp->szData; }

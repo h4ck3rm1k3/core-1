@@ -51,7 +51,7 @@ private:
     sal_Bool                    mbDefaultLocale;
 
 protected:
-    SAL_DLLPRIVATE void     ImplSetText( const OUString& rText, Selection* pNewSel = NULL );
+    SAL_DLLPRIVATE void     ImplSetText( const rtl::OUString& rText, Selection* pNewSel = NULL );
     SAL_DLLPRIVATE sal_Bool     ImplGetEmptyFieldValue() const  { return mbEmptyFieldValue; }
 
     void                    SetEmptyFieldValueData( sal_Bool bValue ) { mbEmptyFieldValue = bValue; }
@@ -103,9 +103,9 @@ public:
 class VCL_DLLPUBLIC PatternFormatter : public FormatterBase
 {
 private:
-    OString                m_aEditMask;
-    OUString               maFieldString;
-    OUString               maLiteralMask;
+    rtl::OString                m_aEditMask;
+    rtl::OUString               maFieldString;
+    rtl::OUString               maLiteralMask;
     sal_uInt16             mnFormatFlags;
     bool                   mbSameMask;
     sal_Bool               mbInPattKeyInput;
@@ -113,8 +113,8 @@ private:
 protected:
                             PatternFormatter();
 
-    SAL_DLLPRIVATE void ImplSetMask(const OString& rEditMask,
-        const OUString& rLiteralMask);
+    SAL_DLLPRIVATE void ImplSetMask(const rtl::OString& rEditMask,
+        const rtl::OUString& rLiteralMask);
     SAL_DLLPRIVATE bool     ImplIsSameMask() const { return mbSameMask; }
     SAL_DLLPRIVATE sal_Bool&    ImplGetInPattKeyInput() { return mbInPattKeyInput; }
 
@@ -123,15 +123,15 @@ public:
 
     virtual void            Reformat();
 
-    void SetMask(const OString& rEditMask, const OUString& rLiteralMask );
-    const OString& GetEditMask() const { return m_aEditMask; }
-    const OUString&        GetLiteralMask() const  { return maLiteralMask; }
+    void SetMask(const rtl::OString& rEditMask, const rtl::OUString& rLiteralMask );
+    const rtl::OString& GetEditMask() const { return m_aEditMask; }
+    const rtl::OUString&        GetLiteralMask() const  { return maLiteralMask; }
 
     void                    SetFormatFlags( sal_uInt16 nFlags ) { mnFormatFlags = nFlags; }
     sal_uInt16                  GetFormatFlags() const { return mnFormatFlags; }
 
-    void                    SetString( const OUString& rStr );
-    OUString                GetString() const;
+    void                    SetString( const rtl::OUString& rStr );
+    rtl::OUString                GetString() const;
     sal_Bool                IsStringModified() const { return !(GetString() == maFieldString ); }
 };
 
@@ -170,7 +170,7 @@ protected:
     void                    FieldLast();
 
     SAL_DLLPRIVATE void     ImplLoadRes( const ResId& rResId );
-    SAL_DLLPRIVATE sal_Bool ImplNumericReformat( const OUString& rStr, sal_Int64& rValue, OUString& rOutStr );
+    SAL_DLLPRIVATE sal_Bool ImplNumericReformat( const rtl::OUString& rStr, sal_Int64& rValue, rtl::OUString& rOutStr );
     SAL_DLLPRIVATE void     ImplNewFieldValue( sal_Int64 nNewValue );
     SAL_DLLPRIVATE void     ImplSetUserValue( sal_Int64 nNewValue, Selection* pNewSelection = NULL );
 
@@ -204,7 +204,7 @@ public:
     void                    SetUserValue( sal_Int64 nNewValue );
     virtual void            SetValue( sal_Int64 nNewValue );
     virtual sal_Int64       GetValue() const;
-    virtual OUString        CreateFieldText( sal_Int64 nValue ) const;
+    virtual rtl::OUString        CreateFieldText( sal_Int64 nValue ) const;
     sal_Bool                    IsValueModified() const;
     sal_Int64               GetCorrectedValue() const { return mnCorrectedValue; }
 
@@ -222,8 +222,8 @@ private:
     SAL_DLLPRIVATE  void    ImplInit();
 
 protected:
-    OUString                maCustomUnitText;
-    OUString                maCurUnitText;
+    rtl::OUString                maCustomUnitText;
+    rtl::OUString                maCurUnitText;
     sal_Int64               mnBaseValue;
     FieldUnit               meUnit;
     Link                    maCustomConvertLink;
@@ -232,7 +232,7 @@ protected:
                             MetricFormatter();
 
     SAL_DLLPRIVATE void     ImplLoadRes( const ResId& rResId );
-    SAL_DLLPRIVATE sal_Bool     ImplMetricReformat( const OUString& rStr, double& rValue, OUString& rOutStr );
+    SAL_DLLPRIVATE sal_Bool     ImplMetricReformat( const rtl::OUString& rStr, double& rValue, rtl::OUString& rOutStr );
 
 public:
     virtual                 ~MetricFormatter();
@@ -242,9 +242,9 @@ public:
 
     virtual void            SetUnit( FieldUnit meUnit );
     FieldUnit               GetUnit() const { return meUnit; }
-    void                    SetCustomUnitText( const OUString& rStr );
-    const OUString&         GetCustomUnitText() const { return maCustomUnitText; }
-    const OUString&         GetCurUnitText() const { return maCurUnitText; }
+    void                    SetCustomUnitText( const rtl::OUString& rStr );
+    const rtl::OUString&         GetCustomUnitText() const { return maCustomUnitText; }
+    const rtl::OUString&         GetCurUnitText() const { return maCurUnitText; }
 
     using NumericFormatter::SetMax;
     void                    SetMax( sal_Int64 nNewMax, FieldUnit eInUnit );
@@ -263,7 +263,7 @@ public:
     void                    SetUserValue( sal_Int64 nNewValue, FieldUnit eInUnit );
     virtual sal_Int64       GetValue( FieldUnit eOutUnit ) const;
     virtual sal_Int64       GetValue() const;
-    virtual OUString        CreateFieldText( sal_Int64 nValue ) const;
+    virtual rtl::OUString        CreateFieldText( sal_Int64 nValue ) const;
     using NumericFormatter::GetCorrectedValue;
     sal_Int64               GetCorrectedValue( FieldUnit eOutUnit ) const;
 
@@ -283,18 +283,18 @@ private:
 
 protected:
                             CurrencyFormatter();
-    SAL_DLLPRIVATE sal_Bool     ImplCurrencyReformat( const OUString& rStr, OUString& rOutStr );
+    SAL_DLLPRIVATE sal_Bool     ImplCurrencyReformat( const rtl::OUString& rStr, rtl::OUString& rOutStr );
 
 public:
     virtual                 ~CurrencyFormatter();
 
     virtual void            Reformat();
 
-    OUString                GetCurrencySymbol() const;
+    rtl::OUString                GetCurrencySymbol() const;
 
     virtual void            SetValue( sal_Int64 nNewValue );
     virtual sal_Int64       GetValue() const;
-    virtual OUString        CreateFieldText( sal_Int64 nValue ) const;
+    virtual rtl::OUString        CreateFieldText( sal_Int64 nValue ) const;
 };
 
 
@@ -324,11 +324,11 @@ protected:
 
     SAL_DLLPRIVATE void     ImplLoadRes( const ResId& rResId );
     SAL_DLLPRIVATE const Date& ImplGetFieldDate() const    { return maFieldDate; }
-    SAL_DLLPRIVATE sal_Bool     ImplDateReformat( const OUString& rStr, OUString& rOutStr,
+    SAL_DLLPRIVATE sal_Bool     ImplDateReformat( const rtl::OUString& rStr, rtl::OUString& rOutStr,
                                               const AllSettings& rSettings );
     SAL_DLLPRIVATE void     ImplSetUserDate( const Date& rNewDate,
                                              Selection* pNewSelection = NULL );
-    SAL_DLLPRIVATE OUString ImplGetDateAsText( const Date& rDate,
+    SAL_DLLPRIVATE rtl::OUString ImplGetDateAsText( const Date& rDate,
                                                const AllSettings& rSettings ) const;
     SAL_DLLPRIVATE void     ImplNewFieldValue( const Date& rDate );
     CalendarWrapper&        GetCalendarWrapper() const;
@@ -419,7 +419,7 @@ protected:
                             TimeFormatter();
 
     SAL_DLLPRIVATE void     ImplLoadRes( const ResId& rResId );
-    SAL_DLLPRIVATE sal_Bool     ImplTimeReformat( const OUString& rStr, OUString& rOutStr );
+    SAL_DLLPRIVATE sal_Bool     ImplTimeReformat( const rtl::OUString& rStr, rtl::OUString& rOutStr );
     SAL_DLLPRIVATE void     ImplNewFieldValue( const Time& rTime );
     SAL_DLLPRIVATE void     ImplSetUserTime( const Time& rNewTime, Selection* pNewSelection = NULL );
     SAL_DLLPRIVATE sal_Bool     ImplAllowMalformedInput() const;
@@ -518,7 +518,7 @@ public:
     virtual void            Down();
     virtual void            First();
     virtual void            Last();
-    virtual bool            set_property(const OString &rKey, const OString &rValue);
+    virtual bool            set_property(const rtl::OString &rKey, const rtl::OString &rValue);
 };
 
 
@@ -589,7 +589,7 @@ public:
                                                 MapUnit eInUnit, FieldUnit eOutUnit )
     { return ConvertDoubleValue( static_cast<double>(nValue), nDecDigits, eInUnit, eOutUnit ); }
 
-    virtual bool            set_property(const OString &rKey, const OString &rValue);
+    virtual bool            set_property(const rtl::OString &rKey, const rtl::OString &rValue);
 };
 
 

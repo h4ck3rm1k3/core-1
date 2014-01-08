@@ -210,7 +210,7 @@ public:
     virtual Pointer GetMacroPointer (const SdrObjMacroHitRec& rRec, const SdrObject* pObj) const;
     virtual void PaintMacro (OutputDevice& rOut, const Rectangle& rDirtyRect, const SdrObjMacroHitRec& rRec, const SdrObject* pObj) const;
     virtual bool DoMacro (const SdrObjMacroHitRec& rRec, SdrObject* pObj);
-    virtual OUString GetMacroPopupComment(const SdrObjMacroHitRec& rRec, const SdrObject* pObj) const;
+    virtual rtl::OUString GetMacroPopupComment(const SdrObjMacroHitRec& rRec, const SdrObject* pObj) const;
 };
 
 //   Hilfsklasse SdrObjUserDataList
@@ -264,9 +264,9 @@ class SdrObjPlusData
 
     // #i68101#
     // object name, title and description
-    OUString aObjName;
-    OUString aObjTitle;
-    OUString aObjDescription;
+    rtl::OUString aObjName;
+    rtl::OUString aObjTitle;
+    rtl::OUString aObjDescription;
 
 public:
     TYPEINFO();
@@ -429,12 +429,12 @@ protected:
     Rectangle ImpDragCalcRect(const SdrDragStat& rDrag) const;
 
     // Fuer GetDragComment
-    void ImpTakeDescriptionStr(sal_uInt16 nStrCacheID, OUString& rStr, sal_uInt16 nVal=0) const;
+    void ImpTakeDescriptionStr(sal_uInt16 nStrCacheID, rtl::OUString& rStr, sal_uInt16 nVal=0) const;
 
     void ImpForcePlusData();
 
-    OUString GetWinkStr(long nWink, bool bNoDegChar = false) const;
-    OUString GetMetrStr(long nVal, MapUnit eWantMap=MAP_MM, bool bNoUnitChars = false) const;
+    rtl::OUString GetWinkStr(long nWink, bool bNoDegChar = false) const;
+    rtl::OUString GetMetrStr(long nVal, MapUnit eWantMap=MAP_MM, bool bNoUnitChars = false) const;
 
     // bNotMyself=true bedeutet: Nur die ObjList auf Dirty setzen, nicht mich.
     // Wird z.B. benoetigt fuer NbcMove, denn da movt man SnapRect und aOutRect
@@ -515,12 +515,12 @@ public:
     // An object may have a user-set Name (Get/SetName()), e.g SdrGrafObj, SdrObjGroup
     // or SdrOle2Obj.
     // It may also have a Title and a Description for accessibility purposes.
-    void SetName(const OUString& rStr);
-    OUString GetName() const;
-    void SetTitle(const OUString& rStr);
-    OUString GetTitle() const;
-    void SetDescription(const OUString& rStr);
-    OUString GetDescription() const;
+    void SetName(const rtl::OUString& rStr);
+    rtl::OUString GetName() const;
+    void SetTitle(const rtl::OUString& rStr);
+    rtl::OUString GetTitle() const;
+    void SetDescription(const rtl::OUString& rStr);
+    rtl::OUString GetDescription() const;
 
     // Fuer Gruppenobjekte
     bool IsGroupObject() const;
@@ -605,8 +605,8 @@ public:
     SdrObject& operator=(const SdrObject& rObj);
 
     // TakeObjName...() ist fuer die Anzeige in der UI, z.B. "3 Rahmen selektiert".
-    virtual OUString TakeObjNameSingul() const;
-    virtual OUString TakeObjNamePlural() const;
+    virtual rtl::OUString TakeObjNameSingul() const;
+    virtual rtl::OUString TakeObjNamePlural() const;
 
     // Das Xor-Polygon wird von der View zu Draggen des Objektes benoetigt.
     // Alle Polygone innerhalb des PolyPolygon werden als PolyLine interpretiert.
@@ -646,7 +646,7 @@ public:
     virtual bool hasSpecialDrag() const;
     virtual bool beginSpecialDrag(SdrDragStat& rDrag) const;
     virtual bool applySpecialDrag(SdrDragStat& rDrag);
-    virtual OUString getSpecialDragComment(const SdrDragStat& rDrag) const;
+    virtual rtl::OUString getSpecialDragComment(const SdrDragStat& rDrag) const;
     virtual basegfx::B2DPolyPolygon getSpecialDragPoly(const SdrDragStat& rDrag) const;
 
     // FullDrag support. This is for standard interactions and for SdrObjOwn
@@ -814,7 +814,7 @@ public:
     virtual Pointer GetMacroPointer (const SdrObjMacroHitRec& rRec) const;
     virtual void PaintMacro (OutputDevice& rOut, const Rectangle& rDirtyRect, const SdrObjMacroHitRec& rRec) const;
     virtual bool DoMacro (const SdrObjMacroHitRec& rRec);
-    virtual OUString GetMacroPopupComment(const SdrObjMacroHitRec& rRec) const;
+    virtual rtl::OUString GetMacroPopupComment(const SdrObjMacroHitRec& rRec) const;
     bool IsMacroHit(const SdrObjMacroHitRec& rRec) const;
 
     // Konnektoren. (siehe auch Dokumentation in SvdoEdge.HXX, SdrEdgeObj
@@ -1035,7 +1035,7 @@ public:
     // #i121917#
     virtual bool HasText() const;
 
-    virtual OString stringify() const;
+    virtual rtl::OString stringify() const;
 
 protected:
     /** Sets a new UNO shape

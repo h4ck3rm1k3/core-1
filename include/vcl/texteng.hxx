@@ -145,7 +145,7 @@ protected:
     void                ImpRemoveText();
     TextPaM             ImpDeleteText( const TextSelection& rSel );
     TextPaM             ImpInsertText( const TextSelection& rSel, sal_Unicode c, sal_Bool bOverwrite = sal_False );
-    TextPaM             ImpInsertText( const TextSelection& rSel, const OUString& rText );
+    TextPaM             ImpInsertText( const TextSelection& rSel, const rtl::OUString& rText );
     TextPaM             ImpInsertParaBreak( const TextSelection& rTextSelection, sal_Bool bKeepEndingAttribs = sal_True );
     TextPaM             ImpInsertParaBreak( const TextPaM& rPaM, sal_Bool bKeepEndingAttribs = sal_True );
     void                ImpRemoveChars( const TextPaM& rPaM, sal_uInt16 nChars, SfxUndoAction* pCurUndo = 0 );
@@ -224,11 +224,11 @@ public:
                         TextEngine();
                         ~TextEngine();
 
-    void                SetText( const OUString& rStr );
-    OUString            GetText( LineEnd aSeparator = LINEEND_LF ) const;
-    OUString            GetText( const TextSelection& rSel, LineEnd aSeparator = LINEEND_LF ) const;
-    OUString            GetTextLines( LineEnd aSeparator = LINEEND_LF ) const;
-    void                ReplaceText(const TextSelection& rSel, const OUString& rText);
+    void                SetText( const rtl::OUString& rStr );
+    rtl::OUString            GetText( LineEnd aSeparator = LINEEND_LF ) const;
+    rtl::OUString            GetText( const TextSelection& rSel, LineEnd aSeparator = LINEEND_LF ) const;
+    rtl::OUString            GetTextLines( LineEnd aSeparator = LINEEND_LF ) const;
+    void                ReplaceText(const TextSelection& rSel, const rtl::OUString& rText);
 
     sal_uLong               GetTextLen( LineEnd aSeparator = LINEEND_LF ) const;
     sal_uLong               GetTextLen( const TextSelection& rSel, LineEnd aSeparator = LINEEND_LF ) const;
@@ -262,7 +262,7 @@ public:
     sal_uInt16          GetCharHeight() const { return mnCharHeight; }
 
     sal_uLong           GetParagraphCount() const;
-    OUString            GetText( sal_uLong nParagraph ) const;
+    rtl::OUString            GetText( sal_uLong nParagraph ) const;
     sal_uInt16          GetTextLen( sal_uLong nParagraph ) const;
     sal_uLong           GetTextHeight( sal_uLong nParagraph ) const;
 
@@ -294,7 +294,7 @@ public:
 
     TextPaM             GetPaM( const Point& rDocPos, sal_Bool bSmart = sal_True );
     Rectangle           PaMtoEditCursor( const TextPaM& rPaM, sal_Bool bSpecial = sal_False );
-    OUString            GetWord( const TextPaM& rCursorPos, TextPaM* pStartOfWord = 0 );
+    rtl::OUString            GetWord( const TextPaM& rCursorPos, TextPaM* pStartOfWord = 0 );
 
     sal_Bool            HasAttrib( sal_uInt16 nWhich ) const;
     const TextAttrib*       FindAttrib( const TextPaM& rPaM, sal_uInt16 nWhich ) const;

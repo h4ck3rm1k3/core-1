@@ -155,9 +155,9 @@ public:
     virtual void Move(const Point &rPosition);
     void MoveTo(const Point &rPosition) { Move(rPosition - GetTopLeft()); }
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
-    virtual void CreateTextFromNode(OUString &rText);
+    virtual void CreateTextFromNode(rtl::OUString &rText);
 
-    virtual void    GetAccessibleText( OUStringBuffer &rText ) const;
+    virtual void    GetAccessibleText( rtl::OUStringBuffer &rText ) const;
     sal_Int32       GetAccessibleIndex() const { return nAccIndex; }
     const SmNode *  FindNodeWithAccessibleIndex(sal_Int32 nAccIndex) const;
 
@@ -191,7 +191,7 @@ public:
     /** The tree as dot graph for graphviz, usable for debugging
      * Convert the output to a image using $ dot graph.gv -Tpng > graph.png
      */
-    inline void DumpAsDot(std::ostream &out, OUString* label = NULL) const{
+    inline void DumpAsDot(std::ostream &out, rtl::OUString* label = NULL) const{
         int id = 0;
         DumpAsDot(out, label, -1, id, -1);
     }
@@ -231,7 +231,7 @@ protected:
     }
 private:
     SmStructureNode* aParentNode;
-    void DumpAsDot(std::ostream &out, OUString* label, int number, int& id, int parent) const;
+    void DumpAsDot(std::ostream &out, rtl::OUString* label, int number, int& id, int parent) const;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -325,7 +325,7 @@ public:
 
     SmStructureNode & operator = ( const SmStructureNode &rNode );
 
-    virtual void  GetAccessibleText( OUStringBuffer &rText ) const;
+    virtual void  GetAccessibleText( rtl::OUStringBuffer &rText ) const;
 
     void SetSubNode(size_t nIndex, SmNode* pNode)
     {
@@ -379,7 +379,7 @@ protected:
 
 public:
 
-    virtual void  GetAccessibleText( OUStringBuffer &rText ) const;
+    virtual void  GetAccessibleText( rtl::OUStringBuffer &rText ) const;
 };
 
 
@@ -403,7 +403,7 @@ public:
 
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
 
-    void CreateTextFromNode(OUString &rText);
+    void CreateTextFromNode(rtl::OUString &rText);
     void Accept(SmVisitor* pVisitor);
 };
 
@@ -444,7 +444,7 @@ public:
  */
 class SmTextNode : public SmVisibleNode
 {
-    OUString   aText;
+    rtl::OUString   aText;
     sal_uInt16      nFontDesc;
     /** Index within text where the selection starts
      * @remarks Only valid if SmNode::IsSelected() is true
@@ -462,10 +462,10 @@ public:
     SmTextNode(const SmToken &rNodeToken, sal_uInt16 nFontDescP );
 
     sal_uInt16              GetFontDesc() const { return nFontDesc; }
-    void                SetText(const OUString &rText) { aText = rText; }
-    const OUString &    GetText() const { return aText; }
+    void                SetText(const rtl::OUString &rText) { aText = rText; }
+    const rtl::OUString &    GetText() const { return aText; }
     /** Change the text of this node, including the underlying token */
-    void                ChangeText(const OUString &rText) {
+    void                ChangeText(const rtl::OUString &rText) {
         aText = rText;
         SmToken token = GetToken();
         token.aText = rText;
@@ -489,9 +489,9 @@ public:
 
     virtual void Prepare(const SmFormat &rFormat, const SmDocShell &rDocShell);
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
-    virtual void CreateTextFromNode(OUString &rText);
+    virtual void CreateTextFromNode(rtl::OUString &rText);
 
-    virtual void  GetAccessibleText( OUStringBuffer &rText ) const;
+    virtual void  GetAccessibleText( rtl::OUStringBuffer &rText ) const;
     void Accept(SmVisitor* pVisitor);
     /**
       Converts the character from StarMath's private area symbols to a matching Unicode
@@ -564,7 +564,7 @@ protected:
     {
         sal_Unicode cChar = GetToken().cMathChar;
         if ((sal_Unicode) '\0' != cChar)
-            SetText(OUString(cChar));
+            SetText(rtl::OUString(cChar));
     }
 
 public:
@@ -575,7 +575,7 @@ public:
 
     virtual void Prepare(const SmFormat &rFormat, const SmDocShell &rDocShell);
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
-    void CreateTextFromNode(OUString &rText);
+    void CreateTextFromNode(rtl::OUString &rText);
     void Accept(SmVisitor* pVisitor);
 };
 
@@ -655,7 +655,7 @@ public:
     SmErrorNode(SmParseError /*eError*/, const SmToken &rNodeToken)
     :   SmMathSymbolNode(NERROR, rNodeToken)
     {
-        SetText(OUString(MS_ERROR));
+        SetText(rtl::OUString(MS_ERROR));
     }
 
     virtual void Prepare(const SmFormat &rFormat, const SmDocShell &rDocShell);
@@ -741,7 +741,7 @@ public:
     {}
 
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
-    void CreateTextFromNode(OUString &rText);
+    void CreateTextFromNode(rtl::OUString &rText);
     void Accept(SmVisitor* pVisitor);
 };
 
@@ -794,7 +794,7 @@ public:
     }
 
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
-    void CreateTextFromNode(OUString &rText);
+    void CreateTextFromNode(rtl::OUString &rText);
     void Accept(SmVisitor* pVisitor);
 
     SmNode* Argument();
@@ -867,7 +867,7 @@ public:
     virtual SmNode * GetLeftMost();
 
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
-    void CreateTextFromNode(OUString &rText);
+    void CreateTextFromNode(rtl::OUString &rText);
     void Accept(SmVisitor* pVisitor);
 };
 
@@ -979,7 +979,7 @@ public:
     void SetSubSup(SmSubSup eSubSup, SmNode* pScript) { SetSubNode( 1 + eSubSup, pScript); }
 
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
-    void CreateTextFromNode(OUString &rText);
+    void CreateTextFromNode(rtl::OUString &rText);
     void Accept(SmVisitor* pVisitor);
 
 };
@@ -1017,7 +1017,7 @@ public:
     const SmMathSymbolNode* ClosingBrace() const;
 
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
-    void CreateTextFromNode(OUString &rText);
+    void CreateTextFromNode(rtl::OUString &rText);
     void Accept(SmVisitor* pVisitor);
 };
 
@@ -1162,7 +1162,7 @@ public:
     {}
 
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
-    void CreateTextFromNode(OUString &rText);
+    void CreateTextFromNode(rtl::OUString &rText);
     void Accept(SmVisitor* pVisitor);
 
     SmNode* Attribute();
@@ -1197,7 +1197,7 @@ public:
 
     virtual void Prepare(const SmFormat &rFormat, const SmDocShell &rDocShell);
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
-    void CreateTextFromNode(OUString &rText);
+    void CreateTextFromNode(rtl::OUString &rText);
     void Accept(SmVisitor* pVisitor);
 };
 
@@ -1229,7 +1229,7 @@ public:
     virtual SmNode * GetLeftMost();
 
     virtual void Arrange(const OutputDevice &rDev, const SmFormat &rFormat);
-    void CreateTextFromNode(OUString &rText);
+    void CreateTextFromNode(rtl::OUString &rText);
     void Accept(SmVisitor* pVisitor);
 };
 

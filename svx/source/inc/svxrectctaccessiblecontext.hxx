@@ -76,8 +76,8 @@ public:
     SvxRectCtlAccessibleContext(
         const ::com::sun::star::uno::Reference< ::com::sun::star::accessibility::XAccessible>& rxParent,
         SvxRectCtl&             rRepresentation,
-        const OUString*  pName = NULL,
-        const OUString*  pDescription = NULL );
+        const rtl::OUString*  pName = NULL,
+        const rtl::OUString*  pDescription = NULL );
 protected:
     virtual ~SvxRectCtlAccessibleContext();
 public:
@@ -153,10 +153,10 @@ public:
     virtual sal_Int16 SAL_CALL
         getAccessibleRole( void ) throw( ::com::sun::star::uno::RuntimeException );
 
-    virtual OUString SAL_CALL
+    virtual rtl::OUString SAL_CALL
         getAccessibleDescription( void ) throw (::com::sun::star::uno::RuntimeException);
 
-    virtual OUString SAL_CALL
+    virtual rtl::OUString SAL_CALL
         getAccessibleName( void ) throw (::com::sun::star::uno::RuntimeException);
 
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::accessibility::XAccessibleRelationSet > SAL_CALL
@@ -184,13 +184,13 @@ public:
 
     //=====  XServiceInfo  ====================================================
 
-    virtual OUString SAL_CALL
+    virtual rtl::OUString SAL_CALL
         getImplementationName( void ) throw( ::com::sun::star::uno::RuntimeException );
 
     virtual sal_Bool SAL_CALL
-        supportsService( const OUString& sServiceName ) throw( ::com::sun::star::uno::RuntimeException );
+        supportsService( const rtl::OUString& sServiceName ) throw( ::com::sun::star::uno::RuntimeException );
 
-    virtual ::com::sun::star::uno::Sequence< OUString> SAL_CALL
+    virtual ::com::sun::star::uno::Sequence< rtl::OUString> SAL_CALL
         getSupportedServiceNames( void ) throw( ::com::sun::star::uno::RuntimeException );
 
     //=====  XTypeProvider  ===================================================
@@ -285,11 +285,11 @@ private:
     /** Description of this object.  This is not a constant because it can
         be set from the outside.
     */
-    OUString                     msDescription;
+    rtl::OUString                     msDescription;
 
     /** Name of this object.
     */
-    OUString                     msName;
+    rtl::OUString                     msName;
 
     /// Reference to the parent object.
     ::com::sun::star::uno::Reference< ::com::sun::star::accessibility::XAccessible >
@@ -337,7 +337,7 @@ public:
     SvxRectCtlChildAccessibleContext(
         const ::com::sun::star::uno::Reference< ::com::sun::star::accessibility::XAccessible>& rxParent,
         const Window& rParentWindow,
-        const OUString& rName, const OUString& rDescription,
+        const rtl::OUString& rName, const rtl::OUString& rDescription,
         const Rectangle& rBoundingBox,
         long nIndexInParent );
 protected:
@@ -413,10 +413,10 @@ public:
     virtual sal_Int16 SAL_CALL
         getAccessibleRole( void ) throw( ::com::sun::star::uno::RuntimeException );
 
-    virtual OUString SAL_CALL
+    virtual rtl::OUString SAL_CALL
         getAccessibleDescription( void ) throw( ::com::sun::star::uno::RuntimeException );
 
-    virtual OUString SAL_CALL
+    virtual rtl::OUString SAL_CALL
         getAccessibleName( void ) throw( ::com::sun::star::uno::RuntimeException );
 
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::accessibility::XAccessibleRelationSet > SAL_CALL
@@ -462,13 +462,13 @@ public:
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::accessibility::XAccessibleKeyBinding > SAL_CALL getAccessibleActionKeyBinding( sal_Int32 nIndex ) throw (::com::sun::star::lang::IndexOutOfBoundsException, ::com::sun::star::uno::RuntimeException);
     //=====  XServiceInfo  ====================================================
 
-    virtual OUString SAL_CALL
+    virtual rtl::OUString SAL_CALL
         getImplementationName( void ) throw( ::com::sun::star::uno::RuntimeException );
 
     virtual sal_Bool SAL_CALL
-        supportsService( const OUString& sServiceName ) throw( ::com::sun::star::uno::RuntimeException );
+        supportsService( const rtl::OUString& sServiceName ) throw( ::com::sun::star::uno::RuntimeException );
 
-    virtual ::com::sun::star::uno::Sequence< OUString> SAL_CALL
+    virtual ::com::sun::star::uno::Sequence< rtl::OUString> SAL_CALL
         getSupportedServiceNames( void ) throw( ::com::sun::star::uno::RuntimeException );
 
 
@@ -510,12 +510,12 @@ private:
         be set from the outside.  Furthermore, it changes according the the
         draw page's display mode.
     */
-    OUString                     msDescription;
+    rtl::OUString                     msDescription;
 
     /** Name of this object.  It changes according the draw page's
         display mode.
     */
-    OUString                     msName;
+    rtl::OUString                     msName;
 
     /// Reference to the parent object.
     ::com::sun::star::uno::Reference< ::com::sun::star::accessibility::XAccessible >

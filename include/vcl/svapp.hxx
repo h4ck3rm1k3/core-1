@@ -108,20 +108,20 @@ public:
             || type == TYPE_PRIVATE_DOSHUTDOWN || type == TYPE_QUICKSTART);
     }
 
-    ApplicationEvent(Type type, OUString const & data): aEvent(type) {
+    ApplicationEvent(Type type, rtl::OUString const & data): aEvent(type) {
         assert(
             type == TYPE_ACCEPT || type == TYPE_HELP || type == TYPE_OPENHELPURL
             || type == TYPE_SHOWDIALOG || type == TYPE_UNACCEPT);
         aData.push_back(data);
     }
 
-    ApplicationEvent(Type type, std::vector<OUString> const & data):
+    ApplicationEvent(Type type, std::vector<rtl::OUString> const & data):
         aEvent(type), aData(data)
     { assert(type == TYPE_OPEN || type == TYPE_PRINT); }
 
     Type GetEvent() const { return aEvent; }
 
-    OUString GetStringData() const {
+    rtl::OUString GetStringData() const {
         assert(
             aEvent == TYPE_ACCEPT || aEvent == TYPE_HELP
             || aEvent == TYPE_OPENHELPURL || aEvent == TYPE_SHOWDIALOG
@@ -130,14 +130,14 @@ public:
         return aData[0];
     }
 
-    std::vector<OUString> const & GetStringsData() const {
+    std::vector<rtl::OUString> const & GetStringsData() const {
         assert(aEvent == TYPE_OPEN || aEvent == TYPE_PRINT);
         return aData;
     }
 
 private:
     Type aEvent;
-    std::vector<OUString> aData;
+    std::vector<rtl::OUString> aData;
 };
 
 
@@ -168,11 +168,11 @@ public:
     virtual void                DeInit();
 
     static sal_uInt16           GetCommandLineParamCount();
-    static OUString             GetCommandLineParam( sal_uInt16 nParam );
-    static OUString             GetAppFileName();
+    static rtl::OUString             GetCommandLineParam( sal_uInt16 nParam );
+    static rtl::OUString             GetAppFileName();
 
     virtual sal_uInt16          Exception( sal_uInt16 nError );
-    static void                 Abort( const OUString& rErrorText );
+    static void                 Abort( const rtl::OUString& rErrorText );
 
     static void                 Execute();
     static void                 Quit();
@@ -253,13 +253,13 @@ public:
     static Window*              GetTopWindow( long nIndex );
     static Window*              GetActiveTopWindow();
 
-    static void                 SetAppName( const OUString& rUniqueName );
-    static OUString             GetAppName();
+    static void                 SetAppName( const rtl::OUString& rUniqueName );
+    static rtl::OUString             GetAppName();
     static bool                 LoadBrandBitmap (const char* pName, BitmapEx &rBitmap);
 
     // default name of the application for message dialogs and printing
-    static void                 SetDisplayName( const OUString& rDisplayName );
-    static OUString             GetDisplayName();
+    static void                 SetDisplayName( const rtl::OUString& rDisplayName );
+    static rtl::OUString             GetDisplayName();
 
 
     static unsigned int         GetScreenCount();
@@ -335,8 +335,8 @@ public:
     /// used to see if Mac specific app init has been disabled
     static bool                 IsConsoleOnly();
 
-    static void                 ShowNativeErrorBox(const OUString& sTitle  ,
-                                                   const OUString& sMessage);
+    static void                 ShowNativeErrorBox(const rtl::OUString& sTitle  ,
+                                                   const rtl::OUString& sMessage);
 
     // IME Status Window Control:
 
@@ -366,7 +366,7 @@ public:
     /** Returns a string representing the desktop environment
         the process is currently running in.
      */
-    static const OUString& GetDesktopEnvironment();
+    static const rtl::OUString& GetDesktopEnvironment();
 
     /** Add a file to the system shells recent document list if there is any.
           This function may have no effect under Unix because there is no
@@ -380,7 +380,7 @@ public:
           If an empty string will be provided "application/octet-stream"
           will be used.
     */
-    static void AddToRecentDocumentList(const OUString& rFileUrl, const OUString& rMimeType, const OUString& rDocumentService);
+    static void AddToRecentDocumentList(const rtl::OUString& rFileUrl, const rtl::OUString& rMimeType, const rtl::OUString& rDocumentService);
 
     /** Do we have a native / system file selector available ?
      */

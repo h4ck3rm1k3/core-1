@@ -24,7 +24,7 @@
 #include <sal/types.h>
 #include <rtl/alloc.h>
 #include <cstddef>
-
+#include <utility>
 /// @cond INTERNAL
 
 //######################################################
@@ -127,18 +127,18 @@ public:
     }
 
     //-----------------------------------------
-#if HAVE_CXX11_PERFECT_FORWARDING && !defined(_LIBCPP_VERSION)
-    template< typename... Args >
-    void construct (pointer p, Args &&... value)
-    {
-        new ((void*)p)T(std::forward< Args >(value)...);
-    }
-#else
+// #if HAVE_CXX11_PERFECT_FORWARDING && !defined(_LIBCPP_VERSION)
+//     template< typename... Args >
+//     void construct (pointer p, Args &&... value)
+//     {
+//         new ((void*)p)T(std::forward< Args >(value)...);
+//     }
+// #else
     void construct (pointer p, const T& value)
     {
         new ((void*)p)T(value);
     }
-#endif
+    //#endif
 
     //-----------------------------------------
     void destroy (pointer p)

@@ -74,7 +74,7 @@ public:
     void setMinWidthChars(sal_Int32 nWidth);
     sal_Int32 getMinWidthChars() const { return m_nMinWidthChars; }
     static Size     CalcMinimumTextSize(Control const* pControl, long nMaxWidth = 0x7fffffff);
-    static Size     getTextDimensions(Control const *pControl, const OUString &rTxt, long nMaxWidth);
+    static Size     getTextDimensions(Control const *pControl, const rtl::OUString &rTxt, long nMaxWidth);
     Size            CalcMinimumSize(long nMaxWidth = 0x7fffffff) const;
     virtual Size    GetOptimalSize() const;
     virtual bool set_property(const OString &rKey, const OString &rValue);

@@ -69,7 +69,7 @@ class SvxItemPropertySet;
 #define WID_PARAISNUMBERINGRESTART  OWN_ATTR_VALUE_START+4
 
 #define SVX_UNOEDIT_NUMBERING_PROPERTIE \
-    {OUString(UNO_NAME_NUMBERING_RULES),        EE_PARA_NUMBULLET,  ::getCppuType((const ::com::sun::star::uno::Reference< ::com::sun::star::container::XIndexReplace>*)0), 0, 0 }, \
+    {rtl::OUString(UNO_NAME_NUMBERING_RULES),        EE_PARA_NUMBULLET,  ::getCppuType((const ::com::sun::star::uno::Reference< ::com::sun::star::container::XIndexReplace>*)0), 0, 0 }, \
     {OUString(UNO_NAME_NUMBERING),              EE_PARA_BULLETSTATE,::getBooleanCppuType(), 0, 0 }
 
 #define SVX_UNOEDIT_OUTLINER_PROPERTIES \
@@ -79,71 +79,71 @@ class SvxItemPropertySet;
     {OUString("ParaIsNumberingRestart"),        WID_PARAISNUMBERINGRESTART, ::getBooleanCppuType(), 0, 0 }
 
 #define SVX_UNOEDIT_CHAR_PROPERTIES \
-    { OUString(UNO_NAME_EDIT_CHAR_HEIGHT),      EE_CHAR_FONTHEIGHT, ::getCppuType((const float*)0),            0, MID_FONTHEIGHT|CONVERT_TWIPS }, \
-    { OUString("CharScaleWidth"),               EE_CHAR_FONTWIDTH,  ::getCppuType((const sal_Int16*)0),    0, 0 }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTNAME),    EE_CHAR_FONTINFO,   ::getCppuType((const OUString*)0),  0, MID_FONT_FAMILY_NAME },\
-    { OUString(UNO_NAME_EDIT_CHAR_FONTSTYLENAME),EE_CHAR_FONTINFO,  ::getCppuType((const OUString*)0),  0, MID_FONT_STYLE_NAME }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTFAMILY),  EE_CHAR_FONTINFO,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_FAMILY }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTCHARSET), EE_CHAR_FONTINFO,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_CHAR_SET }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTPITCH),   EE_CHAR_FONTINFO,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_PITCH }, \
-    { OUString(UNO_NAME_EDIT_CHAR_POSTURE),     EE_CHAR_ITALIC,     ::getCppuType((const ::com::sun::star::awt::FontSlant*)0),0, MID_POSTURE }, \
-    { OUString(UNO_NAME_EDIT_CHAR_WEIGHT),      EE_CHAR_WEIGHT,     ::getCppuType((const float*)0),            0, MID_WEIGHT }, \
-    { OUString(UNO_NAME_EDIT_CHAR_LOCALE),      EE_CHAR_LANGUAGE,   ::getCppuType((const ::com::sun::star::lang::Locale*)0),0, MID_LANG_LOCALE }, \
-    { OUString(UNO_NAME_EDIT_CHAR_COLOR),       EE_CHAR_COLOR,      ::getCppuType((const sal_Int32*)0),        0, 0 }, \
-    { OUString(UNO_NAME_EDIT_CHAR_ESCAPEMENT),  EE_CHAR_ESCAPEMENT, ::getCppuType((const sal_Int16*)0),        0, MID_ESC }, \
-    { OUString(UNO_NAME_EDIT_CHAR_UNDERLINE),   EE_CHAR_UNDERLINE,  ::getCppuType((const sal_Int16*)0),        0, MID_TL_STYLE }, \
-    { OUString("CharUnderlineColor"),           EE_CHAR_UNDERLINE,  ::getCppuType((const sal_Int32*)0),        0, MID_TL_COLOR }, \
-    { OUString("CharUnderlineHasColor"),        EE_CHAR_UNDERLINE,  ::getBooleanCppuType(),                    0, MID_TL_HASCOLOR } , \
-    { OUString(UNO_NAME_EDIT_CHAR_OVERLINE),    EE_CHAR_OVERLINE,   ::getCppuType((const sal_Int16*)0),        0, MID_TL_STYLE }, \
-    { OUString("CharOverlineColor"),            EE_CHAR_OVERLINE,   ::getCppuType((const sal_Int32*)0),        0, MID_TL_COLOR }, \
-    { OUString("CharOverlineHasColor"),         EE_CHAR_OVERLINE,   ::getBooleanCppuType(),                    0, MID_TL_HASCOLOR } , \
-    { OUString(UNO_NAME_EDIT_CHAR_CROSSEDOUT),  EE_CHAR_STRIKEOUT,  ::getBooleanCppuType(),                    0, MID_CROSSED_OUT }, \
-    { OUString(UNO_NAME_EDIT_CHAR_STRIKEOUT),   EE_CHAR_STRIKEOUT,  ::getCppuType((const sal_Int16*)0),        0, MID_CROSS_OUT}, \
-    { OUString(UNO_NAME_EDIT_CHAR_SHADOWED),    EE_CHAR_SHADOW,     ::getBooleanCppuType(),                    0, 0 }, \
-    { OUString("CharContoured"),                EE_CHAR_OUTLINE,    ::getBooleanCppuType(),                    0, 0 }, \
-    { OUString("CharEscapementHeight"),         EE_CHAR_ESCAPEMENT, ::getCppuType((const sal_Int8*)0),         0, MID_ESC_HEIGHT },\
-    { OUString("CharAutoKerning"),              EE_CHAR_PAIRKERNING,::getBooleanCppuType(),                    0, 0 } , \
-    { OUString("CharKerning"),                  EE_CHAR_KERNING,    ::getCppuType((const sal_Int16*)0)  ,      0, 0 }, \
-    { OUString("CharWordMode"),                 EE_CHAR_WLM,        ::getBooleanCppuType(),                    0, 0 }, \
-    { OUString("CharEmphasis"),                 EE_CHAR_EMPHASISMARK, ::getCppuType((const sal_Int16*)0),       0, MID_EMPHASIS},\
-    { OUString(UNO_NAME_EDIT_CHAR_HEIGHT_ASIAN),        EE_CHAR_FONTHEIGHT_CJK, ::getCppuType((const float*)0),            0, MID_FONTHEIGHT|CONVERT_TWIPS }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTNAME_ASIAN),      EE_CHAR_FONTINFO_CJK,   ::getCppuType((const OUString*)0),  0, MID_FONT_FAMILY_NAME },\
-    { OUString(UNO_NAME_EDIT_CHAR_FONTSTYLENAME_ASIAN), EE_CHAR_FONTINFO_CJK,   ::getCppuType((const OUString*)0),  0, MID_FONT_STYLE_NAME }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTFAMILY_ASIAN),    EE_CHAR_FONTINFO_CJK,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_FAMILY }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTCHARSET_ASIAN),   EE_CHAR_FONTINFO_CJK,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_CHAR_SET }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTPITCH_ASIAN),     EE_CHAR_FONTINFO_CJK,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_PITCH }, \
-    { OUString(UNO_NAME_EDIT_CHAR_POSTURE_ASIAN),       EE_CHAR_ITALIC_CJK,     ::getCppuType((const ::com::sun::star::awt::FontSlant*)0),0, MID_POSTURE }, \
-    { OUString(UNO_NAME_EDIT_CHAR_WEIGHT_ASIAN),        EE_CHAR_WEIGHT_CJK,     ::getCppuType((const float*)0),            0, MID_WEIGHT }, \
-    { OUString(UNO_NAME_EDIT_CHAR_LOCALE_ASIAN),        EE_CHAR_LANGUAGE_CJK,   ::getCppuType((const ::com::sun::star::lang::Locale*)0),0, MID_LANG_LOCALE }, \
-    { OUString(UNO_NAME_EDIT_CHAR_HEIGHT_COMPLEX),      EE_CHAR_FONTHEIGHT_CTL, ::getCppuType((const float*)0),            0, MID_FONTHEIGHT|CONVERT_TWIPS }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTNAME_COMPLEX),    EE_CHAR_FONTINFO_CTL,   ::getCppuType((const OUString*)0),  0, MID_FONT_FAMILY_NAME },\
-    { OUString(UNO_NAME_EDIT_CHAR_FONTSTYLENAME_COMPLEX),EE_CHAR_FONTINFO_CTL,  ::getCppuType((const OUString*)0),  0, MID_FONT_STYLE_NAME }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTFAMILY_COMPLEX),  EE_CHAR_FONTINFO_CTL,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_FAMILY }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTCHARSET_COMPLEX), EE_CHAR_FONTINFO_CTL,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_CHAR_SET }, \
-    { OUString(UNO_NAME_EDIT_CHAR_FONTPITCH_COMPLEX),   EE_CHAR_FONTINFO_CTL,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_PITCH }, \
-    { OUString(UNO_NAME_EDIT_CHAR_POSTURE_COMPLEX),     EE_CHAR_ITALIC_CTL,     ::getCppuType((const ::com::sun::star::awt::FontSlant*)0),0, MID_POSTURE }, \
-    { OUString(UNO_NAME_EDIT_CHAR_WEIGHT_COMPLEX),      EE_CHAR_WEIGHT_CTL,     ::getCppuType((const float*)0),            0, MID_WEIGHT }, \
-    { OUString(UNO_NAME_EDIT_CHAR_LOCALE_COMPLEX),      EE_CHAR_LANGUAGE_CTL,   ::getCppuType((const ::com::sun::star::lang::Locale*)0),0, MID_LANG_LOCALE }, \
-    { OUString("CharRelief"),                           EE_CHAR_RELIEF,         ::getCppuType((const sal_Int16*)0),    0, MID_RELIEF }
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_HEIGHT),      EE_CHAR_FONTHEIGHT, ::getCppuType((const float*)0),            0, MID_FONTHEIGHT|CONVERT_TWIPS }, \
+    { rtl::OUString("CharScaleWidth"),               EE_CHAR_FONTWIDTH,  ::getCppuType((const sal_Int16*)0),    0, 0 }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTNAME),    EE_CHAR_FONTINFO,   ::getCppuType((const rtl::OUString*)0),  0, MID_FONT_FAMILY_NAME },\
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTSTYLENAME),EE_CHAR_FONTINFO,  ::getCppuType((const rtl::OUString*)0),  0, MID_FONT_STYLE_NAME }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTFAMILY),  EE_CHAR_FONTINFO,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_FAMILY }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTCHARSET), EE_CHAR_FONTINFO,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_CHAR_SET }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTPITCH),   EE_CHAR_FONTINFO,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_PITCH }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_POSTURE),     EE_CHAR_ITALIC,     ::getCppuType((const ::com::sun::star::awt::FontSlant*)0),0, MID_POSTURE }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_WEIGHT),      EE_CHAR_WEIGHT,     ::getCppuType((const float*)0),            0, MID_WEIGHT }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_LOCALE),      EE_CHAR_LANGUAGE,   ::getCppuType((const ::com::sun::star::lang::Locale*)0),0, MID_LANG_LOCALE }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_COLOR),       EE_CHAR_COLOR,      ::getCppuType((const sal_Int32*)0),        0, 0 }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_ESCAPEMENT),  EE_CHAR_ESCAPEMENT, ::getCppuType((const sal_Int16*)0),        0, MID_ESC }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_UNDERLINE),   EE_CHAR_UNDERLINE,  ::getCppuType((const sal_Int16*)0),        0, MID_TL_STYLE }, \
+    { rtl::OUString("CharUnderlineColor"),           EE_CHAR_UNDERLINE,  ::getCppuType((const sal_Int32*)0),        0, MID_TL_COLOR }, \
+    { rtl::OUString("CharUnderlineHasColor"),        EE_CHAR_UNDERLINE,  ::getBooleanCppuType(),                    0, MID_TL_HASCOLOR } , \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_OVERLINE),    EE_CHAR_OVERLINE,   ::getCppuType((const sal_Int16*)0),        0, MID_TL_STYLE }, \
+    { rtl::OUString("CharOverlineColor"),            EE_CHAR_OVERLINE,   ::getCppuType((const sal_Int32*)0),        0, MID_TL_COLOR }, \
+    { rtl::OUString("CharOverlineHasColor"),         EE_CHAR_OVERLINE,   ::getBooleanCppuType(),                    0, MID_TL_HASCOLOR } , \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_CROSSEDOUT),  EE_CHAR_STRIKEOUT,  ::getBooleanCppuType(),                    0, MID_CROSSED_OUT }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_STRIKEOUT),   EE_CHAR_STRIKEOUT,  ::getCppuType((const sal_Int16*)0),        0, MID_CROSS_OUT}, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_SHADOWED),    EE_CHAR_SHADOW,     ::getBooleanCppuType(),                    0, 0 }, \
+    { rtl::OUString("CharContoured"),                EE_CHAR_OUTLINE,    ::getBooleanCppuType(),                    0, 0 }, \
+    { rtl::OUString("CharEscapementHeight"),         EE_CHAR_ESCAPEMENT, ::getCppuType((const sal_Int8*)0),         0, MID_ESC_HEIGHT },\
+    { rtl::OUString("CharAutoKerning"),              EE_CHAR_PAIRKERNING,::getBooleanCppuType(),                    0, 0 } , \
+    { rtl::OUString("CharKerning"),                  EE_CHAR_KERNING,    ::getCppuType((const sal_Int16*)0)  ,      0, 0 }, \
+    { rtl::OUString("CharWordMode"),                 EE_CHAR_WLM,        ::getBooleanCppuType(),                    0, 0 }, \
+    { rtl::OUString("CharEmphasis"),                 EE_CHAR_EMPHASISMARK, ::getCppuType((const sal_Int16*)0),       0, MID_EMPHASIS},\
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_HEIGHT_ASIAN),        EE_CHAR_FONTHEIGHT_CJK, ::getCppuType((const float*)0),            0, MID_FONTHEIGHT|CONVERT_TWIPS }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTNAME_ASIAN),      EE_CHAR_FONTINFO_CJK,   ::getCppuType((const rtl::OUString*)0),  0, MID_FONT_FAMILY_NAME },\
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTSTYLENAME_ASIAN), EE_CHAR_FONTINFO_CJK,   ::getCppuType((const rtl::OUString*)0),  0, MID_FONT_STYLE_NAME }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTFAMILY_ASIAN),    EE_CHAR_FONTINFO_CJK,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_FAMILY }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTCHARSET_ASIAN),   EE_CHAR_FONTINFO_CJK,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_CHAR_SET }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTPITCH_ASIAN),     EE_CHAR_FONTINFO_CJK,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_PITCH }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_POSTURE_ASIAN),       EE_CHAR_ITALIC_CJK,     ::getCppuType((const ::com::sun::star::awt::FontSlant*)0),0, MID_POSTURE }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_WEIGHT_ASIAN),        EE_CHAR_WEIGHT_CJK,     ::getCppuType((const float*)0),            0, MID_WEIGHT }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_LOCALE_ASIAN),        EE_CHAR_LANGUAGE_CJK,   ::getCppuType((const ::com::sun::star::lang::Locale*)0),0, MID_LANG_LOCALE }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_HEIGHT_COMPLEX),      EE_CHAR_FONTHEIGHT_CTL, ::getCppuType((const float*)0),            0, MID_FONTHEIGHT|CONVERT_TWIPS }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTNAME_COMPLEX),    EE_CHAR_FONTINFO_CTL,   ::getCppuType((const rtl::OUString*)0),  0, MID_FONT_FAMILY_NAME },\
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTSTYLENAME_COMPLEX),EE_CHAR_FONTINFO_CTL,  ::getCppuType((const rtl::OUString*)0),  0, MID_FONT_STYLE_NAME }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTFAMILY_COMPLEX),  EE_CHAR_FONTINFO_CTL,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_FAMILY }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTCHARSET_COMPLEX), EE_CHAR_FONTINFO_CTL,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_CHAR_SET }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_FONTPITCH_COMPLEX),   EE_CHAR_FONTINFO_CTL,   ::getCppuType((const sal_Int16*)0),        0, MID_FONT_PITCH }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_POSTURE_COMPLEX),     EE_CHAR_ITALIC_CTL,     ::getCppuType((const ::com::sun::star::awt::FontSlant*)0),0, MID_POSTURE }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_WEIGHT_COMPLEX),      EE_CHAR_WEIGHT_CTL,     ::getCppuType((const float*)0),            0, MID_WEIGHT }, \
+    { rtl::OUString(UNO_NAME_EDIT_CHAR_LOCALE_COMPLEX),      EE_CHAR_LANGUAGE_CTL,   ::getCppuType((const ::com::sun::star::lang::Locale*)0),0, MID_LANG_LOCALE }, \
+    { rtl::OUString("CharRelief"),                           EE_CHAR_RELIEF,         ::getCppuType((const sal_Int16*)0),    0, MID_RELIEF }
 
 #define SVX_UNOEDIT_FONT_PROPERTIES \
-    {OUString(UNO_NAME_EDIT_FONT_DESCRIPTOR),   WID_FONTDESC,       ::getCppuType((const ::com::sun::star::awt::FontDescriptor*)0),    0, MID_FONT_FAMILY_NAME }
+    {rtl::OUString(UNO_NAME_EDIT_FONT_DESCRIPTOR),   WID_FONTDESC,       ::getCppuType((const ::com::sun::star::awt::FontDescriptor*)0),    0, MID_FONT_FAMILY_NAME }
 
 #define SVX_UNOEDIT_PARA_PROPERTIES \
-    {OUString(UNO_NAME_EDIT_PARA_ADJUST),       EE_PARA_JUST,               ::getCppuType((const sal_Int16*)0),            0, MID_PARA_ADJUST }, \
-    {OUString(UNO_NAME_EDIT_PARA_BMARGIN),      EE_PARA_ULSPACE,            ::getCppuType((const sal_Int32*)0),            0, MID_LO_MARGIN|SFX_METRIC_ITEM }, \
-    {OUString(UNO_NAME_EDIT_PARA_IS_HYPHEN),    EE_PARA_HYPHENATE,          ::getBooleanCppuType(),                0, 0 }, \
-    {OUString(UNO_NAME_EDIT_PARA_LASTLINEADJ),  EE_PARA_JUST,               ::getCppuType((const sal_Int16*)0),            0, MID_LAST_LINE_ADJUST }, \
-    {OUString(UNO_NAME_EDIT_PARA_LMARGIN),      EE_PARA_LRSPACE,            ::getCppuType((const sal_Int32*)0),            0, MID_TXT_LMARGIN|SFX_METRIC_ITEM }, \
-    {OUString(UNO_NAME_EDIT_PARA_LINESPACING),  EE_PARA_SBL,                ::getCppuType((const ::com::sun::star::style::LineSpacing*)0),     0, 0 }, \
-    {OUString(UNO_NAME_EDIT_PARA_RMARGIN),      EE_PARA_LRSPACE,            ::getCppuType((const sal_Int32*)0),            0, MID_R_MARGIN|SFX_METRIC_ITEM }, \
-    {OUString(UNO_NAME_EDIT_PARA_TAPSTOPS),     EE_PARA_TABS,               ::getCppuType((const ::com::sun::star::uno::Sequence< ::com::sun::star::style::TabStop >*)0), 0, 0 }, \
-    {OUString(UNO_NAME_EDIT_PARA_TMARGIN),      EE_PARA_ULSPACE,            ::getCppuType((const sal_Int32*)0),            0, MID_UP_MARGIN|SFX_METRIC_ITEM },\
-    {OUString(UNO_NAME_EDIT_PARA_FIRST_LINE_INDENT),     EE_PARA_LRSPACE,       ::getCppuType((const sal_Int32*)0),            0, MID_FIRST_LINE_INDENT|SFX_METRIC_ITEM}, \
-    {OUString(UNO_NAME_EDIT_PARA_IS_HANGING_PUNCTUATION),EE_PARA_HANGINGPUNCTUATION,    ::getBooleanCppuType(),                0 ,0 }, \
-    {OUString(UNO_NAME_EDIT_PARA_IS_CHARACTER_DISTANCE), EE_PARA_ASIANCJKSPACING,   ::getBooleanCppuType(),                0 ,0 }, \
-    {OUString(UNO_NAME_EDIT_PARA_IS_FORBIDDEN_RULES),    EE_PARA_FORBIDDENRULES,        ::getBooleanCppuType(),                0 ,0 },\
-    {OUString("WritingMode"),                   EE_PARA_WRITINGDIR,         ::getCppuType((const sal_Int16*)0),            0, 0 }
+    {rtl::OUString(UNO_NAME_EDIT_PARA_ADJUST),       EE_PARA_JUST,               ::getCppuType((const sal_Int16*)0),            0, MID_PARA_ADJUST }, \
+    {rtl::OUString(UNO_NAME_EDIT_PARA_BMARGIN),      EE_PARA_ULSPACE,            ::getCppuType((const sal_Int32*)0),            0, MID_LO_MARGIN|SFX_METRIC_ITEM }, \
+    {rtl::OUString(UNO_NAME_EDIT_PARA_IS_HYPHEN),    EE_PARA_HYPHENATE,          ::getBooleanCppuType(),                0, 0 }, \
+    {rtl::OUString(UNO_NAME_EDIT_PARA_LASTLINEADJ),  EE_PARA_JUST,               ::getCppuType((const sal_Int16*)0),            0, MID_LAST_LINE_ADJUST }, \
+    {rtl::OUString(UNO_NAME_EDIT_PARA_LMARGIN),      EE_PARA_LRSPACE,            ::getCppuType((const sal_Int32*)0),            0, MID_TXT_LMARGIN|SFX_METRIC_ITEM }, \
+    {rtl::OUString(UNO_NAME_EDIT_PARA_LINESPACING),  EE_PARA_SBL,                ::getCppuType((const ::com::sun::star::style::LineSpacing*)0),     0, 0 }, \
+    {rtl::OUString(UNO_NAME_EDIT_PARA_RMARGIN),      EE_PARA_LRSPACE,            ::getCppuType((const sal_Int32*)0),            0, MID_R_MARGIN|SFX_METRIC_ITEM }, \
+    {rtl::OUString(UNO_NAME_EDIT_PARA_TAPSTOPS),     EE_PARA_TABS,               ::getCppuType((const ::com::sun::star::uno::Sequence< ::com::sun::star::style::TabStop >*)0), 0, 0 }, \
+    {rtl::OUString(UNO_NAME_EDIT_PARA_TMARGIN),      EE_PARA_ULSPACE,            ::getCppuType((const sal_Int32*)0),            0, MID_UP_MARGIN|SFX_METRIC_ITEM },\
+    {rtl::OUString(UNO_NAME_EDIT_PARA_FIRST_LINE_INDENT),     EE_PARA_LRSPACE,       ::getCppuType((const sal_Int32*)0),            0, MID_FIRST_LINE_INDENT|SFX_METRIC_ITEM}, \
+    {rtl::OUString(UNO_NAME_EDIT_PARA_IS_HANGING_PUNCTUATION),EE_PARA_HANGINGPUNCTUATION,    ::getBooleanCppuType(),                0 ,0 }, \
+    {rtl::OUString(UNO_NAME_EDIT_PARA_IS_CHARACTER_DISTANCE), EE_PARA_ASIANCJKSPACING,   ::getBooleanCppuType(),                0 ,0 }, \
+    {rtl::OUString(UNO_NAME_EDIT_PARA_IS_FORBIDDEN_RULES),    EE_PARA_FORBIDDENRULES,        ::getBooleanCppuType(),                0 ,0 },\
+    {rtl::OUString("WritingMode"),                   EE_PARA_WRITINGDIR,         ::getCppuType((const sal_Int16*)0),            0, 0 }
 
 class SvxEditSource;
 class SvxTextForwarder;
@@ -173,7 +173,7 @@ public:
     // SvxTextForwarder
     virtual sal_Int32       GetParagraphCount() const;
     virtual sal_uInt16      GetTextLen( sal_Int32 nParagraph ) const;
-    virtual OUString        GetText( const ESelection& rSel ) const;
+    virtual rtl::OUString        GetText( const ESelection& rSel ) const;
     virtual SfxItemSet      GetAttribs( const ESelection& rSel, sal_Bool bOnlyHardAttrib = 0 ) const;
     virtual SfxItemSet      GetParaAttribs( sal_Int32 nPara ) const;
     virtual void            SetParaAttribs( sal_Int32 nPara, const SfxItemSet& rSet );
@@ -185,12 +185,12 @@ public:
 
     virtual SfxItemPool*    GetPool() const;
 
-    virtual void            QuickInsertText( const OUString& rText, const ESelection& rSel );
+    virtual void            QuickInsertText( const rtl::OUString& rText, const ESelection& rSel );
     virtual void            QuickInsertField( const SvxFieldItem& rFld, const ESelection& rSel );
     virtual void            QuickSetAttribs( const SfxItemSet& rSet, const ESelection& rSel );
     virtual void            QuickInsertLineBreak( const ESelection& rSel );
 
-    virtual OUString        CalcFieldValue( const SvxFieldItem& rField, sal_Int32 nPara, sal_uInt16 nPos, Color*& rpTxtColor, Color*& rpFldColor );
+    virtual rtl::OUString        CalcFieldValue( const SvxFieldItem& rField, sal_Int32 nPara, sal_uInt16 nPos, Color*& rpTxtColor, Color*& rpFldColor );
     virtual void            FieldClicked( const SvxFieldItem& rField, sal_Int32 nPara, xub_StrLen nPos );
 
     virtual sal_Bool        IsValid() const;
@@ -212,7 +212,7 @@ public:
     virtual void            GetLineBoundaries( /*out*/sal_uInt16 &rStart, /*out*/sal_uInt16 &rEnd, sal_Int32 nParagraph, sal_uInt16 nLine ) const;
     virtual sal_uInt16      GetLineNumberAtIndex( sal_Int32 nPara, sal_uInt16 nIndex ) const;
     virtual sal_Bool        Delete( const ESelection& );
-    virtual sal_Bool        InsertText( const OUString&, const ESelection& );
+    virtual sal_Bool        InsertText( const rtl::OUString&, const ESelection& );
     virtual sal_Bool        QuickFormatDoc( sal_Bool bFull=sal_False );
     virtual sal_Int16       GetDepth( sal_Int32 nPara ) const;
     virtual sal_Bool        SetDepth( sal_Int32 nPara, sal_Int16 nNewDepth );
@@ -221,7 +221,7 @@ public:
 
     // implementation functions for XParagraphAppend and XTextPortionAppend
     virtual void        AppendParagraph();
-    virtual sal_uInt16  AppendTextPortion( sal_Int32 nPara, const OUString &rText, const SfxItemSet &rSet );
+    virtual sal_uInt16  AppendTextPortion( sal_Int32 nPara, const rtl::OUString &rText, const SfxItemSet &rSet );
     //XTextCopy
     virtual void        CopyText(const SvxTextForwarder& rSource);
 };
@@ -251,19 +251,19 @@ protected:
     ESelection              maSelection;
     const SvxItemPropertySet* mpPropSet;
 
-    virtual void SAL_CALL _setPropertyValue( const OUString& aPropertyName, const ::com::sun::star::uno::Any& aValue, sal_Int32 nPara = -1 ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Any SAL_CALL _getPropertyValue( const OUString& PropertyName, sal_Int32 nPara = -1 ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL _setPropertyValue( const rtl::OUString& aPropertyName, const ::com::sun::star::uno::Any& aValue, sal_Int32 nPara = -1 ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Any SAL_CALL _getPropertyValue( const rtl::OUString& PropertyName, sal_Int32 nPara = -1 ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
 
-    virtual void SAL_CALL _setPropertyValues( const ::com::sun::star::uno::Sequence< OUString >& aPropertyNames, const ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any >& aValues, sal_Int32 nPara = -1 ) throw (::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any > SAL_CALL _getPropertyValues( const ::com::sun::star::uno::Sequence< OUString >& aPropertyNames, sal_Int32 nPara = -1 ) throw (::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL _setPropertyValues( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyNames, const ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any >& aValues, sal_Int32 nPara = -1 ) throw (::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any > SAL_CALL _getPropertyValues( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyNames, sal_Int32 nPara = -1 ) throw (::com::sun::star::uno::RuntimeException);
 
     virtual ::com::sun::star::beans::PropertyState SAL_CALL _getPropertyState( const SfxItemPropertySimpleEntry* pMap, sal_Int32 nPara = -1 ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::beans::PropertyState SAL_CALL _getPropertyState( const OUString& PropertyName, sal_Int32 nPara = -1 ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyState > SAL_CALL _getPropertyStates( const ::com::sun::star::uno::Sequence< OUString >& aPropertyName, sal_Int32 nPara = -1  ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::beans::PropertyState SAL_CALL _getPropertyState( const rtl::OUString& PropertyName, sal_Int32 nPara = -1 ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyState > SAL_CALL _getPropertyStates( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyName, sal_Int32 nPara = -1  ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
     // returns true if property found or false if unknown property
     virtual sal_Bool _getOnePropertyStates(const SfxItemSet* pSet, const SfxItemPropertySimpleEntry* pMap, ::com::sun::star::beans::PropertyState& rState);
 
-    virtual void SAL_CALL _setPropertyToDefault( const OUString& PropertyName, sal_Int32 nPara = -1 ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL _setPropertyToDefault( const rtl::OUString& PropertyName, sal_Int32 nPara = -1 ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
     virtual void _setPropertyToDefault( SvxTextForwarder* pForwarder, const SfxItemPropertySimpleEntry* pMap, sal_Int32 nPara ) throw( ::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException );
     void SetEditSource( SvxEditSource* _pEditSource ) throw();
 
@@ -302,45 +302,45 @@ public:
     // ::com::sun::star::text::XTextRange
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange > SAL_CALL getStart() throw(::com::sun::star::uno::RuntimeException);
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange > SAL_CALL getEnd() throw(::com::sun::star::uno::RuntimeException);
-    virtual OUString SAL_CALL getString() throw(::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL setString( const OUString& aString ) throw(::com::sun::star::uno::RuntimeException);
+    virtual rtl::OUString SAL_CALL getString() throw(::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL setString( const rtl::OUString& aString ) throw(::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::beans::XPropertySet
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::beans::XPropertySetInfo > SAL_CALL getPropertySetInfo() throw(::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL setPropertyValue( const OUString& aPropertyName, const ::com::sun::star::uno::Any& aValue ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Any SAL_CALL getPropertyValue( const OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL addPropertyChangeListener( const OUString& aPropertyName, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XPropertyChangeListener >& xListener ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL removePropertyChangeListener( const OUString& aPropertyName, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XPropertyChangeListener >& aListener ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL addVetoableChangeListener( const OUString& PropertyName, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XVetoableChangeListener >& aListener ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL removeVetoableChangeListener( const OUString& PropertyName, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XVetoableChangeListener >& aListener ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL setPropertyValue( const rtl::OUString& aPropertyName, const ::com::sun::star::uno::Any& aValue ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Any SAL_CALL getPropertyValue( const rtl::OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL addPropertyChangeListener( const rtl::OUString& aPropertyName, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XPropertyChangeListener >& xListener ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL removePropertyChangeListener( const rtl::OUString& aPropertyName, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XPropertyChangeListener >& aListener ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL addVetoableChangeListener( const rtl::OUString& PropertyName, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XVetoableChangeListener >& aListener ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL removeVetoableChangeListener( const rtl::OUString& PropertyName, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XVetoableChangeListener >& aListener ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
 
     // XMultiPropertySet
-    virtual void SAL_CALL setPropertyValues( const ::com::sun::star::uno::Sequence< OUString >& aPropertyNames, const ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any >& aValues ) throw (::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any > SAL_CALL getPropertyValues( const ::com::sun::star::uno::Sequence< OUString >& aPropertyNames ) throw (::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL addPropertiesChangeListener( const ::com::sun::star::uno::Sequence< OUString >& aPropertyNames, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XPropertiesChangeListener >& xListener ) throw (::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL setPropertyValues( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyNames, const ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any >& aValues ) throw (::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any > SAL_CALL getPropertyValues( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyNames ) throw (::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL addPropertiesChangeListener( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyNames, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XPropertiesChangeListener >& xListener ) throw (::com::sun::star::uno::RuntimeException);
     virtual void SAL_CALL removePropertiesChangeListener( const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XPropertiesChangeListener >& xListener ) throw (::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL firePropertiesChangeEvent( const ::com::sun::star::uno::Sequence< OUString >& aPropertyNames, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XPropertiesChangeListener >& xListener ) throw (::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL firePropertiesChangeEvent( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyNames, const ::com::sun::star::uno::Reference< ::com::sun::star::beans::XPropertiesChangeListener >& xListener ) throw (::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::beans::XPropertyState
-    virtual ::com::sun::star::beans::PropertyState SAL_CALL getPropertyState( const OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyState > SAL_CALL getPropertyStates( const ::com::sun::star::uno::Sequence< OUString >& aPropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL setPropertyToDefault( const OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Any SAL_CALL getPropertyDefault( const OUString& aPropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::beans::PropertyState SAL_CALL getPropertyState( const rtl::OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyState > SAL_CALL getPropertyStates( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL setPropertyToDefault( const rtl::OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Any SAL_CALL getPropertyDefault( const rtl::OUString& aPropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::beans::XMultiPropertyStates
-    //virtual ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyState > SAL_CALL getPropertyStates( const ::com::sun::star::uno::Sequence< OUString >& aPropertyName ) throw (::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    //virtual ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyState > SAL_CALL getPropertyStates( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyName ) throw (::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
     virtual void SAL_CALL setAllPropertiesToDefault(  ) throw (::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL setPropertiesToDefault( const ::com::sun::star::uno::Sequence< OUString >& aPropertyNames ) throw (::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any > SAL_CALL getPropertyDefaults( const ::com::sun::star::uno::Sequence< OUString >& aPropertyNames ) throw (::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL setPropertiesToDefault( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyNames ) throw (::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any > SAL_CALL getPropertyDefaults( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyNames ) throw (::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
 
     // XTextRangeCompare
     virtual ::sal_Int16 SAL_CALL compareRegionStarts( const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange >& xR1, const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange >& xR2 ) throw (::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::uno::RuntimeException);
     virtual ::sal_Int16 SAL_CALL compareRegionEnds( const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange >& xR1, const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange >& xR2 ) throw (::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::lang::XServiceInfo
-    virtual sal_Bool SAL_CALL supportsService( const OUString& ServiceName ) throw(::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Sequence< OUString > SAL_CALL getSupportedServiceNames() throw(::com::sun::star::uno::RuntimeException);
-    static  ::com::sun::star::uno::Sequence< OUString > SAL_CALL getSupportedServiceNames_Static( ) SAL_THROW(());
+    virtual sal_Bool SAL_CALL supportsService( const rtl::OUString& ServiceName ) throw(::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Sequence< rtl::OUString > SAL_CALL getSupportedServiceNames() throw(::com::sun::star::uno::RuntimeException);
+    static  ::com::sun::star::uno::Sequence< rtl::OUString > SAL_CALL getSupportedServiceNames_Static( ) SAL_THROW(());
 };
 
 // ====================================================================
@@ -369,7 +369,7 @@ public:
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XText > SAL_CALL getText() throw(::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::lang::XServiceInfo
-    virtual OUString SAL_CALL getImplementationName() throw(::com::sun::star::uno::RuntimeException);
+    virtual rtl::OUString SAL_CALL getImplementationName() throw(::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::lang::XTypeProvider
     virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Type > SAL_CALL getTypes(  ) throw(::com::sun::star::uno::RuntimeException);
@@ -406,14 +406,14 @@ public:
     // ::com::sun::star::text::XSimpleText
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextCursor > SAL_CALL createTextCursor(  ) throw(::com::sun::star::uno::RuntimeException);
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextCursor > SAL_CALL createTextCursorByRange( const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange >& aTextPosition ) throw(::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL insertString( const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange >& xRange, const OUString& aString, sal_Bool bAbsorb ) throw(::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL insertString( const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange >& xRange, const rtl::OUString& aString, sal_Bool bAbsorb ) throw(::com::sun::star::uno::RuntimeException);
     virtual void SAL_CALL insertControlCharacter( const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange >& xRange, sal_Int16 nControlCharacter, sal_Bool bAbsorb ) throw(::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::text::XText
     virtual void SAL_CALL insertTextContent( const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange >& xRange, const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextContent >& xContent, sal_Bool bAbsorb ) throw(::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::uno::RuntimeException);
     virtual void SAL_CALL removeTextContent( const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextContent >& xContent ) throw(::com::sun::star::container::NoSuchElementException, ::com::sun::star::uno::RuntimeException);
-    virtual OUString SAL_CALL getString() throw(::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL setString( const OUString& aString ) throw(::com::sun::star::uno::RuntimeException);
+    virtual rtl::OUString SAL_CALL getString() throw(::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL setString( const rtl::OUString& aString ) throw(::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::text::XTextRange
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XText > SAL_CALL getText(  ) throw(::com::sun::star::uno::RuntimeException);
@@ -435,17 +435,17 @@ public:
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange > SAL_CALL finishParagraphInsert( const ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyValue >& CharacterAndParagraphProperties, const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange >& xInsertPosition ) throw (::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
 
     // com::sun::star::text::XTextPortionAppend (new import API)
-    virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange > SAL_CALL appendTextPortion( const OUString& Text, const ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyValue >& CharacterAndParagraphProperties ) throw (::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange > SAL_CALL appendTextPortion( const rtl::OUString& Text, const ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyValue >& CharacterAndParagraphProperties ) throw (::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
 
-    virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange > SAL_CALL insertTextPortion( const OUString& Text, const ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyValue >& CharacterAndParagraphProperties, const com::sun::star::uno::Reference< com::sun::star::text::XTextRange>& rTextRange ) throw (::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange > SAL_CALL insertTextPortion( const rtl::OUString& Text, const ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyValue >& CharacterAndParagraphProperties, const com::sun::star::uno::Reference< com::sun::star::text::XTextRange>& rTextRange ) throw (::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
 
     // com::sun::star::text::XTextCopy
     virtual void SAL_CALL copyText( const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextCopy >& xSource ) throw (::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::lang::XServiceInfo
-    virtual OUString SAL_CALL getImplementationName() throw(::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Sequence< OUString > SAL_CALL getSupportedServiceNames(  ) throw(::com::sun::star::uno::RuntimeException);
-    static  ::com::sun::star::uno::Sequence< OUString > SAL_CALL getSupportedServiceNames_Static( ) SAL_THROW(());
+    virtual rtl::OUString SAL_CALL getImplementationName() throw(::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Sequence< rtl::OUString > SAL_CALL getSupportedServiceNames(  ) throw(::com::sun::star::uno::RuntimeException);
+    static  ::com::sun::star::uno::Sequence< rtl::OUString > SAL_CALL getSupportedServiceNames_Static( ) SAL_THROW(());
 
     // ::com::sun::star::lang::XTypeProvider
     virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Type > SAL_CALL getTypes(  ) throw(::com::sun::star::uno::RuntimeException);
@@ -552,21 +552,21 @@ public:
     virtual sal_Bool SAL_CALL hasElements() throw(::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::beans::XPropertySet
-    virtual void SAL_CALL setPropertyValue( const OUString& aPropertyName, const ::com::sun::star::uno::Any& aValue ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Any SAL_CALL getPropertyValue( const OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL setPropertyValue( const rtl::OUString& aPropertyName, const ::com::sun::star::uno::Any& aValue ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Any SAL_CALL getPropertyValue( const rtl::OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
 
     // XMultiPropertySet
-    virtual void SAL_CALL setPropertyValues( const ::com::sun::star::uno::Sequence< OUString >& aPropertyNames, const ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any >& aValues ) throw (::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any > SAL_CALL getPropertyValues( const ::com::sun::star::uno::Sequence< OUString >& aPropertyNames ) throw (::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL setPropertyValues( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyNames, const ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any >& aValues ) throw (::com::sun::star::beans::PropertyVetoException, ::com::sun::star::lang::IllegalArgumentException, ::com::sun::star::lang::WrappedTargetException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Any > SAL_CALL getPropertyValues( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyNames ) throw (::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::beans::XPropertyState
-    virtual ::com::sun::star::beans::PropertyState SAL_CALL getPropertyState( const OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyState > SAL_CALL getPropertyStates( const ::com::sun::star::uno::Sequence< OUString >& aPropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL setPropertyToDefault( const OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::beans::PropertyState SAL_CALL getPropertyState( const rtl::OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Sequence< ::com::sun::star::beans::PropertyState > SAL_CALL getPropertyStates( const ::com::sun::star::uno::Sequence< rtl::OUString >& aPropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL setPropertyToDefault( const rtl::OUString& PropertyName ) throw(::com::sun::star::beans::UnknownPropertyException, ::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::lang::XServiceInfo
-    virtual OUString SAL_CALL getImplementationName() throw(::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Sequence< OUString > SAL_CALL getSupportedServiceNames(  ) throw(::com::sun::star::uno::RuntimeException);
+    virtual rtl::OUString SAL_CALL getImplementationName() throw(::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Sequence< rtl::OUString > SAL_CALL getSupportedServiceNames(  ) throw(::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::lang::XTypeProvider
     virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Type > SAL_CALL getTypes(  ) throw(::com::sun::star::uno::RuntimeException);
@@ -617,8 +617,8 @@ public:
 
     // ::com::sun::star::text::XTextRange
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XText > SAL_CALL getText() throw(::com::sun::star::uno::RuntimeException);
-    virtual OUString SAL_CALL getString() throw(::com::sun::star::uno::RuntimeException);
-    virtual void SAL_CALL setString( const OUString& aString ) throw(::com::sun::star::uno::RuntimeException);
+    virtual rtl::OUString SAL_CALL getString() throw(::com::sun::star::uno::RuntimeException);
+    virtual void SAL_CALL setString( const rtl::OUString& aString ) throw(::com::sun::star::uno::RuntimeException);
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange > SAL_CALL getStart() throw(::com::sun::star::uno::RuntimeException);
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange > SAL_CALL getEnd() throw(::com::sun::star::uno::RuntimeException);
 
@@ -633,9 +633,9 @@ public:
     virtual void SAL_CALL gotoRange( const ::com::sun::star::uno::Reference< ::com::sun::star::text::XTextRange >& xRange, sal_Bool bExpand ) throw(::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::lang::XServiceInfo
-    virtual OUString SAL_CALL getImplementationName() throw(::com::sun::star::uno::RuntimeException);
-    virtual sal_Bool SAL_CALL supportsService( const OUString& ServiceName ) throw(::com::sun::star::uno::RuntimeException);
-    virtual ::com::sun::star::uno::Sequence< OUString > SAL_CALL getSupportedServiceNames() throw(::com::sun::star::uno::RuntimeException);
+    virtual rtl::OUString SAL_CALL getImplementationName() throw(::com::sun::star::uno::RuntimeException);
+    virtual sal_Bool SAL_CALL supportsService( const rtl::OUString& ServiceName ) throw(::com::sun::star::uno::RuntimeException);
+    virtual ::com::sun::star::uno::Sequence< rtl::OUString > SAL_CALL getSupportedServiceNames() throw(::com::sun::star::uno::RuntimeException);
 
     // ::com::sun::star::lang::XTypeProvider
     virtual ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Type > SAL_CALL getTypes(  ) throw(::com::sun::star::uno::RuntimeException);

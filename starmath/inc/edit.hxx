@@ -37,6 +37,7 @@ class Menu;
 class SmCmdBoxWindow;
 class SmEditAccessible;
 class CommandEvent;
+class SfxItemPool;
 
 /**************************************************************************/
 
@@ -98,8 +99,8 @@ public:
     SfxItemPool *   GetEditEngineItemPool();
 
     // Window
-    virtual void        SetText(const OUString &rText);
-    virtual OUString    GetText() const;
+    virtual void        SetText(const rtl::OUString &rText);
+    virtual rtl::OUString    GetText() const;
     virtual void        GetFocus();
     virtual void        LoseFocus();
 
@@ -114,12 +115,12 @@ public:
     void                Paste();
     void                Delete();
     void                SelectAll();
-    void                InsertText(const OUString &rText);
+    void                InsertText(const rtl::OUString &rText);
     void                InsertCommand(sal_uInt16 nCommand);
     void                MarkError(const Point &rPos);
     void                SelNextMark();
     void                SelPrevMark();
-    bool                HasMark(const OUString &rText) const;
+    bool                HasMark(const rtl::OUString &rText) const;
 
     void                Flush();
     void                DeleteEditView( SmViewShell &rView );

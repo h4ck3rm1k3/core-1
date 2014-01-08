@@ -119,10 +119,10 @@ namespace sw {
  /// For querying the INet-attributes for Navigator.
 struct SwGetINetAttr
 {
-    OUString sText;
+    rtl::OUString sText;
     const SwTxtINetFmt& rINetAttr;
 
-    SwGetINetAttr( const OUString& rTxt, const SwTxtINetFmt& rAttr )
+    SwGetINetAttr( const rtl::OUString& rTxt, const SwTxtINetFmt& rAttr )
         : sText( rTxt ), rINetAttr( rAttr )
     {}
 };
@@ -165,15 +165,15 @@ class SW_DLLPUBLIC SwEditShell: public SwCrsrShell
 public:
     /// Edit (all selected ranges).
     void Insert( sal_Unicode, sal_Bool bOnlyCurrCrsr = sal_False );
-    void Insert2( const OUString &, const bool bForceExpandHints = false );
-    void Overwrite( const OUString & );
+    void Insert2( const rtl::OUString &, const bool bForceExpandHints = false );
+    void Overwrite( const rtl::OUString & );
 
     /** Replace a selected range in a TextNode by given string.
      Meant for Search & Replace.
      bRegExpRplc - replace tabs (\\t) and insert found string (not \&).
      E.g.: Fnd: "zzz", Repl: "xx\t\\t..&..\&"
            --> "xx\t<Tab>..zzz..&" */
-    sal_Bool Replace( const OUString& rNewStr, sal_Bool bRegExpRplc = sal_False );
+    sal_Bool Replace( const rtl::OUString& rNewStr, sal_Bool bRegExpRplc = sal_False );
 
     /** Delete content of all ranges.
      If whole nodes are selected, these nodes get deleted. */
@@ -285,15 +285,15 @@ public:
     /// TABLE
     sal_uInt16 GetTblFrmFmtCount( bool bUsed = false ) const;
     SwFrmFmt& GetTblFrmFmt(sal_uInt16 nFmt, bool bUsed = false ) const;
-    OUString GetUniqueTblName() const;
+    rtl::OUString GetUniqueTblName() const;
 
     /// CHAR
     sal_uInt16 GetCharFmtCount() const;
     SwCharFmt& GetCharFmt(sal_uInt16 nFmt) const;
     SwCharFmt* GetCurCharFmt() const;
     void FillByEx(SwCharFmt*, sal_Bool bReset = sal_False);
-    SwCharFmt* MakeCharFmt( const OUString& rName, SwCharFmt* pDerivedFrom = 0 );
-    SwCharFmt* FindCharFmtByName( const OUString& rName ) const;
+    SwCharFmt* MakeCharFmt( const rtl::OUString& rName, SwCharFmt* pDerivedFrom = 0 );
+    SwCharFmt* FindCharFmtByName( const rtl::OUString& rName ) const;
 
     /* FormatCollections (new) - Explaining the general naming pattern:
      * GetXXXCount() returns the count of xxx in the document.
@@ -334,10 +334,10 @@ public:
     /// Add 2nd optional parameter <bResetListAttrs> - see also <SwDoc::SetTxtFmtColl(..)>
     void SetTxtFmtColl( SwTxtFmtColl*,
                         bool bResetListAttrs = false );
-    SwTxtFmtColl *MakeTxtFmtColl(const OUString &rFmtCollName,
+    SwTxtFmtColl *MakeTxtFmtColl(const rtl::OUString &rFmtCollName,
         SwTxtFmtColl *pDerivedFrom = 0);
     void FillByEx(SwTxtFmtColl*, sal_Bool bReset = sal_False);
-    SwTxtFmtColl* FindTxtFmtCollByName( const OUString& rName ) const;
+    SwTxtFmtColl* FindTxtFmtCollByName( const rtl::OUString& rName ) const;
 
     /// @return "Auto-Collection" with given Id. If it does not exist create it.
     SwTxtFmtColl* GetTxtCollFromPool( sal_uInt16 nId );
@@ -363,10 +363,10 @@ public:
 
     sal_uInt16 GetFldTypeCount(sal_uInt16 nResId = USHRT_MAX, sal_Bool bUsed = sal_False) const;
     SwFieldType* GetFldType(sal_uInt16 nId, sal_uInt16 nResId = USHRT_MAX, sal_Bool bUsed = sal_False) const;
-    SwFieldType* GetFldType(sal_uInt16 nResId, const OUString& rName) const;
+    SwFieldType* GetFldType(sal_uInt16 nResId, const rtl::OUString& rName) const;
 
     void RemoveFldType(sal_uInt16 nId, sal_uInt16 nResId = USHRT_MAX);
-    void RemoveFldType(sal_uInt16 nResId, const OUString& rName);
+    void RemoveFldType(sal_uInt16 nResId, const rtl::OUString& rName);
 
     void FieldToText( SwFieldType* pType );
 
@@ -376,15 +376,15 @@ public:
     SwDBData GetDBData() const;
     const SwDBData& GetDBDesc() const;
     void ChgDBData(const SwDBData& SwDBData);
-    void ChangeDBFields( const std::vector<OUString>& rOldNames,
-                         const OUString& rNewName );
-    void GetAllUsedDB( std::vector<OUString>& rDBNameList,
-                       std::vector<OUString>* pAllDBNames = 0 );
+    void ChangeDBFields( const std::vector<rtl::OUString>& rOldNames,
+                         const rtl::OUString& rNewName );
+    void GetAllUsedDB( std::vector<rtl::OUString>& rDBNameList,
+                       std::vector<rtl::OUString>* pAllDBNames = 0 );
 
     sal_Bool IsAnyDatabaseFieldInDoc()const;
 
     /// Check whether DB fields point to an available data source and returns it.
-    sal_Bool IsFieldDataSourceAvailable(OUString& rUsedDataSource) const;
+    sal_Bool IsFieldDataSourceAvailable(rtl::OUString& rUsedDataSource) const;
     void UpdateExpFlds(sal_Bool bCloseDB = sal_False);///< only every expression fields update
     void LockExpFlds();
     void UnlockExpFlds();
@@ -440,12 +440,12 @@ public:
     void                InsertTOXType(const SwTOXType& rTyp);
 
     /// AutoMark file
-    OUString        GetTOIAutoMarkURL() const;
-    void            SetTOIAutoMarkURL(const OUString& rSet);
+    rtl::OUString        GetTOIAutoMarkURL() const;
+    void            SetTOIAutoMarkURL(const rtl::OUString& rSet);
     void            ApplyAutoMark();
 
     /// Key for managing index.
-    sal_uInt16 GetTOIKeys( SwTOIKeyType eTyp, std::vector<OUString>& rArr ) const;
+    sal_uInt16 GetTOIKeys( SwTOIKeyType eTyp, std::vector<rtl::OUString>& rArr ) const;
 
     void SetOutlineNumRule(const SwNumRule&);
     const SwNumRule* GetOutlineNumRule() const;
@@ -472,7 +472,7 @@ public:
      list Id of a list, which has to be continued by applying the given list style. */
     void SetCurNumRule( const SwNumRule&,
                         const bool bCreateNewList /*= false*/,
-                        const OUString sContinuedListId = OUString(),
+                        const rtl::OUString sContinuedListId = rtl::OUString(),
                         const bool bResetIndentAttrs = false );
 
     /// Paragraphs without enumeration but with indents.
@@ -520,7 +520,7 @@ public:
     sal_Bool SelectionHasNumber() const;
     sal_Bool SelectionHasBullet() const;
 
-    OUString GetUniqueNumRuleName( const OUString* pChkStr = 0, bool bAutoNum = true ) const;
+    rtl::OUString GetUniqueNumRuleName( const rtl::OUString* pChkStr = 0, bool bAutoNum = true ) const;
     void ChgNumRuleFmts( const SwNumRule& rRule );
 
     /// Set (and query if) a numbering with StartFlag starts at current PointPos.
@@ -530,7 +530,7 @@ public:
 
     sal_uInt16 GetNodeNumStart( SwPaM* pPaM = NULL ) const;
 
-    bool ReplaceNumRule( const OUString& rOldRule, const OUString& rNewRule );
+    bool ReplaceNumRule( const rtl::OUString& rOldRule, const rtl::OUString& rNewRule );
 
     /** Searches for a text node with a numbering rule.
      in case a list style is found, <sListId> holds the list id, to which the
@@ -539,7 +539,7 @@ public:
                                     const bool bNum,
                                     const bool bOutline,
                                     int nNonEmptyAllowed,
-                                    OUString& sListId );
+                                    rtl::OUString& sListId );
 
     /** Undo.
      Maintain UndoHistory in Document.
@@ -556,10 +556,10 @@ public:
     /// Closes parenthesis of nUndoId, not used by UI.
     SwUndoId EndUndo( SwUndoId eUndoId = UNDO_EMPTY, const SwRewriter * pRewriter = 0 );
 
-    bool     GetLastUndoInfo(OUString *const o_pStr,
+    bool     GetLastUndoInfo(rtl::OUString *const o_pStr,
                              SwUndoId *const o_pId) const;
-    bool     GetFirstRedoInfo(OUString *const o_pStr) const;
-    SwUndoId GetRepeatInfo(OUString *const o_pStr) const;
+    bool     GetFirstRedoInfo(rtl::OUString *const o_pStr) const;
+    SwUndoId GetRepeatInfo(rtl::OUString *const o_pStr) const;
 
     /// is it forbidden to modify cursors via API calls?
     bool CursorsLocked() const;
@@ -591,7 +591,7 @@ public:
     /** Query text within selection.
      @returns FALSE, if selected range is too large to be copied
      into string buffer or if other errors occur. */
-    sal_Bool GetSelectedText( OUString &rBuf,
+    sal_Bool GetSelectedText( rtl::OUString &rBuf,
                         int nHndlParaBreak = GETSELTXT_PARABRK_TO_BLANK );
 
     /** @return graphic, if CurCrsr->Point() points to a SwGrfNode
@@ -616,11 +616,11 @@ public:
     /** @return name and filter of a graphic if the cursor is in a graphic,
      else give a rap on the knuckles!
      If a string-ptr != 0 return the respective name. */
-    void GetGrfNms( OUString* pGrfName, OUString* pFltName,
+    void GetGrfNms( rtl::OUString* pGrfName, rtl::OUString* pFltName,
                     const SwFlyFrmFmt* = 0 ) const;
 
     /// Re-read if graphic is not ok. Current graphic is replaced by the new one.
-    void ReRead( const OUString& rGrfName, const OUString& rFltName,
+    void ReRead( const rtl::OUString& rGrfName, const rtl::OUString& rFltName,
                   const Graphic* pGraphic = 0,
                   const GraphicObject* pGrafObj = 0 );
 
@@ -630,7 +630,7 @@ public:
     // #i73788#
     /// Remove default parameter, because method always called this default value.
     Graphic GetIMapGraphic() const; ///< @return a graphic for all Flys!
-    const SwFlyFrmFmt* FindFlyByName( const OUString& rName, sal_uInt8 nNdTyp = 0 ) const;
+    const SwFlyFrmFmt* FindFlyByName( const rtl::OUString& rName, sal_uInt8 nNdTyp = 0 ) const;
 
     /** @return a ClientObject, if CurCrsr->Point() points to a SwOLENode
      (and mark is neither set not pointint to same ClientObject)
@@ -638,29 +638,29 @@ public:
     svt::EmbeddedObjectRef&  GetOLEObject() const;
 
     /// Is there an OLEObject with this name (SwFmt)?
-    sal_Bool HasOLEObj( const OUString &rName ) const;
+    sal_Bool HasOLEObj( const rtl::OUString &rName ) const;
 
     /// @return pointer to the data of the chart in which Cursr is.
-    void SetChartName( const OUString &rName );
+    void SetChartName( const rtl::OUString &rName );
 
     /// Update content of all charts for table with given name.
-    void UpdateCharts( const OUString &rName );
+    void UpdateCharts( const rtl::OUString &rName );
 
-    OUString GetCurWord();
+    rtl::OUString GetCurWord();
 
     /** Glossary from glossary document in current document.
      Styles only if not already existent. */
-    void InsertGlossary( SwTextBlocks& rGlossary, const OUString& );
+    void InsertGlossary( SwTextBlocks& rGlossary, const rtl::OUString& );
 
     /** Make current selection glossary and insert into glossary document
      including styles. */
-    sal_uInt16 MakeGlossary( SwTextBlocks& rToFill, const OUString& rName,
-                         const OUString& rShortName, sal_Bool bSaveRelFile = sal_False,
-                         const OUString* pOnlyTxt=0 );
+    sal_uInt16 MakeGlossary( SwTextBlocks& rToFill, const rtl::OUString& rName,
+                         const rtl::OUString& rShortName, sal_Bool bSaveRelFile = sal_False,
+                         const rtl::OUString* pOnlyTxt=0 );
 
     /// Save complete content of doc as glossary.
-    sal_uInt16 SaveGlossaryDoc( SwTextBlocks& rGlossary, const OUString& rName,
-                            const OUString& rShortName,
+    sal_uInt16 SaveGlossaryDoc( SwTextBlocks& rGlossary, const rtl::OUString& rName,
+                            const rtl::OUString& rShortName,
                             sal_Bool bSaveRelFile = sal_False,
                             sal_Bool bOnlyTxt = sal_False );
 
@@ -689,7 +689,7 @@ public:
                          sal_Int16 eAdj = com::sun::star::text::HoriOrientation::FULL );
 
     void UpdateTable();
-    void SetTableName( SwFrmFmt& rTblFmt, const OUString &rNewName );
+    void SetTableName( SwFrmFmt& rTblFmt, const rtl::OUString &rNewName );
 
     SwFrmFmt *GetTableFmt();
     sal_Bool TextToTable( const SwInsertTableOptions& rInsTblOpts,  ///< ALL_TBL_INS_ATTR
@@ -703,7 +703,7 @@ public:
     void SetTblBoxFormulaAttrs( const SfxItemSet& rSet );
 
     sal_Bool IsTableBoxTextFormat() const;
-    OUString GetTableBoxText() const;
+    rtl::OUString GetTableBoxText() const;
 
     TblChgMode GetTblChgMode() const;
     void SetTblChgMode( TblChgMode eMode );
@@ -763,23 +763,23 @@ public:
     bool GetGrammarCorrection( ::com::sun::star::linguistic2::ProofreadingResult /*out*/ &rResult,
             sal_Int32 /*out*/ &rErrorPosInText,
             sal_Int32 /*out*/ &rErrorIndexInResult,
-            ::com::sun::star::uno::Sequence< OUString > /*out*/ &rSuggestions,
+            ::com::sun::star::uno::Sequence< rtl::OUString > /*out*/ &rSuggestions,
             const Point* pPt, SwRect& rSelectRect );
 
     void IgnoreGrammarErrorAt( SwPaM& rErrorPosition );
     void SetLinguRange( SwDocPositions eStart, SwDocPositions eEnde );
 
     /// @return reference set in document according to given name.
-    const SwFmtRefMark* GetRefMark( const OUString& rName ) const;
+    const SwFmtRefMark* GetRefMark( const rtl::OUString& rName ) const;
 
     /**  @return names of all references set in document.
       If ArrayPointer == 0 then return only whether a RefMark is set in document. */
-    sal_uInt16 GetRefMarks( std::vector<OUString>* = 0 ) const;
+    sal_uInt16 GetRefMarks( std::vector<rtl::OUString>* = 0 ) const;
 
     /// Call AutoCorrect
     void AutoCorrect( SvxAutoCorrect& rACorr, sal_Bool bInsertMode = sal_True,
                         sal_Unicode cChar = ' ' );
-    sal_Bool GetPrevAutoCorrWord( SvxAutoCorrect& rACorr, OUString& rWord );
+    sal_Bool GetPrevAutoCorrWord( SvxAutoCorrect& rACorr, rtl::OUString& rWord );
 
     /// Set our styles according to the respective rules.
     void AutoFormat( const SvxSwAutoFmtFlags* pAFlags = 0 );
@@ -788,14 +788,14 @@ public:
     static void SetAutoFmtFlags(SvxSwAutoFmtFlags *);
 
     /// Calculates selection.
-    OUString Calculate();
+    rtl::OUString Calculate();
 
-    sal_Bool InsertURL( const SwFmtINetFmt& rFmt, const OUString& rStr,
+    sal_Bool InsertURL( const SwFmtINetFmt& rFmt, const rtl::OUString& rStr,
                     sal_Bool bKeepSelection = sal_False );
     sal_uInt16 GetINetAttrs( SwGetINetAttrs& rArr );
 
-    OUString GetDropTxt( const sal_uInt16 nChars ) const;
-    void   ReplaceDropTxt( const OUString &rStr, SwPaM* pPaM = NULL );
+    rtl::OUString GetDropTxt( const sal_uInt16 nChars ) const;
+    void   ReplaceDropTxt( const rtl::OUString &rStr, SwPaM* pPaM = NULL );
 
     /** May an outline be moved or copied?
      Check whether it's in text body, not in table, and not read-only (move). */
@@ -834,7 +834,7 @@ public:
                             sal_Bool bChkHidden = sal_False,
                             sal_Bool BChkTOX = sal_False ) const;
 
-    OUString GetUniqueSectionName( const OUString* pChkStr = 0 ) const;
+    rtl::OUString GetUniqueSectionName( const rtl::OUString* pChkStr = 0 ) const;
 
     /// Set attributes.
     void SetSectionAttr(const SfxItemSet& rSet, SwSectionFmt* pSectFmt = 0);
@@ -902,7 +902,7 @@ public:
 
 
     /// Set comment to Redline at position.
-    sal_Bool SetRedlineComment( const OUString& rS );
+    sal_Bool SetRedlineComment( const rtl::OUString& rS );
     const SwRedline* GetCurrRedline() const;
 
     /// Redline attributes have been changed. Updated views.
@@ -929,7 +929,7 @@ public:
 
     /// Interface for TextInputData - (for input of Japanese/Chinese chars.)
     SwExtTextInput* CreateExtTextInput(LanguageType eInputLanguage);
-    OUString DeleteExtTextInput( SwExtTextInput* pDel = 0, sal_Bool bInsText = sal_True);
+    rtl::OUString DeleteExtTextInput( SwExtTextInput* pDel = 0, sal_Bool bInsText = sal_True);
     void SetExtTextInputData( const CommandExtTextInputData& );
 
     /// Interface for access to AutoComplete-list.

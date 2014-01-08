@@ -147,21 +147,21 @@ class SOT_DLLPUBLIC SotExchange
 {
 public:
     static sal_uLong    RegisterFormat( const ::com::sun::star::datatransfer::DataFlavor& rFlavor );
-    static sal_uLong    RegisterFormatName( const OUString& rName );
-    static sal_uLong    RegisterFormatMimeType( const OUString& rMimeType );
+    static sal_uLong    RegisterFormatName( const rtl::OUString& rName );
+    static sal_uLong    RegisterFormatMimeType( const rtl::OUString& rMimeType );
 
     static sal_uLong    GetFormat( const ::com::sun::star::datatransfer::DataFlavor& rFlavor );
-    static OUString     GetFormatName( sal_uLong nFormat );
+    static rtl::OUString     GetFormatName( sal_uLong nFormat );
     static bool         GetFormatDataFlavor( sal_uLong nFormat, ::com::sun::star::datatransfer::DataFlavor& rFlavor );
-    static OUString     GetFormatMimeType( sal_uLong nFormat );
+    static rtl::OUString     GetFormatMimeType( sal_uLong nFormat );
     static bool         IsInternal( const SvGlobalName& );
-    static sal_uLong    GetFormatIdFromMimeType( const OUString& rMimeType );
+    static sal_uLong    GetFormatIdFromMimeType( const rtl::OUString& rMimeType );
 
     // determine the SotFormatStringId for the registered format
 //FIXME JP 12.11.98: this three methods are obsolete as all ClipboardIds are static and equvialent to the SotFormatStringIds!
     static SotFormatStringId GetFormatStringId( sal_uLong nFormat )
         { return nFormat; }
-    static SotFormatStringId GetFormatStringId( const OUString& rName )
+    static SotFormatStringId GetFormatStringId( const rtl::OUString& rName )
         { return SotExchange::RegisterFormatMimeType( rName ); }
     static sal_uLong RegisterSotFormatName( SotFormatStringId nId )
         { return nId; }

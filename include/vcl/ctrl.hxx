@@ -91,8 +91,8 @@ protected:
         directly at the target device, or taking the reference device into account) when returning.
     */
     void        DrawControlText( OutputDevice& _rTargetDevice, Rectangle& _io_rRect,
-                                 const OUString& _rStr, sal_uInt16 _nStyle,
-                                 MetricVector* _pVector, OUString* _pDisplayText ) const;
+                                 const rtl::OUString& _rStr, sal_uInt16 _nStyle,
+                                 MetricVector* _pVector, rtl::OUString* _pDisplayText ) const;
 
     virtual const Font&
                 GetCanonicalFont( const StyleSettings& _rStyle ) const;
@@ -136,9 +136,9 @@ public:
     virtual void    DataChanged( const DataChangedEvent& rDCEvt );
 
     // invalidates layout data
-    virtual void    SetText( const OUString& rStr );
+    virtual void    SetText( const rtl::OUString& rStr );
     // gets the displayed text
-    virtual OUString GetDisplayText() const;
+    virtual rtl::OUString GetDisplayText() const;
     // returns the bounding box for the character at index nIndex (in control coordinates)
     Rectangle GetCharacterBounds( long nIndex ) const;
     // returns the character index for corresponding to rPoint (in control coordinates)

@@ -203,7 +203,7 @@ public:
     virtual SfxItemPresentation GetPresentation( SfxItemPresentation ePresentation,
                                     SfxMapUnit eCoreMetric,
                                     SfxMapUnit ePresentationMetric,
-                                    OUString &rText,
+                                    rtl::OUString &rText,
                                     const IntlWrapper * pIntlWrapper = 0 ) const;
 
     virtual sal_uInt16           GetVersion( sal_uInt16 nFileFormatVersion ) const;
@@ -227,7 +227,7 @@ public:
 
         @return  On success, returns the reconstructed Unicode string.
      */
-    static OUString readByteString(SvStream & rStream);
+    static rtl::OUString readByteString(SvStream & rStream);
 
     /** Write a byte string representation of a Unicode string into a stream.
 
@@ -237,7 +237,7 @@ public:
         @param rString  Some Unicode string.
      */
     static void writeByteString(SvStream & rStream,
-                                const OUString& rString);
+                                const rtl::OUString& rString);
 
     /** Read in a Unicode string from either a streamed Unicode or byte string
         representation.
@@ -250,7 +250,7 @@ public:
 
         @return          On success, returns the reconstructed Unicode string.
      */
-    static OUString readUnicodeString(SvStream & rStream, bool bUnicode);
+    static rtl::OUString readUnicodeString(SvStream & rStream, bool bUnicode);
 
     /** Write a Unicode string representation of a Unicode string into a
         stream.
@@ -260,7 +260,7 @@ public:
         @param rString  Some Unicode string.
      */
     static void writeUnicodeString(SvStream & rStream,
-                                   const OUString& rString);
+                                   const rtl::OUString& rString);
 
 private:
     SfxPoolItem&             operator=( const SfxPoolItem& );    // n.i.!!
@@ -343,7 +343,7 @@ public:
     virtual SfxItemPresentation GetPresentation( SfxItemPresentation ePres,
                                     SfxMapUnit eCoreMetric,
                                     SfxMapUnit ePresMetric,
-                                    OUString &rText,
+                                    rtl::OUString &rText,
                                     const IntlWrapper * = 0 ) const;
 
     // von sich selbst eine Kopie erzeugen
@@ -371,7 +371,7 @@ public:
     virtual SfxItemPresentation GetPresentation( SfxItemPresentation ePres,
                                     SfxMapUnit eCoreMetric,
                                     SfxMapUnit ePresMetric,
-                                    OUString &rText,
+                                    rtl::OUString &rText,
                                     const IntlWrapper * = 0 ) const;
 
     // von sich selbst eine Kopie erzeugen

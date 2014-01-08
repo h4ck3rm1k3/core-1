@@ -109,7 +109,7 @@ enum SmTokenType
 struct SmToken
 {
 
-    OUString        aText;      // token text
+    rtl::OUString        aText;      // token text
     SmTokenType     eType;      // token info
     sal_Unicode cMathChar;
 
@@ -150,7 +150,7 @@ struct SmErrorDesc
 {
     SmParseError  Type;
     SmNode       *pNode;
-    OUString      Text;
+    rtl::OUString      Text;
 };
 
 
@@ -170,7 +170,7 @@ struct SmTokenTableEntry
 
 class SmParser
 {
-    OUString        m_aBufferString;
+    rtl::OUString        m_aBufferString;
     SmToken         m_aCurToken;
     SmNodeStack     m_aNodeStack;
     SmErrDescList   m_aErrDescList;
@@ -184,7 +184,7 @@ class SmParser
                     m_bExportSymNames;
 
     // map of used symbols (used to reduce file size by exporting only actually used symbols)
-    std::set< OUString >   m_aUsedSymbols;
+    std::set< rtl::OUString >   m_aUsedSymbols;
 
     //! locale where '.' is decimal separator!
     ::com::sun::star::lang::Locale m_aDotLoc;
@@ -195,12 +195,12 @@ class SmParser
 
 protected:
 #if OSL_DEBUG_LEVEL > 1
-    bool            IsDelimiter( const OUString &rTxt, sal_Int32 nPos );
+    bool            IsDelimiter( const rtl::OUString &rTxt, sal_Int32 nPos );
 #endif
     void            NextToken();
     sal_Int32       GetTokenIndex() const   { return m_nTokenIndex; }
-    void            Insert(const OUString &rText, sal_Int32 nPos);
-    void            Replace( sal_Int32 nPos, sal_Int32 nLen, const OUString &rText );
+    void            Insert(const rtl::OUString &rText, sal_Int32 nPos);
+    void            Replace( sal_Int32 nPos, sal_Int32 nLen, const rtl::OUString &rText );
 
     inline bool     TokenInGroup( sal_uLong nGroup );
 
@@ -242,17 +242,17 @@ protected:
     void    Error(SmParseError Error);
 
     void    ClearUsedSymbols()                              { m_aUsedSymbols.clear(); }
-    void    AddToUsedSymbols( const OUString &rSymbolName ) { m_aUsedSymbols.insert( rSymbolName ); }
+    void    AddToUsedSymbols( const rtl::OUString &rSymbolName ) { m_aUsedSymbols.insert( rSymbolName ); }
 
 public:
                  SmParser();
 
     /** Parse rBuffer to formula tree */
-    SmNode      *Parse(const OUString &rBuffer);
+    SmNode      *Parse(const rtl::OUString &rBuffer);
     /** Parse rBuffer to formula subtree that constitutes an expression */
-    SmNode      *ParseExpression(const OUString &rBuffer);
+    SmNode      *ParseExpression(const rtl::OUString &rBuffer);
 
-    const OUString & GetText() const { return m_aBufferString; };
+    const rtl::OUString & GetText() const { return m_aBufferString; };
 
     bool        IsImportSymbolNames() const        { return bImportSymNames; }
     void        SetImportSymbolNames(bool bVal)    { bImportSymNames = bVal; }
@@ -263,9 +263,9 @@ public:
     const SmErrorDesc*  NextError();
     const SmErrorDesc*  PrevError();
     const SmErrorDesc*  GetError(size_t i = size_t(-1) );
-    static const SmTokenTableEntry* GetTokenTableEntry( const OUString &rName );
-    bool    IsUsedSymbol( const OUString &rSymbolName ) const { return m_aUsedSymbols.find( rSymbolName ) != m_aUsedSymbols.end(); }
-    std::set< OUString >   GetUsedSymbols() const      { return m_aUsedSymbols; }
+    static const SmTokenTableEntry* GetTokenTableEntry( const rtl::OUString &rName );
+    bool    IsUsedSymbol( const rtl::OUString &rSymbolName ) const { return m_aUsedSymbols.find( rSymbolName ) != m_aUsedSymbols.end(); }
+    std::set< rtl::OUString  >   GetUsedSymbols() const      { return m_aUsedSymbols; }
 };
 
 

@@ -115,27 +115,27 @@ public:
 
     void                EnableDDAutoWidth( sal_Bool b );
 
-    sal_uInt16          InsertEntry( const OUString& rStr, sal_uInt16 nPos = LISTBOX_APPEND );
-    sal_uInt16          InsertEntry( const OUString& rStr, const Image& rImage, sal_uInt16 nPos = LISTBOX_APPEND );
-    void                RemoveEntry( const OUString& rStr );
+    sal_uInt16          InsertEntry( const rtl::OUString& rStr, sal_uInt16 nPos = LISTBOX_APPEND );
+    sal_uInt16          InsertEntry( const rtl::OUString& rStr, const Image& rImage, sal_uInt16 nPos = LISTBOX_APPEND );
+    void                RemoveEntry( const rtl::OUString& rStr );
     void                RemoveEntry( sal_uInt16 nPos );
 
     void                Clear();
 
-    sal_uInt16          GetEntryPos( const OUString& rStr ) const;
+    sal_uInt16          GetEntryPos( const rtl::OUString& rStr ) const;
     sal_uInt16          GetEntryPos( const void* pData ) const;
     Image               GetEntryImage( sal_uInt16 nPos ) const;
-    OUString            GetEntry( sal_uInt16 nPos ) const;
+    rtl::OUString            GetEntry( sal_uInt16 nPos ) const;
     sal_uInt16          GetEntryCount() const;
 
-    void                SelectEntry( const OUString& rStr, sal_Bool bSelect = sal_True );
+    void                SelectEntry( const rtl::OUString& rStr, sal_Bool bSelect = sal_True );
     void                SelectEntryPos( sal_uInt16 nPos, sal_Bool bSelect = sal_True );
 
     sal_uInt16          GetSelectEntryCount() const;
-    OUString            GetSelectEntry( sal_uInt16 nSelIndex = 0 ) const;
+    rtl::OUString            GetSelectEntry( sal_uInt16 nSelIndex = 0 ) const;
     sal_uInt16          GetSelectEntryPos( sal_uInt16 nSelIndex = 0 ) const;
 
-    bool                IsEntrySelected(const OUString& rStr) const;
+    bool                IsEntrySelected(const rtl::OUString& rStr) const;
     sal_Bool            IsEntryPosSelected( sal_uInt16 nPos ) const;
     void                SetNoSelection();
 
@@ -231,7 +231,7 @@ public:
     sal_Int32 getMaxWidthChars() const { return m_nMaxWidthChars; }
     void setMaxWidthChars(sal_Int32 nWidth);
 
-    virtual bool set_property(const OString &rKey, const OString &rValue);
+    virtual bool set_property(const rtl::OString &rKey, const rtl::OString &rValue);
 
     void EnableQuickSelection( const bool& b );
 };

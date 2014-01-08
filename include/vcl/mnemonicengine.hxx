@@ -51,7 +51,7 @@ namespace vcl
 
                 If this value is <NULL/>, searching stops.
         */
-        virtual const void* FirstSearchEntry( OUString& _rEntryText ) const = 0;
+        virtual const void* FirstSearchEntry( rtl::OUString& _rEntryText ) const = 0;
 
         /** returns the next list entry for the mnemonic search
 
@@ -66,7 +66,7 @@ namespace vcl
                 to <member>FirstSearchEntry</member> (i.e. you cycled
                 around), then searching stops, too.
         */
-        virtual const void* NextSearchEntry( const void* _pCurrentSearchEntry, OUString& _rEntryText ) const = 0;
+        virtual const void* NextSearchEntry( const void* _pCurrentSearchEntry, rtl::OUString& _rEntryText ) const = 0;
 
         /** "selects" a given entry.
 

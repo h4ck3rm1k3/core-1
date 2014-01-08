@@ -115,7 +115,7 @@ struct SwContentAtPos
 
     int nDist;
 
-    OUString sStr;
+    rtl::OUString sStr;
     const SwTxtAttr* pFndTxtAttr;
 
     SwContentAtPos( int eGetAtPos = 0xffff )
@@ -135,7 +135,7 @@ const int CRSR_POSOLD = 0x01,   // cursor stays at old position
           CRSR_POSCHG = 0x02;   // position changed by the layout
 
 /// Helperfunction to resolve backward references in regular expressions
-OUString *ReplaceBackReferences( const com::sun::star::util::SearchOptions& rSearchOpt, SwPaM* pPam );
+rtl::OUString *ReplaceBackReferences( const com::sun::star::util::SearchOptions& rSearchOpt, SwPaM* pPam );
 
 class SW_DLLPUBLIC SwCrsrShell
     : public SwViewShell
@@ -203,7 +203,7 @@ private:
     sal_uInt16 m_nBasicActionCnt;     ///< Actions which are parenthesized by Basic
     CrsrMoveState m_eMvState;     ///< Status for Crsr-Travelling - GetCrsrOfst
 
-    OUString m_sMarkedListId;
+    rtl::OUString m_sMarkedListId;
     int m_nMarkedListLevel;
 
     sal_Bool m_bHasFocus : 1;         ///< Shell is "active" in a window
@@ -247,7 +247,7 @@ private:
 
         An empty sListId denotes that no level of a list is marked.
      */
-    SW_DLLPRIVATE void MarkListLevel( const OUString& sListId,
+    SW_DLLPRIVATE void MarkListLevel( const rtl::OUString& sListId,
                                       const int nLevel );
 
     // private method(s) accessed from public inline method(s) must be exported.
@@ -558,8 +558,8 @@ public:
     // at CurCrsr.SPoint
     ::sw::mark::IMark* SetBookmark(
         const KeyCode&,
-        const OUString& rName,
-        const OUString& rShortName,
+        const rtl::OUString& rName,
+        const rtl::OUString& rShortName,
         IDocumentMarkAccess::MarkType eMark = IDocumentMarkAccess::BOOKMARK);
     bool GotoMark( const ::sw::mark::IMark* const pMark );    // sets CurCrsr.SPoint
     bool GotoMark( const ::sw::mark::IMark* const pMark, bool bAtStart );
@@ -578,10 +578,10 @@ public:
 
     // get the selected text at the current cursor. it will be filled with
     // fields etc.
-    OUString GetSelTxt() const;
+    rtl::OUString GetSelTxt() const;
     // return only the text starting from the current cursor position (to the
     // end of the node)
-    OUString GetText() const;
+    rtl::OUString GetText() const;
 
     // Check of SPoint or Mark of current cursor are placed within a table.
     inline const SwTableNode* IsCrsrInTbl( sal_Bool bIsPtInTbl = sal_True ) const;
@@ -594,13 +594,13 @@ public:
 
     bool IsTblComplexForChart();
     // get current table selection as text
-    OUString GetBoxNms() const;
+    rtl::OUString GetBoxNms() const;
 
     // set Crsr to the next/previous cell
     sal_Bool GoNextCell( sal_Bool bAppendLine = sal_True );
     sal_Bool GoPrevCell();
     // go to this box (if available and inside of table)
-    bool GotoTable( const OUString& rName );
+    bool GotoTable( const rtl::OUString& rName );
 
     // select a table row, column or box (based on the current cursor)
     sal_Bool SelTblRow() { return _SelTblRowOrCol( true  ); }
@@ -612,7 +612,7 @@ public:
     bool GotoNextNum();
     bool GotoPrevNum();
 
-    bool GotoOutline( const OUString& rName );
+    bool GotoOutline( const rtl::OUString& rName );
     // to the next/previous or the given OutlineNode
     void GotoOutline( sal_uInt16 nIdx );
     // find the "outline position" in the nodes array of the current chapter
@@ -669,8 +669,8 @@ public:
     // in a headerframe otherwise in a footerframe
     bool IsInHeaderFooter( sal_Bool* pbInHeader = 0 ) const;
 
-    sal_Bool GotoNextTOXBase( const OUString* = 0 );
-    sal_Bool GotoPrevTOXBase( const OUString* = 0 );
+    sal_Bool GotoNextTOXBase( const rtl::OUString* = 0 );
+    sal_Bool GotoPrevTOXBase( const rtl::OUString* = 0 );
     sal_Bool GotoTOXMarkBase();
     // jump to the next or previous index entry
     sal_Bool GotoNxtPrvTOXMark( sal_Bool bNext = sal_True );
@@ -685,7 +685,7 @@ public:
     // on graphics
     bool SelectNxtPrvHyperlink( bool bNext = true );
 
-    sal_Bool GotoRefMark( const OUString& rRefMark, sal_uInt16 nSubType = 0,
+    sal_Bool GotoRefMark( const rtl::OUString& rRefMark, sal_uInt16 nSubType = 0,
                             sal_uInt16 nSeqNo = 0 );
 
     // get the nth character from the start or end of the  current selection
@@ -766,7 +766,7 @@ public:
 
     sal_Bool BasicActionPend() const    { return m_nBasicActionCnt != mnStartAction; }
 
-    bool GotoRegion( const OUString& rName );
+    bool GotoRegion( const rtl::OUString& rName );
 
     // show the current selection
     virtual void MakeSelVisible();
@@ -784,12 +784,12 @@ public:
     // get smart tags at point position
     void GetSmartTagTerm( const Point& rPt,
                           SwRect& rSelectRect,
-                          ::com::sun::star::uno::Sequence< OUString >& rSmartTagTypes,
+                          ::com::sun::star::uno::Sequence< rtl::OUString >& rSmartTagTypes,
                           ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Reference< ::com::sun::star::container::XStringKeyMap > >& rStringKeyMaps,
                           ::com::sun::star::uno::Reference<com::sun::star::text::XTextRange>& rRange );
 
     // get smart tags at current cursor position
-    void GetSmartTagTerm( ::com::sun::star::uno::Sequence< OUString >& rSmartTagTypes,
+    void GetSmartTagTerm( ::com::sun::star::uno::Sequence< rtl::OUString >& rSmartTagTypes,
                           ::com::sun::star::uno::Sequence< ::com::sun::star::uno::Reference< ::com::sun::star::container::XStringKeyMap > >& rStringKeyMaps,
                           ::com::sun::star::uno::Reference<com::sun::star::text::XTextRange>& rRange ) const;
 
@@ -797,7 +797,7 @@ public:
 
     sal_Bool SelectTxtAttr( sal_uInt16 nWhich, sal_Bool bExpand, const SwTxtAttr* pAttr = 0 );
     bool GotoINetAttr( const SwTxtINetFmt& rAttr );
-    const SwFmtINetFmt* FindINetAttr( const OUString& rName ) const;
+    const SwFmtINetFmt* FindINetAttr( const rtl::OUString& rName ) const;
 
     sal_Bool SelectTxt( const xub_StrLen nStart,
                         const xub_StrLen nEnd );
@@ -855,7 +855,7 @@ public:
 
        @return the textual description of the current selection
      */
-    OUString GetCrsrDescr() const;
+    rtl::OUString GetCrsrDescr() const;
 };
 
 // Cursor Inlines:

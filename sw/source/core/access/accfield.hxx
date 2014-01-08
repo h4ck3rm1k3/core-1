@@ -105,12 +105,12 @@ public:
         throw (::com::sun::star::uno::RuntimeException);
 
     /// Return this object's description.
-    virtual OUString SAL_CALL
+    virtual rtl::OUString SAL_CALL
         getAccessibleDescription (void)
         throw (::com::sun::star::uno::RuntimeException);
 
     /// Return the object's current name.
-    virtual OUString SAL_CALL
+    virtual rtl::OUString SAL_CALL
         getAccessibleName (void)
         throw (::com::sun::star::uno::RuntimeException);
 

@@ -76,15 +76,15 @@ class IDocumentMarkAccess
            a pointer to the new mark (name might have changed).
         */
         virtual ::sw::mark::IMark* makeMark(const SwPaM& rPaM,
-            const OUString& rProposedName,
+            const rtl::OUString& rProposedName,
             MarkType eMark) =0;
 
         virtual sw::mark::IFieldmark* makeFieldBookmark( const SwPaM& rPaM,
-            const OUString& rName,
-            const OUString& rType) = 0;
+            const rtl::OUString& rName,
+            const rtl::OUString& rType) = 0;
         virtual sw::mark::IFieldmark* makeNoTextFieldBookmark( const SwPaM& rPaM,
-            const OUString& rName,
-            const OUString& rType) = 0;
+            const rtl::OUString& rName,
+            const rtl::OUString& rType) = 0;
 
         /** Returns a mark in the document for a paragraph.
             If there is none, a mark will be created.
@@ -122,7 +122,7 @@ class IDocumentMarkAccess
             @returns false, if renaming failed (because the name is already in use)
         */
             virtual bool renameMark(::sw::mark::IMark* io_pMark,
-                const OUString& rNewName) =0;
+                const rtl::OUString& rNewName) =0;
 
         /** Corrects marks (absolute)
             This method ignores the previous position of the mark in the paragraph
@@ -206,7 +206,7 @@ class IDocumentMarkAccess
             @returns
             an iterator pointing to the mark, or pointing to getMarksEnd() if nothing was found.
         */
-        virtual const_iterator_t findMark(const OUString& rMark) const =0;
+        virtual const_iterator_t findMark(const rtl::OUString& rMark) const =0;
 
 
         // interface IBookmarks (BOOKMARK, CROSSREF_NUMITEM_BOOKMARK, CROSSREF_HEADING_BOOKMARK)
@@ -231,7 +231,7 @@ class IDocumentMarkAccess
             @returns
             an iterator pointing to the bookmark, or getBookmarksEnd() if nothing was found.
         */
-        virtual const_iterator_t findBookmark(const OUString& rMark) const =0;
+        virtual const_iterator_t findBookmark(const rtl::OUString& rMark) const =0;
 
 
         // Fieldmarks
@@ -243,7 +243,7 @@ class IDocumentMarkAccess
         */
         static MarkType SAL_DLLPUBLIC_EXPORT GetType(const ::sw::mark::IMark& rMark);
 
-        static SAL_DLLPUBLIC_EXPORT OUString GetCrossRefHeadingBookmarkNamePrefix();
+        static SAL_DLLPUBLIC_EXPORT rtl::OUString GetCrossRefHeadingBookmarkNamePrefix();
         static SAL_DLLPUBLIC_EXPORT bool IsLegalPaMForCrossRefHeadingBookmark( const SwPaM& rPaM );
     protected:
         virtual ~IDocumentMarkAccess() {};

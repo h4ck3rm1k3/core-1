@@ -219,7 +219,7 @@ public:
     virtual ~SwFEShell();
 
     /// Copy and Paste methods for internal clipboard.
-    sal_Bool Copy( SwDoc* pClpDoc, const OUString* pNewClpTxt = 0 );
+    sal_Bool Copy( SwDoc* pClpDoc, const rtl::OUString* pNewClpTxt = 0 );
     sal_Bool Paste( SwDoc* pClpDoc, sal_Bool bIncludingPageFrames = sal_False);
 
     /// Paste some pages into another doc - used in mailmerge.
@@ -336,12 +336,12 @@ public:
     /** Deliver graphic in rName besides graphic name. If graphic is
      linked give name with path. rbLink is TRUE if graphic is linked. */
     const Graphic *GetGrfAtPos( const Point &rDocPos,
-                                OUString &rName, sal_Bool &rbLink ) const;
+                                rtl::OUString &rName, sal_Bool &rbLink ) const;
 
-    OUString GetObjTitle() const;
-    void SetObjTitle( const OUString& rTitle );
-    OUString GetObjDescription() const;
-    void SetObjDescription( const OUString& rDescription );
+    rtl::OUString GetObjTitle() const;
+    void SetObjTitle( const rtl::OUString& rTitle );
+    rtl::OUString GetObjDescription() const;
+    void SetObjDescription( const rtl::OUString& rDescription );
 
 
     sal_Bool IsFrmSelected() const;
@@ -414,25 +414,25 @@ public:
     void SetCheckForOLEInCaption( sal_Bool bFlag )  { bCheckForOLEInCaption = bFlag; }
 
     /// Set name at selected FlyFrame.
-    void SetFlyName( const OUString& rName );
-    OUString GetFlyName() const;
+    void SetFlyName( const rtl::OUString& rName );
+    rtl::OUString GetFlyName() const;
 
     /// get reference to OLE object (if there is one) for selected FlyFrame
     const com::sun::star::uno::Reference < com::sun::star::embed::XEmbeddedObject > GetOleRef() const;
 
     /// Created unique name for frame.
-    OUString GetUniqueGrfName() const;
-    OUString GetUniqueOLEName() const;
-    OUString GetUniqueFrameName() const;
+    rtl::OUString GetUniqueGrfName() const;
+    rtl::OUString GetUniqueOLEName() const;
+    rtl::OUString GetUniqueFrameName() const;
 
     /// Jump to named Fly (graphic/OLE).
-    sal_Bool GotoFly( const OUString& rName, FlyCntType eType = FLYCNTTYPE_ALL,
+    sal_Bool GotoFly( const rtl::OUString& rName, FlyCntType eType = FLYCNTTYPE_ALL,
                     sal_Bool bSelFrame = sal_True );
 
     /// Position is a graphic with URL?
-    const SwFrmFmt* IsURLGrfAtPos( const Point& rPt, OUString* pURL = 0,
-                                    OUString *pTargetFrameName = 0,
-                                    OUString *pURLDescription = 0 ) const;
+    const SwFrmFmt* IsURLGrfAtPos( const Point& rPt, rtl::OUString* pURL = 0,
+                                    rtl::OUString *pTargetFrameName = 0,
+                                    rtl::OUString *pURLDescription = 0 ) const;
 
     /** For Chain always connect Fly specified by format with that hit by point.
      rRect contains rect of Fly (for its highlight). */
@@ -517,8 +517,8 @@ public:
     sal_Bool IsAlignPossible() const;
     void SetCalcFieldValueHdl(Outliner* pOutliner);
 
-    void Insert(const OUString& rGrfName,
-                const OUString& rFltName,
+    void Insert(const rtl::OUString& rGrfName,
+                const rtl::OUString& rFltName,
                 const Graphic* pGraphic = 0,
                 const SfxItemSet* pFlyAttrSet = 0,
                 const SfxItemSet* pGrfAttrSet = 0,
@@ -528,7 +528,7 @@ public:
     void InsertDrawObj( SdrObject& rDrawObj,
                         const Point& rInsertPosition );
 
-    sal_Bool ReplaceSdrObj( const OUString& rGrfName, const OUString& rFltName,
+    sal_Bool ReplaceSdrObj( const rtl::OUString& rGrfName, const rtl::OUString& rFltName,
                         const Graphic* pGrf = 0 );
 
     // --> #i972#
@@ -556,7 +556,7 @@ public:
     sal_uInt16 GetCurPageDesc( const sal_Bool bCalcFrm = sal_True ) const;
     sal_uInt16 GetMousePageDesc( const Point &rPt ) const;
     sal_uInt16 GetPageDescCnt() const;
-    SwPageDesc* FindPageDescByName( const OUString& rName,
+    SwPageDesc* FindPageDescByName( const rtl::OUString& rName,
                                     sal_Bool bGetFromPool = sal_False,
                                     sal_uInt16* pPos = 0 );
 
@@ -574,7 +574,7 @@ public:
 
     /// Page number of the page containing Point, O if no page.
     sal_uInt16 GetPageNumber( const Point &rPoint ) const;
-    sal_Bool GetPageNumber( long nYPos, sal_Bool bAtCrsrPos, sal_uInt16& rPhyNum, sal_uInt16& rVirtNum, OUString &rDisplay ) const;
+    sal_Bool GetPageNumber( long nYPos, sal_Bool bAtCrsrPos, sal_uInt16& rPhyNum, sal_uInt16& rVirtNum, rtl::OUString &rDisplay ) const;
 
     SwFlyFrmFmt* InsertObject( const svt::EmbeddedObjectRef&,
                 const SfxItemSet* pFlyAttrSet = 0,
@@ -653,7 +653,7 @@ public:
                              cursor is not allowed in readonly. */
     void UnProtectCells();  ///< Refers to table selection.
     void UnProtectTbls();   ///< Unprotect all tables in selection.
-    sal_Bool HasTblAnyProtection( const OUString* pTblName = 0,
+    sal_Bool HasTblAnyProtection( const rtl::OUString* pTblName = 0,
                                 sal_Bool* pFullTblProtection = 0 );
     sal_Bool CanUnProtectCells() const;
 
@@ -686,7 +686,7 @@ public:
 
     sal_Bool SetColRowWidthHeight( sal_uInt16 eType, sal_uInt16 nDiff = 283 );
 
-    sal_Bool GetAutoSum( OUString& rFml ) const;
+    sal_Bool GetAutoSum( rtl::OUString& rFml ) const;
 
     /** Phy: real page count.
      Virt: consider offset that may have been set by user. */
@@ -696,10 +696,10 @@ public:
     void SetPageOffset( sal_uInt16 nOffset );   ///< Changes last page offset.
     sal_uInt16 GetPageOffset() const;           ///< @return last page offset.
 
-    void InsertLabel( const SwLabelType eType, const OUString &rTxt, const OUString& rSeparator,
-                      const OUString& rNumberSeparator,
+    void InsertLabel( const SwLabelType eType, const rtl::OUString &rTxt, const rtl::OUString& rSeparator,
+                      const rtl::OUString& rNumberSeparator,
                       const sal_Bool bBefore, const sal_uInt16 nId,
-                      const OUString& rCharacterStyle,
+                      const rtl::OUString& rCharacterStyle,
                       const sal_Bool bCpyBrd = sal_True );
 
     /// The ruler needs some information too.
@@ -720,11 +720,11 @@ public:
     long GetSectionWidth( SwFmt& rFmt ) const;
 
     void GetConnectableFrmFmts
-    (SwFrmFmt & rFmt, const OUString & rReference, sal_Bool bSuccessors,
-     ::std::vector< OUString > & aPrevPageVec,
-     ::std::vector< OUString > & aThisPageVec,
-     ::std::vector< OUString > & aNextPageVec,
-     ::std::vector< OUString > & aRestVec);
+    (SwFrmFmt & rFmt, const rtl::OUString & rReference, sal_Bool bSuccessors,
+     ::std::vector< rtl::OUString > & aPrevPageVec,
+     ::std::vector< rtl::OUString > & aThisPageVec,
+     ::std::vector< rtl::OUString > & aNextPageVec,
+     ::std::vector< rtl::OUString > & aRestVec);
 
     /** SwFEShell::GetShapeBackgrd
 

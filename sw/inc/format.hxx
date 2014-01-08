@@ -38,7 +38,7 @@ class SfxGrabBagItem;
 /// Base class for various Writer styles.
 class SW_DLLPUBLIC SwFmt : public SwModify
 {
-    OUString aFmtName;
+    rtl::OUString aFmtName;
     SwAttrSet aSet;
 
     sal_uInt16 nWhichId;
@@ -59,7 +59,7 @@ class SW_DLLPUBLIC SwFmt : public SwModify
 protected:
     SwFmt( SwAttrPool& rPool, const sal_Char* pFmtNm,
             const sal_uInt16* pWhichRanges, SwFmt *pDrvdFrm, sal_uInt16 nFmtWhich );
-    SwFmt( SwAttrPool& rPool, const OUString &rFmtNm, const sal_uInt16* pWhichRanges,
+    SwFmt( SwAttrPool& rPool, const rtl::OUString &rFmtNm, const sal_uInt16* pWhichRanges,
             SwFmt *pDrvdFrm, sal_uInt16 nFmtWhich );
     SwFmt( const SwFmt& rFmt );
    virtual void Modify( const SfxPoolItem* pOld, const SfxPoolItem* pNewValue );
@@ -103,8 +103,8 @@ public:
     inline SwFmt* DerivedFrom() const { return (SwFmt*)GetRegisteredIn(); }
     inline bool IsDefault() const { return DerivedFrom() == 0; }
 
-    inline OUString GetName() const   { return aFmtName; }
-    void SetName( const OUString& rNewName, sal_Bool bBroadcast=sal_False );
+    inline rtl::OUString GetName() const   { return aFmtName; }
+    void SetName( const rtl::OUString& rNewName, sal_Bool bBroadcast=sal_False );
     inline void SetName( const sal_Char* pNewName,
                          sal_Bool bBroadcast=sal_False);
 
@@ -148,7 +148,7 @@ public:
 
     /// Get attribute-description. Returns passed string.
     void GetPresentation( SfxItemPresentation ePres,
-        SfxMapUnit eCoreMetric, SfxMapUnit ePresMetric, OUString &rText ) const
+        SfxMapUnit eCoreMetric, SfxMapUnit ePresMetric, rtl::OUString &rText ) const
         { aSet.GetPresentation( ePres, eCoreMetric, ePresMetric, rText ); }
 
     /// Format-ID for reading/writing:
@@ -332,7 +332,7 @@ inline const SfxPoolItem& SwFmt::GetFmtAttr( sal_uInt16 nWhich,
 inline void SwFmt::SetName( const sal_Char* pNewName,
                              sal_Bool bBroadcast )
 {
-    SetName(OUString::createFromAscii(pNewName), bBroadcast);
+    SetName(rtl::OUString::createFromAscii(pNewName), bBroadcast);
 }
 
 inline SfxItemState SwFmt::GetItemState( sal_uInt16 nWhich, sal_Bool bSrchInParent,

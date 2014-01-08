@@ -33,17 +33,17 @@ class SW_DLLPUBLIC SwFmtINetFmt: public SfxPoolItem
 {
     friend class SwTxtINetFmt;
 
-    OUString aURL;                  ///< URL.
-    OUString aTargetFrame;          ///< Target frame for URL.
-    OUString aINetFmt;
-    OUString aVisitedFmt;
-    OUString aName;                 ///< Name of the link.
+    rtl::OUString aURL;                  ///< URL.
+    rtl::OUString aTargetFrame;          ///< Target frame for URL.
+    rtl::OUString aINetFmt;
+    rtl::OUString aVisitedFmt;
+    rtl::OUString aName;                 ///< Name of the link.
     SvxMacroTableDtor* pMacroTbl;
     SwTxtINetFmt* pTxtAttr;         ///< My TextAttribute.
     sal_uInt16 nINetId;
     sal_uInt16 nVisitedId;
 public:
-    SwFmtINetFmt( const OUString& rURL, const OUString& rTarget );
+    SwFmtINetFmt( const rtl::OUString& rURL, const rtl::OUString& rTarget );
     SwFmtINetFmt( const SwFmtINetFmt& rAttr );
     SwFmtINetFmt();                     ///< For TypeInfo.
     virtual ~SwFmtINetFmt();
@@ -56,7 +56,7 @@ public:
     virtual SfxItemPresentation GetPresentation( SfxItemPresentation ePres,
                                     SfxMapUnit eCoreMetric,
                                     SfxMapUnit ePresMetric,
-                                    OUString &rText,
+                                    rtl::OUString &rText,
                                     const IntlWrapper* pIntl = 0 ) const;
 
     virtual bool QueryValue( com::sun::star::uno::Any& rVal,
@@ -68,18 +68,18 @@ public:
     const SwTxtINetFmt* GetTxtINetFmt() const   { return pTxtAttr; }
     SwTxtINetFmt* GetTxtINetFmt()               { return pTxtAttr; }
 
-    OUString GetValue() const               { return aURL; }
+    rtl::OUString GetValue() const               { return aURL; }
 
-    OUString GetName() const                { return aName; }
-    void SetName( const OUString& rNm )     { aName = rNm; }
+    rtl::OUString GetName() const                { return aName; }
+    void SetName( const rtl::OUString& rNm )     { aName = rNm; }
 
-    OUString GetTargetFrame() const         { return aTargetFrame; }
+    rtl::OUString GetTargetFrame() const         { return aTargetFrame; }
 
-    OUString GetINetFmt() const             { return aINetFmt; }
-    void SetINetFmt( const OUString& rNm )  { aINetFmt = rNm; }
+    rtl::OUString GetINetFmt() const             { return aINetFmt; }
+    void SetINetFmt( const rtl::OUString& rNm )  { aINetFmt = rNm; }
 
-    OUString GetVisitedFmt() const            { return aVisitedFmt; }
-    void SetVisitedFmt( const OUString& rNm ) { aVisitedFmt = rNm; }
+    rtl::OUString GetVisitedFmt() const            { return aVisitedFmt; }
+    void SetVisitedFmt( const rtl::OUString& rNm ) { aVisitedFmt = rNm; }
 
     sal_uInt16 GetINetFmtId() const             { return nINetId; }
     void SetINetFmtId( sal_uInt16 nNew )        { nINetId = nNew; }

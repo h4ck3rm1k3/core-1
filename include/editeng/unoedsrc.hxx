@@ -141,7 +141,7 @@ public:
 
     virtual sal_Int32   GetParagraphCount() const = 0;
     virtual sal_uInt16  GetTextLen( sal_Int32 nParagraph ) const = 0;
-    virtual OUString    GetText( const ESelection& rSel ) const = 0;
+    virtual rtl::OUString    GetText( const ESelection& rSel ) const = 0;
     virtual SfxItemSet  GetAttribs( const ESelection& rSel, sal_Bool bOnlyHardAttrib = 0 ) const = 0;
     virtual SfxItemSet  GetParaAttribs( sal_Int32 nPara ) const = 0;
     virtual void        SetParaAttribs( sal_Int32 nPara, const SfxItemSet& rSet ) = 0;
@@ -151,12 +151,12 @@ public:
     virtual sal_uInt16      GetItemState( const ESelection& rSel, sal_uInt16 nWhich ) const = 0;
     virtual sal_uInt16      GetItemState( sal_Int32 nPara, sal_uInt16 nWhich ) const = 0;
 
-    virtual void        QuickInsertText( const OUString& rText, const ESelection& rSel ) = 0;
+    virtual void        QuickInsertText( const rtl::OUString& rText, const ESelection& rSel ) = 0;
     virtual void        QuickInsertField( const SvxFieldItem& rFld, const ESelection& rSel ) = 0;
     virtual void        QuickSetAttribs( const SfxItemSet& rSet, const ESelection& rSel ) = 0;
     virtual void        QuickInsertLineBreak( const ESelection& rSel ) = 0;
 
-    virtual OUString    CalcFieldValue( const SvxFieldItem& rField, sal_Int32 nPara, sal_uInt16 nPos, Color*& rpTxtColor, Color*& rpFldColor ) = 0;
+    virtual rtl::OUString    CalcFieldValue( const SvxFieldItem& rField, sal_Int32 nPara, sal_uInt16 nPos, Color*& rpTxtColor, Color*& rpFldColor ) = 0;
     virtual void         FieldClicked( const SvxFieldItem& rField, sal_Int32 nPara, xub_StrLen nPos ) = 0;
 
     virtual SfxItemPool* GetPool() const = 0;
@@ -165,7 +165,7 @@ public:
 
     // implementation functions for XParagraphAppend and XTextPortionAppend
     virtual void        AppendParagraph() = 0;
-    virtual sal_uInt16  AppendTextPortion( sal_Int32 nPara, const OUString &rText, const SfxItemSet &rSet ) = 0;
+    virtual sal_uInt16  AppendTextPortion( sal_Int32 nPara, const rtl::OUString &rText, const SfxItemSet &rSet ) = 0;
 
     // XTextCopy
     virtual void        CopyText(const SvxTextForwarder& rSource) = 0;
@@ -210,7 +210,7 @@ public:
      */
     virtual EBulletInfo     GetBulletInfo( sal_Int32 nPara ) const = 0;
 
-    virtual OUString        GetNumStr(sal_uInt16) const { return OUString(); }
+    virtual rtl::OUString        GetNumStr(sal_uInt16) const { return rtl::OUString(); }
     virtual void            SetUpdateModeForAcc(sal_Bool) {}
     virtual sal_Bool        GetUpdateModeForAcc() const { return sal_True; }
 
@@ -397,7 +397,7 @@ public:
 
          @return sal_True if text has been successfully inserted
       */
-    virtual sal_Bool        InsertText( const OUString& rText, const ESelection& rSel ) = 0;
+    virtual sal_Bool        InsertText( const rtl::OUString& rText, const ESelection& rSel ) = 0;
 
      /** Updates the formatting
 

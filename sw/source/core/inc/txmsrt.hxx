@@ -60,12 +60,12 @@ typedef std::vector<SwTOXSource> SwTOXSources;
 
 struct TextAndReading
 {
-    OUString sText;
-    OUString sReading;
+    rtl::OUString sText;
+    rtl::OUString sReading;
 
     TextAndReading() {}
 
-    TextAndReading(OUString sTxt, OUString sRdng)
+    TextAndReading(rtl::OUString sTxt, rtl::OUString sRdng)
     : sText(sTxt)
     , sReading(sRdng)
     {}
@@ -77,14 +77,14 @@ class SwTOXInternational
     IndexEntrySupplierWrapper* pIndexWrapper;
     CharClass* pCharClass;
     LanguageType eLang;
-    OUString sSortAlgorithm;
+    rtl::OUString sSortAlgorithm;
     sal_uInt16 nOptions;
 
     void Init();
 
 public:
     SwTOXInternational( LanguageType nLang, sal_uInt16 nOptions,
-                        const OUString& rSortAlgorithm );
+                        const rtl::OUString& rSortAlgorithm );
     SwTOXInternational( const SwTOXInternational& );
     ~SwTOXInternational();
 
@@ -109,13 +109,13 @@ public:
         return -1 == Compare( rTaR1, rLocale1, rTaR2, rLocale2 );
     }
 
-    OUString GetIndexKey( const TextAndReading& rTaR,
+    rtl::OUString GetIndexKey( const TextAndReading& rTaR,
                         const ::com::sun::star::lang::Locale& rLcl ) const;
 
-    OUString GetFollowingText( sal_Bool bMorePages ) const;
+    rtl::OUString GetFollowingText( sal_Bool bMorePages ) const;
 
-    OUString ToUpper( const OUString& rStr, xub_StrLen nPos ) const;
-    inline sal_Bool IsNumeric( const OUString& rStr ) const;
+    rtl::OUString ToUpper( const rtl::OUString& rStr, xub_StrLen nPos ) const;
+    inline sal_Bool IsNumeric( const rtl::OUString& rStr ) const;
 };
 
 /*--------------------------------------------------------------------
@@ -149,7 +149,7 @@ struct SwTOXSortTabBase
     virtual bool    operator==( const SwTOXSortTabBase& );
     virtual bool    operator<( const SwTOXSortTabBase& );
 
-    virtual OUString  GetURL() const;
+    virtual rtl::OUString  GetURL() const;
 
     inline TextAndReading GetTxt() const;
     inline const ::com::sun::star::lang::Locale& GetLocale() const;
@@ -237,7 +237,7 @@ private:
 
 struct SwTOXPara : public SwTOXSortTabBase
 {
-    SwTOXPara( const SwCntntNode&, SwTOXElement, sal_uInt16 nLevel = FORM_ALPHA_DELIMITTER, OUString sSeqName = OUString() );
+    SwTOXPara( const SwCntntNode&, SwTOXElement, sal_uInt16 nLevel = FORM_ALPHA_DELIMITTER, rtl::OUString sSeqName = rtl::OUString() );
     virtual ~SwTOXPara() {}
 
     void    SetStartIndex(sal_Int32 nSet)    { nStartIndex = nSet; }
@@ -246,7 +246,7 @@ struct SwTOXPara : public SwTOXSortTabBase
     virtual void    FillText( SwTxtNode& rNd, const SwIndex& rInsPos, sal_uInt16 nAuthField = 0 ) const;
     virtual sal_uInt16  GetLevel() const;
 
-    virtual OUString  GetURL() const;
+    virtual rtl::OUString  GetURL() const;
 private:
     virtual TextAndReading GetText_Impl() const;
 
@@ -254,7 +254,7 @@ private:
     sal_uInt16 m_nLevel;
     sal_Int32 nStartIndex;
     sal_Int32 nEndIndex;
-    OUString m_sSequenceName;
+    rtl::OUString m_sSequenceName;
 };
 
 struct SwTOXTable : public SwTOXSortTabBase
@@ -266,7 +266,7 @@ struct SwTOXTable : public SwTOXSortTabBase
 
     virtual sal_uInt16  GetLevel() const;
 
-    virtual OUString  GetURL() const;
+    virtual rtl::OUString  GetURL() const;
 private:
     virtual TextAndReading GetText_Impl() const;
 

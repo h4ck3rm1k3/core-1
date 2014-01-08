@@ -48,8 +48,8 @@ private:
 public:
                         Font();
                         Font( const Font& );
-                        Font( const OUString& rFamilyName, const Size& );
-                        Font( const OUString& rFamilyName, const OUString& rStyleName, const Size& );
+                        Font( const rtl::OUString& rFamilyName, const Size& );
+                        Font( const rtl::OUString& rFamilyName, const rtl::OUString& rStyleName, const Size& );
                         Font( FontFamily eFamily, const Size& );
                         ~Font();
 
@@ -64,10 +64,10 @@ public:
     void                SetAlign( FontAlign );
     FontAlign           GetAlign() const;
 
-    void                SetName( const OUString& rFamilyName );
-    const OUString&     GetName() const;
-    void                SetStyleName( const OUString& rStyleName );
-    const OUString&     GetStyleName() const;
+    void                SetName( const rtl::OUString& rFamilyName );
+    const rtl::OUString&     GetName() const;
+    void                SetStyleName( const rtl::OUString& rStyleName );
+    const rtl::OUString&     GetStyleName() const;
     void                SetSize( const Size& );
     const Size&         GetSize() const;
     void                SetHeight( long nHeight );

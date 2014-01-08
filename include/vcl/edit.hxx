@@ -47,7 +47,7 @@ struct Impl_IMEInfos;
 #define EDIT_NOLIMIT                STRING_LEN
 #define EDIT_UPDATEDATA_TIMEOUT     350
 
-typedef OUString (*FncGetSpecialChars)( Window* pWin, const Font& rFont );
+typedef rtl::OUString (*FncGetSpecialChars)( Window* pWin, const Font& rFont );
 
 // --------
 // - Edit -
@@ -62,11 +62,11 @@ private:
     Timer*              mpUpdateDataTimer;
     DDInfo*             mpDDInfo;
     Impl_IMEInfos*      mpIMEInfos;
-    OUStringBuffer      maText;
-    OUString            maPlaceholderText;
-    OUString            maSaveValue;
-    OUString            maUndoText;
-    OUString            maRedoText;
+    rtl::OUStringBuffer      maText;
+    rtl::OUString            maPlaceholderText;
+    rtl::OUString            maSaveValue;
+    rtl::OUString            maUndoText;
+    rtl::OUString            maRedoText;
     long                mnXOffset;
     Selection           maSelection;
     sal_uInt16          mnAlign;
@@ -89,16 +89,16 @@ private:
 
     DECL_DLLPRIVATE_LINK(      ImplUpdateDataHdl, void* );
 
-    SAL_DLLPRIVATE bool        ImplTruncateToMaxLen( OUString&, sal_uInt32 nSelectionLen ) const;
+    SAL_DLLPRIVATE bool        ImplTruncateToMaxLen( rtl::OUString&, sal_uInt32 nSelectionLen ) const;
     SAL_DLLPRIVATE void        ImplInitEditData();
     SAL_DLLPRIVATE void        ImplModified();
-    SAL_DLLPRIVATE OUString    ImplGetText() const;
+    SAL_DLLPRIVATE rtl::OUString    ImplGetText() const;
     SAL_DLLPRIVATE void        ImplRepaint( sal_Int32 nStart = 0, sal_Int32 nEnd = STRING_LEN, bool bLayout = false );
     SAL_DLLPRIVATE void        ImplInvalidateOrRepaint( sal_Int32 nStart = 0, sal_Int32 nEnd = STRING_LEN );
     SAL_DLLPRIVATE void        ImplDelete( const Selection& rSelection, sal_uInt8 nDirection, sal_uInt8 nMode );
-    SAL_DLLPRIVATE void        ImplSetText( const OUString& rStr, const Selection* pNewSelection = 0 );
-    SAL_DLLPRIVATE void        ImplInsertText( const OUString& rStr, const Selection* pNewSelection = 0, sal_Bool bIsUserInput = sal_False );
-    SAL_DLLPRIVATE OUString    ImplGetValidString( const OUString& rString ) const;
+    SAL_DLLPRIVATE void        ImplSetText( const rtl::OUString& rStr, const Selection* pNewSelection = 0 );
+    SAL_DLLPRIVATE void        ImplInsertText( const rtl::OUString& rStr, const Selection* pNewSelection = 0, sal_Bool bIsUserInput = sal_False );
+    SAL_DLLPRIVATE rtl::OUString    ImplGetValidString( const rtl::OUString& rString ) const;
     SAL_DLLPRIVATE void        ImplClearBackground( long nXStart, long nXEnd );
     SAL_DLLPRIVATE void        ImplPaintBorder( long nXStart, long nXEnd );
     SAL_DLLPRIVATE void        ImplShowCursor( sal_Bool bOnlyIfVisible = sal_True );
@@ -200,24 +200,24 @@ public:
     virtual void        SetSelection( const Selection& rSelection );
     virtual const Selection&    GetSelection() const;
 
-    virtual void        ReplaceSelected( const OUString& rStr );
+    virtual void        ReplaceSelected( const rtl::OUString& rStr );
     virtual void        DeleteSelected();
-    virtual OUString    GetSelected() const;
+    virtual rtl::OUString    GetSelected() const;
 
     virtual void        Cut();
     virtual void        Copy();
     virtual void        Paste();
     void                Undo();
 
-    virtual void        SetText( const OUString& rStr );
-    virtual void        SetText( const OUString& rStr, const Selection& rNewSelection );
-    virtual OUString    GetText() const;
+    virtual void        SetText( const rtl::OUString& rStr );
+    virtual void        SetText( const rtl::OUString& rStr, const Selection& rNewSelection );
+    virtual rtl::OUString    GetText() const;
 
-    virtual void        SetPlaceholderText( const OUString& rStr );
-    virtual OUString    GetPlaceholderText() const;
+    virtual void        SetPlaceholderText( const rtl::OUString& rStr );
+    virtual rtl::OUString    GetPlaceholderText() const;
 
     void                SaveValue() { maSaveValue = GetText(); }
-    const OUString&     GetSavedValue() const { return maSaveValue; }
+    const rtl::OUString&     GetSavedValue() const { return maSaveValue; }
 
     virtual void        SetModifyHdl( const Link& rLink ) { maModifyHdl = rLink; }
     virtual const Link& GetModifyHdl() const { return maModifyHdl; }
@@ -231,7 +231,7 @@ public:
     AutocompleteAction  GetAutocompleteAction() const { return meAutocompleteAction; }
 
     virtual Size        CalcMinimumSize() const;
-    virtual Size        CalcMinimumSizeForText(const OUString &rString) const;
+    virtual Size        CalcMinimumSizeForText(const rtl::OUString &rString) const;
     virtual Size        GetOptimalSize() const;
     virtual Size        CalcSize( sal_uInt16 nChars ) const;
     virtual xub_StrLen  GetMaxVisChars() const;
@@ -247,9 +247,9 @@ public:
     static PopupMenu*   CreatePopupMenu();
     static void         DeletePopupMenu( PopupMenu* pMenu );
 
-    virtual OUString GetSurroundingText() const;
+    virtual rtl::OUString GetSurroundingText() const;
     virtual Selection GetSurroundingTextSelection() const;
-    virtual bool set_property(const OString &rKey, const OString &rValue);
+    virtual bool set_property(const rtl::OString &rKey, const rtl::OString &rValue);
 
     // returns the minimum size a bordered Edit should have given the current
     // global style settings (needed by sc's inputwin.cxx)

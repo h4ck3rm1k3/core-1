@@ -260,7 +260,7 @@ public:
 
     // #i80314#
     // add 3rd parameter in order to control validation check on <rStr>
-    static sal_uInt16 _GetBoxNum( OUString& rStr,
+    static sal_uInt16 _GetBoxNum( rtl::OUString& rStr,
                               sal_Bool bFirst = sal_False,
                               const bool bPerformValidCheck = false );
 
@@ -269,7 +269,7 @@ public:
     // #i80314#
     // add 2nd parameter in order to control validation check in called method
     // <_GetBoxNum(..)>
-    const SwTableBox* GetTblBox( const OUString& rName,
+    const SwTableBox* GetTblBox( const rtl::OUString& rName,
                                  const bool bPerformValidCheck = false ) const;
     // Copy selected boxes to another document.
     bool MakeCopy( SwDoc*, const SwPosition&, const SwSelBoxes&,
@@ -293,7 +293,7 @@ public:
     bool IsTblComplex() const;
 
     // Returns true if table or selection is balanced.
-    bool IsTblComplexForChart( const OUString& rSel ) const;
+    bool IsTblComplexForChart( const rtl::OUString& rSel ) const;
 
     // Search all content-bearing boxes of the base line on which this box stands.
     // rBoxes as a return value for immediate use.
@@ -432,7 +432,7 @@ public:
                             bool bOvrTblLns=true ) const;
     // Return name of this box. It is determined dynamically and
     // is calculated from the position in the lines/boxes/table.
-    OUString GetName() const;
+    rtl::OUString GetName() const;
     // Return "value" of box (for calculating in table).
     double GetValue( SwTblCalcPara& rPara ) const;
 

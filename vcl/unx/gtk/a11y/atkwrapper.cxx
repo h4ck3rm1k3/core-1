@@ -78,39 +78,39 @@ static AtkRelationType mapRelationType( sal_Int16 nRelation )
 
     switch( nRelation )
     {
-        case accessibility::AccessibleRelationType::CONTENT_FLOWS_FROM:
+    case ::com::sun::star::accessibility::AccessibleRelationType::CONTENT_FLOWS_FROM:
             type = ATK_RELATION_FLOWS_FROM;
             break;
 
-        case accessibility::AccessibleRelationType::CONTENT_FLOWS_TO:
+        case ::com::sun::star::accessibility::AccessibleRelationType::CONTENT_FLOWS_TO:
             type = ATK_RELATION_FLOWS_TO;
             break;
 
-        case accessibility::AccessibleRelationType::CONTROLLED_BY:
+        case ::com::sun::star::accessibility::AccessibleRelationType::CONTROLLED_BY:
             type = ATK_RELATION_CONTROLLED_BY;
             break;
 
-        case accessibility::AccessibleRelationType::CONTROLLER_FOR:
+        case ::com::sun::star::accessibility::AccessibleRelationType::CONTROLLER_FOR:
             type = ATK_RELATION_CONTROLLER_FOR;
             break;
 
-        case accessibility::AccessibleRelationType::LABEL_FOR:
+        case ::com::sun::star::accessibility::AccessibleRelationType::LABEL_FOR:
             type = ATK_RELATION_LABEL_FOR;
             break;
 
-        case accessibility::AccessibleRelationType::LABELED_BY:
+        case ::com::sun::star::accessibility::AccessibleRelationType::LABELED_BY:
             type = ATK_RELATION_LABELLED_BY;
             break;
 
-        case accessibility::AccessibleRelationType::MEMBER_OF:
+        case ::com::sun::star::accessibility::AccessibleRelationType::MEMBER_OF:
             type = ATK_RELATION_MEMBER_OF;
             break;
 
-        case accessibility::AccessibleRelationType::SUB_WINDOW_OF:
+        case ::com::sun::star::accessibility::AccessibleRelationType::SUB_WINDOW_OF:
             type = ATK_RELATION_SUBWINDOW_OF;
             break;
 
-        case accessibility::AccessibleRelationType::NODE_CHILD_OF:
+        case ::com::sun::star::accessibility::AccessibleRelationType::NODE_CHILD_OF:
             type = ATK_RELATION_NODE_CHILD_OF;
             break;
 
@@ -130,7 +130,7 @@ AtkStateType mapAtkState( sal_Int16 nState )
     switch( nState )
     {
 #define MAP_DIRECT( a ) \
-        case accessibility::AccessibleStateType::a: \
+        case ::com::sun::star::accessibility::AccessibleStateType::a: \
             type = ATK_STATE_##a; break
 
         MAP_DIRECT( INVALID );
@@ -163,9 +163,9 @@ AtkStateType mapAtkState( sal_Int16 nState )
         MAP_DIRECT( VERTICAL );
         MAP_DIRECT( VISIBLE );
         // a spelling error ...
-        case accessibility::AccessibleStateType::DEFUNC:
+        case ::com::sun::star::accessibility::AccessibleStateType::DEFUNC:
             type = ATK_STATE_DEFUNCT; break;
-        case accessibility::AccessibleStateType::MULTI_SELECTABLE:
+        case ::com::sun::star::accessibility::AccessibleStateType::MULTI_SELECTABLE:
             type = ATK_STATE_MULTISELECTABLE; break;
     default:
         break;
@@ -278,26 +278,26 @@ static AtkRole mapToAtkRole( sal_Int16 nRole )
     if( ! initialized )
     {
         // re-use strings from ATK library
-        roleMap[accessibility::AccessibleRole::EDIT_BAR] = registerRole("edit bar");
-        roleMap[accessibility::AccessibleRole::EMBEDDED_OBJECT] = registerRole("embedded component");
-        roleMap[accessibility::AccessibleRole::CHART] = registerRole("chart");
-        roleMap[accessibility::AccessibleRole::CAPTION] = registerRole("caption");
-        roleMap[accessibility::AccessibleRole::DOCUMENT] = registerRole("document frame");
-        roleMap[accessibility::AccessibleRole::HEADING] = registerRole("heading");
-        roleMap[accessibility::AccessibleRole::PAGE] = registerRole("page");
-        roleMap[accessibility::AccessibleRole::SECTION] = registerRole("section");
-        roleMap[accessibility::AccessibleRole::FORM] = registerRole("form");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::EDIT_BAR] = registerRole("edit bar");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::EMBEDDED_OBJECT] = registerRole("embedded component");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::CHART] = registerRole("chart");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::CAPTION] = registerRole("caption");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::DOCUMENT] = registerRole("document frame");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::HEADING] = registerRole("heading");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::PAGE] = registerRole("page");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::SECTION] = registerRole("section");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::FORM] = registerRole("form");
 
         // these don't exist in ATK yet
-        roleMap[accessibility::AccessibleRole::END_NOTE] = registerRole("end note");
-        roleMap[accessibility::AccessibleRole::FOOTNOTE] = registerRole("foot note");
-        roleMap[accessibility::AccessibleRole::GROUP_BOX] = registerRole("group box");
-        roleMap[accessibility::AccessibleRole::HYPER_LINK] = registerRole("hyper link");
-        roleMap[accessibility::AccessibleRole::SHAPE] = registerRole("shape");
-        roleMap[accessibility::AccessibleRole::TEXT_FRAME] = registerRole("text frame");
-        roleMap[accessibility::AccessibleRole::IMAGE_MAP] = registerRole("image map");
-        roleMap[accessibility::AccessibleRole::NOTE] = registerRole("note");
-        roleMap[accessibility::AccessibleRole::TREE_ITEM] = registerRole("tree item");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::END_NOTE] = registerRole("end note");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::FOOTNOTE] = registerRole("foot note");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::GROUP_BOX] = registerRole("group box");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::HYPER_LINK] = registerRole("hyper link");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::SHAPE] = registerRole("shape");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::TEXT_FRAME] = registerRole("text frame");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::IMAGE_MAP] = registerRole("image map");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::NOTE] = registerRole("note");
+        roleMap[::com::sun::star::accessibility::AccessibleRole::TREE_ITEM] = registerRole("tree item");
 
         initialized = true;
     }
@@ -323,7 +323,7 @@ wrapper_get_name( AtkObject *atk_obj )
 
     if( obj->mpContext )
     {
-        uno::Reference< accessibility::XAccessibleContext > xContext(obj->mpContext);
+        uno::Reference< ::com::sun::star::accessibility::XAccessibleContext > xContext(obj->mpContext);
         try {
             OString aName =
                 OUStringToOString(
@@ -355,7 +355,7 @@ wrapper_get_description( AtkObject *atk_obj )
 
     if( obj->mpContext )
     {
-        uno::Reference< accessibility::XAccessibleContext > xContext(obj->mpContext);
+        uno::Reference< ::com::sun::star::accessibility::XAccessibleContext > xContext(obj->mpContext);
         try {
             OString aDescription =
                 OUStringToOString(
@@ -384,7 +384,7 @@ wrapper_get_n_children( AtkObject *atk_obj )
 
     if( obj->mpContext )
     {
-        uno::Reference< accessibility::XAccessibleContext > xContext(obj->mpContext);
+        uno::Reference< ::com::sun::star::accessibility::XAccessibleContext > xContext(obj->mpContext);
         try {
             n = xContext->getAccessibleChildCount();
         }
@@ -414,9 +414,9 @@ wrapper_ref_child( AtkObject *atk_obj,
 
     if( obj->mpContext )
     {
-        uno::Reference< accessibility::XAccessibleContext > xContext(obj->mpContext);
+        uno::Reference< ::com::sun::star::accessibility::XAccessibleContext > xContext(obj->mpContext);
         try {
-            uno::Reference< accessibility::XAccessible > xAccessible =
+            uno::Reference< ::com::sun::star::accessibility::XAccessible > xAccessible =
                 xContext->getAccessibleChild( i );
 
             child = atk_object_wrapper_ref( xAccessible );
@@ -439,7 +439,7 @@ wrapper_get_index_in_parent( AtkObject *atk_obj )
 
     if( obj->mpContext )
     {
-        uno::Reference< accessibility::XAccessibleContext > xContext(obj->mpContext);
+        uno::Reference< ::com::sun::star::accessibility::XAccessibleContext > xContext(obj->mpContext);
         try {
             i = xContext->getAccessibleIndexInParent();
 
@@ -465,22 +465,22 @@ wrapper_ref_relation_set( AtkObject *atk_obj )
 
     if( obj->mpContext )
     {
-        uno::Reference< accessibility::XAccessibleContext > xContext(obj->mpContext);
+        uno::Reference< ::com::sun::star::accessibility::XAccessibleContext > xContext(obj->mpContext);
         try {
-            uno::Reference< accessibility::XAccessibleRelationSet > xRelationSet(
+            uno::Reference< ::com::sun::star::accessibility::XAccessibleRelationSet > xRelationSet(
                     xContext->getAccessibleRelationSet()
             );
 
             sal_Int32 nRelations = xRelationSet.is() ? xRelationSet->getRelationCount() : 0;
             for( sal_Int32 n = 0; n < nRelations; n++ )
             {
-                accessibility::AccessibleRelation aRelation = xRelationSet->getRelation( n );
+                ::com::sun::star::accessibility::AccessibleRelation aRelation = xRelationSet->getRelation( n );
                 sal_uInt32 nTargetCount = aRelation.TargetSet.getLength();
                 AtkObject **pTargets = (AtkObject **) alloca( nTargetCount * sizeof(AtkObject *) );
 
                 for( sal_uInt32 i = 0; i < nTargetCount; i++ )
                 {
-                    uno::Reference< accessibility::XAccessible > xAccessible(
+                    uno::Reference< ::com::sun::star::accessibility::XAccessible > xAccessible(
                             aRelation.TargetSet[i], uno::UNO_QUERY );
                     pTargets[i] = atk_object_wrapper_ref( xAccessible );
                 }
@@ -511,9 +511,9 @@ wrapper_ref_state_set( AtkObject *atk_obj )
 
     if( obj->mpContext )
     {
-        uno::Reference< accessibility::XAccessibleContext > xContext(obj->mpContext);
+        uno::Reference< ::com::sun::star::accessibility::XAccessibleContext > xContext(obj->mpContext);
         try {
-            uno::Reference< accessibility::XAccessibleStateSet > xStateSet(
+            uno::Reference< ::com::sun::star::accessibility::XAccessibleStateSet > xStateSet(
                 xContext->getAccessibleStateSet());
 
             if( xStateSet.is() )
@@ -658,47 +658,47 @@ const struct {
     {
         "Comp", (GInterfaceInitFunc) componentIfaceInit,
         atk_component_get_type,
-        cppu::UnoType<accessibility::XAccessibleComponent>::get
+        cppu::UnoType< ::com::sun::star::accessibility::XAccessibleComponent>::get
     },
     {
         "Act",  (GInterfaceInitFunc) actionIfaceInit,
         atk_action_get_type,
-        cppu::UnoType<accessibility::XAccessibleAction>::get
+        cppu::UnoType< ::com::sun::star::accessibility::XAccessibleAction>::get
     },
     {
         "Txt",  (GInterfaceInitFunc) textIfaceInit,
         atk_text_get_type,
-        cppu::UnoType<accessibility::XAccessibleText>::get
+        cppu::UnoType< ::com::sun::star::accessibility::XAccessibleText>::get
     },
     {
         "Val",  (GInterfaceInitFunc) valueIfaceInit,
         atk_value_get_type,
-        cppu::UnoType<accessibility::XAccessibleValue>::get
+        cppu::UnoType< ::com::sun::star::accessibility::XAccessibleValue>::get
     },
     {
         "Tab",  (GInterfaceInitFunc) tableIfaceInit,
         atk_table_get_type,
-        cppu::UnoType<accessibility::XAccessibleTable>::get
+        cppu::UnoType< ::com::sun::star::accessibility::XAccessibleTable>::get
     },
     {
         "Edt",  (GInterfaceInitFunc) editableTextIfaceInit,
         atk_editable_text_get_type,
-        cppu::UnoType<accessibility::XAccessibleEditableText>::get
+        cppu::UnoType< ::com::sun::star::accessibility::XAccessibleEditableText>::get
     },
     {
         "Img",  (GInterfaceInitFunc) imageIfaceInit,
         atk_image_get_type,
-        cppu::UnoType<accessibility::XAccessibleImage>::get
+        cppu::UnoType< ::com::sun::star::accessibility::XAccessibleImage>::get
     },
     {
         "Hyp",  (GInterfaceInitFunc) hypertextIfaceInit,
         atk_hypertext_get_type,
-        cppu::UnoType<accessibility::XAccessibleHypertext>::get
+        cppu::UnoType< ::com::sun::star::accessibility::XAccessibleHypertext>::get
     },
     {
         "Sel",  (GInterfaceInitFunc) selectionIfaceInit,
         atk_selection_get_type,
-        cppu::UnoType<accessibility::XAccessibleSelection>::get
+        cppu::UnoType< ::com::sun::star::accessibility::XAccessibleSelection>::get
     }
     // AtkDocument is a nastily broken interface (so far)
     //  we could impl. get_document_type perhaps though.
@@ -748,7 +748,7 @@ ensureTypeFor( uno::XInterface *pAccessible )
 }
 
 AtkObject *
-atk_object_wrapper_ref( const uno::Reference< accessibility::XAccessible > &rxAccessible, bool create )
+atk_object_wrapper_ref( const uno::Reference< ::com::sun::star::accessibility::XAccessible > &rxAccessible, bool create )
 {
     g_return_val_if_fail( rxAccessible.get() != NULL, NULL );
 
@@ -767,15 +767,14 @@ atk_object_wrapper_ref( const uno::Reference< accessibility::XAccessible > &rxAc
 
 
 AtkObject *
-atk_object_wrapper_new( const ::com::sun::star::uno::Reference< ::com::sun::star::accessibility::XAccessible >& rxAccessible,
-                        AtkObject* parent )
+atk_object_wrapper_new( const ::com::sun::star::uno::Reference< ::com::sun::star::accessibility::XAccessible >& rxAccessible, AtkObject* parent )
 {
     g_return_val_if_fail( rxAccessible.get() != NULL, NULL );
 
     AtkObjectWrapper *pWrap = NULL;
 
     try {
-        uno::Reference< accessibility::XAccessibleContext > xContext(rxAccessible->getAccessibleContext());
+        uno::Reference< ::com::sun::star::accessibility::XAccessibleContext > xContext(rxAccessible->getAccessibleContext());
 
         g_return_val_if_fail( xContext.get() != NULL, NULL );
 
@@ -807,19 +806,19 @@ atk_object_wrapper_new( const ::com::sun::star::uno::Reference< ::com::sun::star
              * event gets processed (at idle), it may be too late to create the
              * hierachy, so doing it now ..
              */
-            uno::Reference< accessibility::XAccessible > xParent( xContext->getAccessibleParent() );
+            uno::Reference< ::com::sun::star::accessibility::XAccessible > xParent( xContext->getAccessibleParent() );
 
             if( xParent.is() )
                 atk_obj->accessible_parent = atk_object_wrapper_ref( xParent );
         }
 
         // Attach a listener to the UNO object if it's not TRANSIENT
-        uno::Reference< accessibility::XAccessibleStateSet > xStateSet( xContext->getAccessibleStateSet() );
-        if( xStateSet.is() && ! xStateSet->contains( accessibility::AccessibleStateType::TRANSIENT ) )
+        uno::Reference< ::com::sun::star::accessibility::XAccessibleStateSet > xStateSet( xContext->getAccessibleStateSet() );
+        if( xStateSet.is() && ! xStateSet->contains( ::com::sun::star::accessibility::AccessibleStateType::TRANSIENT ) )
         {
-            uno::Reference< accessibility::XAccessibleEventBroadcaster > xBroadcaster(xContext, uno::UNO_QUERY);
+            uno::Reference< ::com::sun::star::accessibility::XAccessibleEventBroadcaster > xBroadcaster(xContext, uno::UNO_QUERY);
             if( xBroadcaster.is() )
-                xBroadcaster->addAccessibleEventListener( static_cast< accessibility::XAccessibleEventListener * > ( new AtkListener(pWrap) ) );
+                xBroadcaster->addAccessibleEventListener( static_cast< ::com::sun::star::accessibility::XAccessibleEventListener * > ( new AtkListener(pWrap) ) );
         else
                 OSL_ASSERT( false );
         }

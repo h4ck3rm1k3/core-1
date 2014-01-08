@@ -41,13 +41,13 @@ class SwAccessiblePortionData : public SwPortionHandler
     const SwTxtNode* pTxtNode;
 
     // variables used while collecting the data
-    OUStringBuffer aBuffer;
+    rtl::OUStringBuffer aBuffer;
     sal_Int32 nModelPosition;
     sal_Bool bFinished;
     const SwViewOption* pViewOptions;
 
     // the accessible string
-    OUString sAccessibleString;
+    rtl::OUString sAccessibleString;
 
     // positions array
     // instances of Position_t must always include the minimum and
@@ -98,7 +98,7 @@ public:
 
     // SwPortionHandler methods
     virtual void Text(sal_uInt16 nLength, sal_uInt16 nType, sal_Int32 nHeight = 0, sal_Int32 nWidth = 0);
-    virtual void Special(sal_uInt16 nLength, const OUString& rText, sal_uInt16 nType, sal_Int32 nHeight = 0, sal_Int32 nWidth = 0);
+    virtual void Special(sal_uInt16 nLength, const rtl::OUString& rText, sal_uInt16 nType, sal_Int32 nHeight = 0, sal_Int32 nWidth = 0);
     virtual void LineBreak(KSHORT nWidth);
     virtual void Skip(sal_uInt16 nLength);
     virtual void Finish();
@@ -114,7 +114,7 @@ public:
     // access to the portion data
 
     /// get the text string, as presented by the layout
-    const OUString& GetAccessibleString() const;
+    const rtl::OUString& GetAccessibleString() const;
 
     /// get the start & end positions of the sentence
     void GetLineBoundary( com::sun::star::i18n::Boundary& rBound,

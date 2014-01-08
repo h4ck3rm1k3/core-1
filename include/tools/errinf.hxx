@@ -69,34 +69,34 @@ public:
 class TOOLS_DLLPUBLIC StringErrorInfo : public DynamicErrorInfo
 {
 private:
-    OUString                aString;
+    rtl::OUString                aString;
 
 public:
                             TYPEINFO();
 
                             StringErrorInfo( sal_uIntPtr lUserId,
-                                            const OUString& aStringP,
+                                            const rtl::OUString& aStringP,
                                             sal_uInt16 nFlags = 0);
-    const OUString&         GetErrorString() const { return aString; }
+    const rtl::OUString&         GetErrorString() const { return aString; }
 };
 
-class TOOLS_DLLPUBLIC TwoStringErrorInfo: public DynamicErrorInfo
+class TOOLS_DLLPUBLIC TOStringErrorInfo: public DynamicErrorInfo
 {
 private:
-    OUString aArg1;
-    OUString aArg2;
+    rtl::OUString aArg1;
+    rtl::OUString aArg2;
 
 public:
     TYPEINFO();
 
-    TwoStringErrorInfo(sal_uIntPtr nUserID, const OUString & rTheArg1,
-                       const OUString & rTheArg2, sal_uInt16 nFlags = 0):
+    TOStringErrorInfo(sal_uIntPtr nUserID, const rtl::OUString & rTheArg1,
+                       const rtl::OUString & rTheArg2, sal_uInt16 nFlags = 0):
         DynamicErrorInfo(nUserID, nFlags), aArg1(rTheArg1), aArg2(rTheArg2) {}
 
-    virtual ~TwoStringErrorInfo() {}
+    virtual ~TOStringErrorInfo() {}
 
-    const OUString& GetArg1() const { return aArg1; }
-    const OUString& GetArg2() const { return aArg2; }
+    const rtl::OUString& GetArg1() const { return aArg1; }
+    const rtl::OUString& GetArg2() const { return aArg2; }
 };
 
 class TOOLS_DLLPUBLIC MessageInfo : public DynamicErrorInfo
@@ -106,13 +106,13 @@ public:
 
     MessageInfo(sal_uIntPtr UserId, sal_uInt16 nFlags = 0) :
         DynamicErrorInfo(UserId, nFlags) {}
-    MessageInfo(sal_uIntPtr UserId, const OUString &rArg, sal_uInt16 nFlags = 0 ) :
+    MessageInfo(sal_uIntPtr UserId, const rtl::OUString &rArg, sal_uInt16 nFlags = 0 ) :
         DynamicErrorInfo(UserId, nFlags), aArg(rArg) {}
 
-    const OUString&         GetMessageArg() const { return aArg; }
+    const rtl::OUString&         GetMessageArg() const { return aArg; }
 
 private:
-    OUString           aArg;
+    rtl::OUString           aArg;
 };
 
 class TOOLS_DLLPUBLIC ErrorContext
@@ -127,17 +127,17 @@ public:
                             ErrorContext(Window *pWin=0);
     virtual                 ~ErrorContext();
 
-    virtual bool            GetString( sal_uIntPtr nErrId, OUString& rCtxStr ) = 0;
+    virtual bool            GetString( sal_uIntPtr nErrId, rtl::OUString& rCtxStr ) = 0;
     Window*                 GetParent() { return pWin; }
 
     static ErrorContext*    GetContext();
 };
 
 typedef sal_uInt16 WindowDisplayErrorFunc(
-    Window *, sal_uInt16 nMask, const OUString &rErr, const OUString &rAction);
+    Window *, sal_uInt16 nMask, const rtl::OUString &rErr, const rtl::OUString &rAction);
 
 typedef void BasicDisplayErrorFunc(
-    const OUString &rErr, const OUString &rAction);
+    const rtl::OUString &rErr, const rtl::OUString &rAction);
 
 class TOOLS_DLLPUBLIC ErrorHandler
 {
@@ -149,17 +149,17 @@ private:
     static sal_uInt16   HandleError_Impl( sal_uIntPtr lId,
                               sal_uInt16 nFlags,
                               bool bJustCreateString,
-                              OUString & rError);
+                              rtl::OUString & rError);
 protected:
     virtual bool        CreateString( const ErrorInfo *,
-                              OUString &, sal_uInt16& nMask ) const = 0;
+                              rtl::OUString &, sal_uInt16& nMask ) const = 0;
 
 public:
                         ErrorHandler();
     virtual             ~ErrorHandler();
 
     static sal_uInt16   HandleError ( sal_uIntPtr lId, sal_uInt16 nMask = USHRT_MAX );
-    static bool         GetErrorString( sal_uIntPtr lId, OUString& rStr );
+    static bool         GetErrorString( sal_uIntPtr lId, rtl::OUString& rStr );
 
     static void         RegisterDisplay( BasicDisplayErrorFunc* );
     static void         RegisterDisplay( WindowDisplayErrorFunc* );
@@ -168,7 +168,7 @@ public:
 class TOOLS_DLLPUBLIC SimpleErrorHandler : private ErrorHandler
 {
 protected:
-    virtual bool        CreateString( const ErrorInfo*, OUString &,
+    virtual bool        CreateString( const ErrorInfo*, rtl::OUString &,
                                       sal_uInt16 &nMask ) const;
 
 public:

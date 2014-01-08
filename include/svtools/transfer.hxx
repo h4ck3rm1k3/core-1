@@ -69,8 +69,8 @@ struct TransferableObjectDescriptor
     Point               maDragStartPos;
     Size                maSize;
     sal_uInt32          mnOle2Misc;
-    OUString            maTypeName;
-    OUString            maDisplayName;
+    rtl::OUString            maTypeName;
+    rtl::OUString            maDisplayName;
     sal_Bool            mbCanLink;
 
     TransferableObjectDescriptor()
@@ -161,7 +161,7 @@ private:
 private:
 
     ::com::sun::star::uno::Any                                                                          maAny;
-    OUString                                                                                     maLastFormat;
+    rtl::OUString                                                                                     maLastFormat;
     mutable ::com::sun::star::uno::Reference< ::com::sun::star::datatransfer::clipboard::XClipboard >   mxClipboard;
     ::com::sun::star::uno::Reference< ::com::sun::star::frame::XTerminateListener >                     mxTerminateListener;
     DataFlavorExVector*                                                                                 mpFormats;
@@ -223,7 +223,7 @@ protected:
     void                ClearFormats();
 
     sal_Bool            SetAny( const ::com::sun::star::uno::Any& rAny, const ::com::sun::star::datatransfer::DataFlavor& rFlavor );
-    sal_Bool            SetString( const OUString& rString, const ::com::sun::star::datatransfer::DataFlavor& rFlavor );
+    sal_Bool            SetString( const rtl::OUString& rString, const ::com::sun::star::datatransfer::DataFlavor& rFlavor );
     sal_Bool            SetBitmapEx( const BitmapEx& rBitmap, const ::com::sun::star::datatransfer::DataFlavor& rFlavor );
     sal_Bool            SetGDIMetaFile( const GDIMetaFile& rMtf, const ::com::sun::star::datatransfer::DataFlavor& rFlavor );
     sal_Bool            SetGraphic( const Graphic& rGraphic, const ::com::sun::star::datatransfer::DataFlavor& rFlavor );
@@ -315,8 +315,8 @@ public:
     ::com::sun::star::uno::Any  GetAny( SotFormatStringId nFormat ) const;
     ::com::sun::star::uno::Any  GetAny( const ::com::sun::star::datatransfer::DataFlavor& rFlavor ) const;
 
-    sal_Bool                    GetString( SotFormatStringId nFormat, OUString& rStr );
-    sal_Bool                    GetString( const ::com::sun::star::datatransfer::DataFlavor& rFlavor, OUString& rStr );
+    sal_Bool                    GetString( SotFormatStringId nFormat, rtl::OUString& rStr );
+    sal_Bool                    GetString( const ::com::sun::star::datatransfer::DataFlavor& rFlavor, rtl::OUString& rStr );
 
     sal_Bool                    GetBitmapEx( SotFormatStringId nFormat, BitmapEx& rBmp );
     sal_Bool                    GetBitmapEx( const ::com::sun::star::datatransfer::DataFlavor& rFlavor, BitmapEx& rBmp );
@@ -497,11 +497,11 @@ public:
     void                CopyINetImage( const INetImage& rINtImg );
     void                CopyImageMap( const ImageMap& rImgMap );
     void                CopyGraphic( const Graphic& rGrf );
-    void                CopyString( const OUString& rStr );
-    void                CopyString( sal_uInt16 nFmt, const OUString& rStr );
+    void                CopyString( const rtl::OUString& rStr );
+    void                CopyString( sal_uInt16 nFmt, const rtl::OUString& rStr );
     void                CopyAny( sal_uInt16 nFmt, const ::com::sun::star::uno::Any& rAny );
 
-    void                CopyByteString( sal_uLong nFormatId, const OString& rStr );
+    void                CopyByteString( sal_uLong nFormatId, const rtl::OString& rStr );
     void                CopyAnyData( sal_uLong nFormatId, const sal_Char* pData, sal_uLong nLen );
 
     sal_Bool            HasAnyData() const;

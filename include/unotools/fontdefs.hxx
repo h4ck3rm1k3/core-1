@@ -39,11 +39,11 @@ namespace utl {
 #define SUBSFONT_PS         ((sal_uLong)0x00000004)
 #define SUBSFONT_HTML       ((sal_uLong)0x00000008)
 
-UNOTOOLS_DLLPUBLIC OUString GetSubsFontName( const OUString& rName, sal_uLong nFlags );
+UNOTOOLS_DLLPUBLIC rtl::OUString GetSubsFontName( const rtl::OUString& rName, sal_uLong nFlags );
 
-UNOTOOLS_DLLPUBLIC void AddTokenFontName( OUString& rName, const OUString& rNewToken );
+UNOTOOLS_DLLPUBLIC void AddTokenFontName( rtl::OUString& rName, const rtl::OUString& rNewToken );
 
-struct UNOTOOLS_DLLPUBLIC FontNameHash { int operator()(const OUString&) const; };
+struct UNOTOOLS_DLLPUBLIC FontNameHash { int operator()(const rtl::OUString&) const; };
 
 // ---------------
 // - ConvertChar -
@@ -56,8 +56,8 @@ public:
     const char*         mpSubsFontName;
     sal_Unicode         (*mpCvtFunc)( sal_Unicode );
     sal_Unicode         RecodeChar( sal_Unicode c ) const;
-    void                RecodeString( OUString& rStra, sal_Int32 nIndex, sal_Int32 nLen ) const;
-    static const ConvertChar* GetRecodeData( const OUString& rOrgFontName, const OUString& rMapFontName );
+    void                RecodeString( rtl::OUString& rStra, sal_Int32 nIndex, sal_Int32 nLen ) const;
+    static const ConvertChar* GetRecodeData( const rtl::OUString& rOrgFontName, const rtl::OUString& rMapFontName );
 };
 
 
@@ -86,9 +86,9 @@ public:
 #define DEFAULTFONT_CTL_HEADING         ((sal_uInt16)4003)
 #define DEFAULTFONT_CTL_DISPLAY         ((sal_uInt16)4004)
 
-UNOTOOLS_DLLPUBLIC OUString GetNextFontToken( const OUString& rTokenStr, sal_Int32& rIndex );
+UNOTOOLS_DLLPUBLIC rtl::OUString GetNextFontToken( const rtl::OUString& rTokenStr, sal_Int32& rIndex );
 
-UNOTOOLS_DLLPUBLIC void GetEnglishSearchFontName( OUString& rName );
+UNOTOOLS_DLLPUBLIC void GetEnglishSearchFontName( rtl::OUString& rName );
 
 /** Determine if the font is the special Star|Open Symbol font
 
@@ -98,7 +98,7 @@ UNOTOOLS_DLLPUBLIC void GetEnglishSearchFontName( OUString& rName );
     @return true if this is Star|Open Symbol
 */
 // FIXME It's quite possible that code using this should instead check for RTL_TEXTENCODING_SYMBOL.
-UNOTOOLS_DLLPUBLIC bool IsStarSymbol(const OUString &rFontName);
+UNOTOOLS_DLLPUBLIC bool IsStarSymbol(const rtl::OUString &rFontName);
 
 #endif
 

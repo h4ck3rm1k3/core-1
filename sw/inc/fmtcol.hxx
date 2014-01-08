@@ -36,7 +36,7 @@ protected:
           : SwFmt( rPool, pFmtName, pWhichRanges, pDerFrom, nFmtWhich )
     { SetAuto( sal_False ); }
 
-    SwFmtColl( SwAttrPool& rPool, const OUString &rFmtName,
+    SwFmtColl( SwAttrPool& rPool, const rtl::OUString &rFmtName,
                 const sal_uInt16* pWhichRanges, SwFmtColl* pDerFrom,
                 sal_uInt16 nFmtWhich )
           : SwFmt( rPool, rFmtName, pWhichRanges, pDerFrom, nFmtWhich )
@@ -74,7 +74,7 @@ protected:
           mbAssignedToOutlineStyle(false)
     { pNextTxtFmtColl = this; }
 
-    SwTxtFmtColl( SwAttrPool& rPool, const OUString &rFmtCollName,
+    SwTxtFmtColl( SwAttrPool& rPool, const rtl::OUString &rFmtCollName,
                     SwTxtFmtColl* pDerFrom = 0,
                     sal_uInt16 nFmtWh = RES_TXTFMTCOLL )
         : SwFmtColl( rPool, rFmtCollName, aTxtFmtCollSetRange,
@@ -156,7 +156,7 @@ protected:
                     pDerFrom, RES_GRFFMTCOLL )
     {}
 
-    SwGrfFmtColl( SwAttrPool& rPool, const OUString &rFmtCollName,
+    SwGrfFmtColl( SwAttrPool& rPool, const rtl::OUString &rFmtCollName,
                     SwGrfFmtColl* pDerFrom = 0 )
         : SwFmtColl( rPool, rFmtCollName, aGrfFmtCollSetRange,
                     pDerFrom, RES_GRFFMTCOLL )
@@ -190,7 +190,7 @@ class SW_DLLPUBLIC SwCollCondition : public SwClient
     union
     {
         sal_uLong nSubCondition;
-        OUString* pFldExpression;
+        rtl::OUString* pFldExpression;
     } aSubCondition;
 
 public:
@@ -199,7 +199,7 @@ public:
     SwCollCondition( SwTxtFmtColl* pColl, sal_uLong nMasterCond,
                     sal_uLong nSubCond = 0 );
     SwCollCondition( SwTxtFmtColl* pColl, sal_uLong nMasterCond,
-                    const OUString& rSubExp );
+                    const rtl::OUString& rSubExp );
     virtual ~SwCollCondition();
 
     /// @@@ public copy ctor, but no copy assignment?
@@ -215,7 +215,7 @@ public:
 
     sal_uLong GetCondition() const      { return nCondition; }
     sal_uLong GetSubCondition() const   { return aSubCondition.nSubCondition; }
-    const OUString* GetFldExpression() const
+    const rtl::OUString* GetFldExpression() const
                                     { return aSubCondition.pFldExpression; }
 
     void SetCondition( sal_uLong nCond, sal_uLong nSubCond );
@@ -235,7 +235,7 @@ protected:
                             SwTxtFmtColl* pDerFrom = 0 )
         : SwTxtFmtColl( rPool, pFmtCollName, pDerFrom, RES_CONDTXTFMTCOLL )
     {}
-    SwConditionTxtFmtColl( SwAttrPool& rPool, const OUString &rFmtCollName,
+    SwConditionTxtFmtColl( SwAttrPool& rPool, const rtl::OUString &rFmtCollName,
                             SwTxtFmtColl* pDerFrom = 0 )
         : SwTxtFmtColl( rPool, rFmtCollName, pDerFrom, RES_CONDTXTFMTCOLL )
     {}

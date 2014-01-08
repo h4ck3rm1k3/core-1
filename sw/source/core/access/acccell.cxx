@@ -44,7 +44,7 @@
 #include <editeng/brushitem.hxx>
 #include <swatrset.hxx>
 #include <frmatr.hxx>
-#include "acctable.hxx"
+#include <acctable.hxx>
 
 using namespace ::com::sun::star;
 using namespace ::com::sun::star::accessibility;
@@ -111,10 +111,10 @@ SwAccessibleCell::SwAccessibleCell( SwAccessibleMap *pInitMap,
 
     bIsSelected = IsSelected();
 
-    css::uno::Reference<css::accessibility::XAccessible> xTableReference(
+    com::sun::star::uno::Reference<com::sun::star::accessibility::XAccessible> xTableReference(
         getAccessibleParent());
-    css::uno::Reference<css::accessibility::XAccessibleContext> xContextTable(
-        xTableReference, css::uno::UNO_QUERY);
+    com::sun::star::uno::Reference<com::sun::star::accessibility::XAccessibleContext> xContextTable(
+        xTableReference, com::sun::star::uno::UNO_QUERY);
     SAL_WARN_IF(
         (!xContextTable.is()
          || xContextTable->getAccessibleRole() != AccessibleRole::TABLE),

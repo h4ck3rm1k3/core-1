@@ -44,14 +44,14 @@ namespace vcl
 
             Search operations will start with this entry.
         */
-        virtual StringEntryIdentifier   CurrentEntry( OUString& _out_entryText ) const = 0;
+        virtual StringEntryIdentifier   CurrentEntry( rtl::OUString& _out_entryText ) const = 0;
 
         /** returns the next entry in the list.
 
             The implementation is expected to wrap around. That is, if the given entry denotes the last
             entry in the list, then NextEntry should return the first entry.
         */
-        virtual StringEntryIdentifier   NextEntry( StringEntryIdentifier _currentEntry, OUString& _out_entryText ) const = 0;
+        virtual StringEntryIdentifier   NextEntry( StringEntryIdentifier _currentEntry, rtl::OUString& _out_entryText ) const = 0;
 
         /** selects a given entry
         */

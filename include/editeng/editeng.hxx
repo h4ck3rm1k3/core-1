@@ -151,7 +151,7 @@ private:
 
     EDITENG_DLLPRIVATE EditSelection InsertText(
         com::sun::star::uno::Reference<com::sun::star::datatransfer::XTransferable >& rxDataObj,
-        const OUString& rBaseURL, const EditPaM& rPaM, bool bUseSpecial);
+        const rtl::OUString& rBaseURL, const EditPaM& rPaM, bool bUseSpecial);
 
     EDITENG_DLLPRIVATE EditPaM EndOfWord(
         const EditPaM& rPaM, sal_Int16 nWordType = com::sun::star::i18n::WordType::ANYWORD_IGNOREWHITESPACES);
@@ -250,14 +250,14 @@ public:
     const Size&     GetMaxAutoPaperSize() const;
     void            SetMaxAutoPaperSize( const Size& rSz );
 
-    OUString        GetText( LineEnd eEnd = LINEEND_LF ) const;
-    OUString        GetText( const ESelection& rSelection, const LineEnd eEnd = LINEEND_LF ) const;
+    rtl::OUString        GetText( LineEnd eEnd = LINEEND_LF ) const;
+    rtl::OUString        GetText( const ESelection& rSelection, const LineEnd eEnd = LINEEND_LF ) const;
     sal_uInt32      GetTextLen() const;
     sal_uInt32      GetTextHeight() const;
     sal_uInt32      GetTextHeightNTP() const;
     sal_uInt32      CalcTextWidth();
 
-    OUString        GetText( sal_Int32 nParagraph ) const;
+    rtl::OUString        GetText( sal_Int32 nParagraph ) const;
     xub_StrLen      GetTextLen( sal_Int32 nParagraph ) const;
     sal_uInt32      GetTextHeight( sal_Int32 nParagraph ) const;
 
@@ -273,12 +273,12 @@ public:
     EPosition       FindDocPosition( const Point& rDocPos ) const;
     Rectangle       GetCharacterBounds( const EPosition& rPos ) const;
 
-    OUString        GetWord(sal_Int32 nPara, xub_StrLen nIndex);
+    rtl::OUString        GetWord(sal_Int32 nPara, xub_StrLen nIndex);
 
     ESelection      GetWord( const ESelection& rSelection, sal_uInt16 nWordType ) const;
 
     void            Clear();
-    void            SetText( const OUString& rStr );
+    void            SetText( const rtl::OUString& rStr );
 
     EditTextObject* CreateTextObject();
     EditTextObject* CreateTextObject( sal_Int32 nPara, sal_Int32 nParas = 1 );
@@ -287,9 +287,9 @@ public:
 
     void            RemoveParagraph(sal_Int32 nPara);
     void            InsertParagraph(sal_Int32 nPara, const EditTextObject& rTxtObj);
-    void            InsertParagraph(sal_Int32 nPara, const OUString& rText);
+    void            InsertParagraph(sal_Int32 nPara, const rtl::OUString& rText);
 
-    void            SetText(sal_Int32 nPara, const OUString& rText);
+    void            SetText(sal_Int32 nPara, const rtl::OUString& rText);
 
     virtual void                SetParaAttribs( sal_Int32 nPara, const SfxItemSet& rSet );
     virtual const SfxItemSet&   GetParaAttribs( sal_Int32 nPara ) const;
@@ -348,7 +348,7 @@ public:
     void            Draw( OutputDevice* pOutDev, const Point& rStartPos, short nOrientation = 0 );
 
 //  sal_uInt32: Error code of the stream.
-    sal_uLong       Read( SvStream& rInput, const OUString& rBaseURL, EETextFormat, SvKeyValueIterator* pHTTPHeaderAttrs = NULL );
+    sal_uLong       Read( SvStream& rInput, const rtl::OUString& rBaseURL, EETextFormat, SvKeyValueIterator* pHTTPHeaderAttrs = NULL );
     sal_uLong       Write( SvStream& rOutput, EETextFormat );
 
     void            SetStatusEventHdl( const Link& rLink );
@@ -373,7 +373,7 @@ public:
     void            QuickFormatDoc( sal_Bool bFull = sal_False );
     void            QuickInsertField( const SvxFieldItem& rFld, const ESelection& rSel );
     void            QuickInsertLineBreak( const ESelection& rSel );
-    void            QuickInsertText(const OUString& rText, const ESelection& rSel);
+    void            QuickInsertText(const rtl::OUString& rText, const ESelection& rSel);
     void            QuickDelete( const ESelection& rSel );
     void            QuickMarkToBeRepainted( sal_Int32 nPara );
 
@@ -391,8 +391,8 @@ public:
     const SfxStyleSheet* GetStyleSheet( sal_Int32 nPara ) const;
     SfxStyleSheet* GetStyleSheet( sal_Int32 nPara );
 
-    void            SetWordDelimiters( const OUString& rDelimiters );
-    OUString        GetWordDelimiters() const;
+    void            SetWordDelimiters( const rtl::OUString& rDelimiters );
+    rtl::OUString        GetWordDelimiters() const;
 
     void            EraseVirtualDevice();
 
@@ -462,7 +462,7 @@ public:
     virtual void    ParagraphHeightChanged( sal_Int32 nPara );
 
     virtual void DrawingText(
-        const Point& rStartPos, const OUString& rText, sal_uInt16 nTextStart, sal_uInt16 nTextLen, const sal_Int32* pDXArray,
+        const Point& rStartPos, const rtl::OUString& rText, sal_uInt16 nTextStart, sal_uInt16 nTextLen, const sal_Int32* pDXArray,
         const SvxFont& rFont, sal_Int32 nPara, xub_StrLen nIndex, sal_uInt8 nRightToLeft,
         const EEngineData::WrongSpellVector* pWrongSpellVector,
         const SvxFieldData* pFieldData,
@@ -474,18 +474,18 @@ public:
         const Color& rTextLineColor);
 
     virtual void DrawingTab(
-        const Point& rStartPos, long nWidth, const OUString& rChar,
+        const Point& rStartPos, long nWidth, const rtl::OUString& rChar,
         const SvxFont& rFont, sal_Int32 nPara, xub_StrLen nIndex, sal_uInt8 nRightToLeft,
         bool bEndOfLine,
         bool bEndOfParagraph,
         const Color& rOverlineColor,
         const Color& rTextLineColor);
-    virtual OUString  GetUndoComment( sal_uInt16 nUndoId ) const;
+    virtual rtl::OUString  GetUndoComment( sal_uInt16 nUndoId ) const;
     virtual sal_Bool    FormattingParagraph( sal_Int32 nPara );
     virtual sal_Bool    SpellNextDocument();
     virtual void    FieldClicked( const SvxFieldItem& rField, sal_Int32 nPara, xub_StrLen nPos );
     virtual void    FieldSelected( const SvxFieldItem& rField, sal_Int32 nPara, xub_StrLen nPos );
-    virtual OUString CalcFieldValue( const SvxFieldItem& rField, sal_Int32 nPara, xub_StrLen nPos, Color*& rTxtColor, Color*& rFldColor );
+    virtual rtl::OUString CalcFieldValue( const SvxFieldItem& rField, sal_Int32 nPara, xub_StrLen nPos, Color*& rTxtColor, Color*& rFldColor );
 
     // to be overloaded if access to bullet information needs to be provided
     virtual const SvxNumberFormat * GetNumberFormat( sal_Int32 nPara ) const;
@@ -534,7 +534,7 @@ public:
         ContentNode* pLeft, ContentNode* pRight, bool bBackward = false);
 
     EditPaM InsertField(const EditSelection& rEditSelection, const SvxFieldItem& rFld);
-    EditPaM InsertText(const EditSelection& aCurEditSelection, const OUString& rStr);
+    EditPaM InsertText(const EditSelection& aCurEditSelection, const rtl::OUString& rStr);
     EditSelection InsertText(const EditTextObject& rTextObject, const EditSelection& rSel);
     EditPaM InsertParaBreak(
         const EditSelection& rEditSelection, bool bKeepEndingAttribs = true);
@@ -557,7 +557,7 @@ public:
     void SetParaAttribsOnly(sal_Int32 nPara, const SfxItemSet& rSet);
     void SetAttribs(const EditSelection& rSel, const SfxItemSet& rSet, sal_uInt8 nSpecial = 0);
 
-    OUString GetSelected(const EditSelection& rSel, const LineEnd eParaSep = LINEEND_LF) const;
+    rtl::OUString GetSelected(const EditSelection& rSel, const LineEnd eParaSep = LINEEND_LF) const;
     EditPaM DeleteSelected(const EditSelection& rSel);
 
     sal_uInt16 GetScriptType(const EditSelection& rSel) const;

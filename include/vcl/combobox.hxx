@@ -126,20 +126,20 @@ public:
 
     void            EnableDDAutoWidth( sal_Bool b );
 
-    virtual void    SetText( const OUString& rStr );
-    virtual void    SetText( const OUString& rStr, const Selection& rNewSelection );
+    virtual void    SetText( const rtl::OUString& rStr );
+    virtual void    SetText( const rtl::OUString& rStr, const Selection& rNewSelection );
 
-    virtual sal_uInt16 InsertEntry(const OUString& rStr, sal_uInt16 nPos = COMBOBOX_APPEND);
-    void            InsertEntryWithImage( const OUString& rStr, const Image& rImage, sal_uInt16 nPos = COMBOBOX_APPEND );
+    virtual sal_uInt16 InsertEntry(const rtl::OUString& rStr, sal_uInt16 nPos = COMBOBOX_APPEND);
+    void            InsertEntryWithImage( const rtl::OUString& rStr, const Image& rImage, sal_uInt16 nPos = COMBOBOX_APPEND );
 
-    void            RemoveEntry( const OUString& rStr );
+    void            RemoveEntry( const rtl::OUString& rStr );
     virtual void    RemoveEntryAt(sal_uInt16 nPos);
 
     void            Clear();
 
-    sal_uInt16      GetEntryPos( const OUString& rStr ) const;
+    sal_uInt16      GetEntryPos( const rtl::OUString& rStr ) const;
     Image           GetEntryImage( sal_uInt16 nPos ) const;
-    OUString        GetEntry( sal_uInt16 nPos ) const;
+    rtl::OUString        GetEntry( sal_uInt16 nPos ) const;
     sal_uInt16      GetEntryCount() const;
 
     sal_Bool        IsTravelSelect() const;
@@ -176,8 +176,8 @@ public:
     Size            CalcSize( sal_uInt16 nColumns, sal_uInt16 nLines ) const;
     void            GetMaxVisColumnsAndLines( sal_uInt16& rnCols, sal_uInt16& rnLines ) const;
 
-    void            SetMRUEntries( const OUString& rEntries, sal_Unicode cSep = ';' );
-    OUString        GetMRUEntries( sal_Unicode cSep = ';' ) const;
+    void            SetMRUEntries( const rtl::OUString& rEntries, sal_Unicode cSep = ';' );
+    rtl::OUString        GetMRUEntries( sal_Unicode cSep = ';' ) const;
     void            SetMaxMRUCount( sal_uInt16 n );
     sal_uInt16      GetMaxMRUCount() const;
     sal_uInt16      GetMRUCount() const;
@@ -221,7 +221,7 @@ public:
     sal_Int32 getMaxWidthChars() const { return m_nMaxWidthChars; }
     void setMaxWidthChars(sal_Int32 nWidth);
 
-    virtual bool set_property(const OString &rKey, const OString &rValue);
+    virtual bool set_property(const rtl::OString &rKey, const rtl::OString &rValue);
 };
 
 #endif  // _COMBOBOX_HXX

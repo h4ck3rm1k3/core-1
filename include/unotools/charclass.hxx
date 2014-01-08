@@ -113,13 +113,13 @@ public:
     }
 
     /// isdigit() on ascii values of entire string
-    static bool isAsciiNumeric( const OUString& rStr );
+    static bool isAsciiNumeric( const rtl::OUString& rStr );
 
     /// isalpha() on ascii values of entire string
-    static bool isAsciiAlpha( const OUString& rStr );
+    static bool isAsciiAlpha( const rtl::OUString& rStr );
 
     /// isalnum() on ascii values of entire string
-    static bool isAsciiAlphaNumeric( const OUString& rStr );
+    static bool isAsciiAlphaNumeric( const rtl::OUString& rStr );
 
     /// whether type is pure alpha or not, e.g. return of getStringType
     static inline bool isAlphaType( sal_Int32 nType )
@@ -163,59 +163,59 @@ public:
 
     // Wrapper implementations of class CharacterClassification
 
-    OUString uppercase( const OUString& rStr, sal_Int32 nPos, sal_Int32 nCount ) const;
-    OUString lowercase( const OUString& rStr, sal_Int32 nPos, sal_Int32 nCount ) const;
-    OUString titlecase( const OUString& rStr, sal_Int32 nPos, sal_Int32 nCount ) const;
+    rtl::OUString uppercase( const rtl::OUString& rStr, sal_Int32 nPos, sal_Int32 nCount ) const;
+    rtl::OUString lowercase( const rtl::OUString& rStr, sal_Int32 nPos, sal_Int32 nCount ) const;
+    rtl::OUString titlecase( const rtl::OUString& rStr, sal_Int32 nPos, sal_Int32 nCount ) const;
 
-    OUString uppercase( const OUString& _rStr ) const
+    rtl::OUString uppercase( const rtl::OUString& _rStr ) const
     {
         return uppercase(_rStr, 0, _rStr.getLength());
     }
-    OUString lowercase( const OUString& _rStr ) const
+    rtl::OUString lowercase( const rtl::OUString& _rStr ) const
     {
         return lowercase(_rStr, 0, _rStr.getLength());
     }
-    OUString titlecase( const OUString& _rStr ) const
+    rtl::OUString titlecase( const rtl::OUString& _rStr ) const
     {
         return titlecase(_rStr, 0, _rStr.getLength());
     }
 
-    sal_Int16 getType( const OUString& rStr, sal_Int32 nPos ) const;
-    sal_Int16 getCharacterDirection( const OUString& rStr, sal_Int32 nPos ) const;
-    sal_Int16 getScript( const OUString& rStr, sal_Int32 nPos ) const;
-    sal_Int32 getCharacterType( const OUString& rStr, sal_Int32 nPos ) const;
-    sal_Int32 getStringType( const OUString& rStr, sal_Int32 nPos, sal_Int32 nCount ) const;
+    sal_Int16 getType( const rtl::OUString& rStr, sal_Int32 nPos ) const;
+    sal_Int16 getCharacterDirection( const rtl::OUString& rStr, sal_Int32 nPos ) const;
+    sal_Int16 getScript( const rtl::OUString& rStr, sal_Int32 nPos ) const;
+    sal_Int32 getCharacterType( const rtl::OUString& rStr, sal_Int32 nPos ) const;
+    sal_Int32 getStringType( const rtl::OUString& rStr, sal_Int32 nPos, sal_Int32 nCount ) const;
 
     ::com::sun::star::i18n::ParseResult parseAnyToken(
-                                    const OUString& rStr,
+                                    const rtl::OUString& rStr,
                                     sal_Int32 nPos,
                                     sal_Int32 nStartCharFlags,
-                                    const OUString& userDefinedCharactersStart,
+                                    const rtl::OUString& userDefinedCharactersStart,
                                     sal_Int32 nContCharFlags,
-                                    const OUString& userDefinedCharactersCont ) const;
+                                    const rtl::OUString& userDefinedCharactersCont ) const;
 
     ::com::sun::star::i18n::ParseResult parsePredefinedToken(
                                     sal_Int32 nTokenType,
-                                    const OUString& rStr,
+                                    const rtl::OUString& rStr,
                                     sal_Int32 nPos,
                                     sal_Int32 nStartCharFlags,
-                                    const OUString& userDefinedCharactersStart,
+                                    const rtl::OUString& userDefinedCharactersStart,
                                     sal_Int32 nContCharFlags,
-                                    const OUString& userDefinedCharactersCont ) const;
+                                    const rtl::OUString& userDefinedCharactersCont ) const;
 
 
     // Functionality of class International methods
 
-    bool isAlpha( const OUString& rStr, sal_Int32 nPos ) const;
-    bool isLetter( const OUString& rStr, sal_Int32 nPos ) const;
-    bool isDigit( const OUString& rStr, sal_Int32 nPos ) const;
-    bool isAlphaNumeric( const OUString& rStr, sal_Int32 nPos ) const;
-    bool isLetterNumeric( const OUString& rStr, sal_Int32 nPos ) const;
-    bool isAlpha( const OUString& rStr ) const;
-    bool isLetter( const OUString& rStr ) const;
-    bool isNumeric( const OUString& rStr ) const;
-    bool isAlphaNumeric( const OUString& rStr ) const;
-    bool isLetterNumeric( const OUString& rStr ) const;
+    bool isAlpha( const rtl::OUString& rStr, sal_Int32 nPos ) const;
+    bool isLetter( const rtl::OUString& rStr, sal_Int32 nPos ) const;
+    bool isDigit( const rtl::OUString& rStr, sal_Int32 nPos ) const;
+    bool isAlphaNumeric( const rtl::OUString& rStr, sal_Int32 nPos ) const;
+    bool isLetterNumeric( const rtl::OUString& rStr, sal_Int32 nPos ) const;
+    bool isAlpha( const rtl::OUString& rStr ) const;
+    bool isLetter( const rtl::OUString& rStr ) const;
+    bool isNumeric( const rtl::OUString& rStr ) const;
+    bool isAlphaNumeric( const rtl::OUString& rStr ) const;
+    bool isLetterNumeric( const rtl::OUString& rStr ) const;
 
 private:
 

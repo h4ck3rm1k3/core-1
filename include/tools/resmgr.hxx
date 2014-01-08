@@ -44,7 +44,7 @@ public:
     inline sal_uInt32       GetLocalOff(); ///< Local offset
 };
 
-typedef OUString (*ResHookProc)( const OUString& rStr );
+typedef rtl::OUString (*ResHookProc)( const rtl::OUString& rStr );
 
 // Initialization
 #define RC_NOTYPE               0x00
@@ -91,7 +91,7 @@ private:
     {
         return (((int)nOff >= nCurStack) ? NULL : &aStack[nCurStack-nOff]);
     }
-    TOOLS_DLLPRIVATE void  Init( const OUString& rFileName );
+    TOOLS_DLLPRIVATE void  Init( const rtl::OUString& rFileName );
 
     TOOLS_DLLPRIVATE ResMgr( InternalResMgr * pImp );
 
@@ -115,10 +115,10 @@ private:
     // the next two methods are needed to prevent the string hook called
     // with the res mgr mutex locked
     // like GetString, but doesn't call the string hook
-    TOOLS_DLLPRIVATE static sal_uInt32 GetStringWithoutHook( OUString& rStr,
+    TOOLS_DLLPRIVATE static sal_uInt32 GetStringWithoutHook( rtl::OUString& rStr,
                                                              const sal_uInt8* pStr );
     // like ReadString but doesn't call the string hook
-    TOOLS_DLLPRIVATE OUString ReadStringWithoutHook();
+    TOOLS_DLLPRIVATE rtl::OUString ReadStringWithoutHook();
 
     static ResMgr* ImplCreateResMgr( InternalResMgr* pImpl ) { return new ResMgr( pImpl ); }
 
@@ -159,9 +159,9 @@ public:
                             { return( pHT->GetGlobOff() ); }
 
     /// Return a string and its length out of the resource
-    static sal_uInt32   GetString( OUString& rStr, const sal_uInt8* pStr );
+    static sal_uInt32   GetString( rtl::OUString& rStr, const sal_uInt8* pStr );
     /// Return a byte string and its length out of the resource
-    static sal_uInt32   GetByteString( OString& rStr, const sal_uInt8* pStr );
+    static sal_uInt32   GetByteString( rtl::OString& rStr, const sal_uInt8* pStr );
 
     /// Return the size of a string in the resource
     static sal_uInt32   GetStringSize( sal_uInt32 nLen )
@@ -182,15 +182,15 @@ public:
 
     sal_uInt32          GetRemainSize();
 
-    const OUString& GetFileName() const;
+    const rtl::OUString& GetFileName() const;
 
     sal_Int16           ReadShort();
     sal_Int32           ReadLong();
-    OUString            ReadString();
-    OString        ReadByteString();
+    rtl::OUString            ReadString();
+    rtl::OString        ReadByteString();
 
     /// Generate auto help ID for current resource stack
-    OString        GetAutoHelpId();
+    rtl::OString        GetAutoHelpId();
 
     static void         SetReadStringHook( ResHookProc pProc );
     static ResHookProc  GetReadStringHook();

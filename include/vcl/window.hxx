@@ -319,7 +319,7 @@ class VclSizeGroup;
 struct WindowResHeader
 {
     sal_uLong nObjMask;
-    OString aHelpId;
+    rtl::OString aHelpId;
     sal_uLong nRSStyle;
 };
 
@@ -567,7 +567,7 @@ protected:
     // Let Label override the code part of GetAccessibleRelationLabelFor
     virtual Window* getAccessibleRelationLabelFor() const;
     virtual sal_uInt16 getDefaultAccessibleRole() const;
-    virtual OUString getDefaultAccessibleName() const;
+    virtual rtl::OUString getDefaultAccessibleName() const;
 public:
     // Single argument ctors shall be explicit.
     explicit            Window( Window* pParent, WinBits nStyle = 0 );
@@ -907,28 +907,28 @@ public:
     sal_Bool                IsZoom() const;
     long                CalcZoom( long n ) const;
 
-    virtual void      SetText( const OUString& rStr );
-    virtual OUString      GetText() const;
+    virtual void      SetText( const rtl::OUString& rStr );
+    virtual rtl::OUString      GetText() const;
     // return the actual text displayed
     // this may have e.g. accellerators removed or portions
     // replaced by ellipsis
-    virtual OUString      GetDisplayText() const;
+    virtual rtl::OUString      GetDisplayText() const;
     // gets the visible background color. for transparent windows
     // this may be the parent's background color; for controls
     // this may be a child's background color (e.g. ListBox)
     virtual const Wallpaper& GetDisplayBackground() const;
 
-    void                SetHelpText( const OUString& rHelpText );
-    const OUString&     GetHelpText() const;
+    void                SetHelpText( const rtl::OUString& rHelpText );
+    const rtl::OUString&     GetHelpText() const;
 
-    void                SetQuickHelpText( const OUString& rHelpText );
-    const OUString&     GetQuickHelpText() const;
+    void                SetQuickHelpText( const rtl::OUString& rHelpText );
+    const rtl::OUString&     GetQuickHelpText() const;
 
-    void                SetHelpId( const OString& );
-    const OString&      GetHelpId() const;
+    void                SetHelpId( const rtl::OString& );
+    const rtl::OString&      GetHelpId() const;
 
-    void                SetUniqueId( const OString& );
-    const OString&      GetUniqueId() const;
+    void                SetUniqueId( const rtl::OString& );
+    const rtl::OString&      GetUniqueId() const;
 
     Window*             FindWindow( const Point& rPos ) const;
 
@@ -994,11 +994,11 @@ public:
     void    SetAccessibleRole( sal_uInt16 nRole );
     sal_uInt16  GetAccessibleRole() const;
 
-    void    SetAccessibleName( const OUString& rName );
-    OUString  GetAccessibleName() const;
+    void    SetAccessibleName( const rtl::OUString& rName );
+    rtl::OUString  GetAccessibleName() const;
 
-    void    SetAccessibleDescription( const OUString& rDescr );
-    OUString  GetAccessibleDescription() const;
+    void    SetAccessibleDescription( const rtl::OUString& rDescr );
+    rtl::OUString  GetAccessibleDescription() const;
 
     void    SetAccessibleRelationLabeledBy( Window* pLabeledBy );
     Window* GetAccessibleRelationLabeledBy() const;
@@ -1212,14 +1212,14 @@ public:
      *
      * @return false if property is unknown
      */
-    virtual bool set_property(const OString &rKey, const OString &rValue);
+    virtual bool set_property(const rtl::OString &rKey, const rtl::OString &rValue);
 
     /*
      * Sets a font attribute
      *
      * @return false if attribute is unknown
      */
-    bool set_font_attribute(const OString &rKey, const OString &rValue);
+    bool set_font_attribute(const rtl::OString &rKey, const rtl::OString &rValue);
 
     /*
      * Adds this widget to the xGroup VclSizeGroup
@@ -1271,7 +1271,7 @@ public:
 
     void SimulateKeyPress( sal_uInt16 nKeyCode ) const;
 
-    virtual OUString GetSurroundingText() const;
+    virtual rtl::OUString GetSurroundingText() const;
     virtual Selection GetSurroundingTextSelection() const;
 };
 

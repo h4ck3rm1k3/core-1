@@ -68,7 +68,7 @@ public:
         so specifying bCanonicalize=false is not a guarantee that the tag will
         stay identical to what was passed.
      */
-    explicit LanguageTag( const OUString & rBcp47LanguageTag, bool bCanonicalize = false );
+    explicit LanguageTag( const rtl::OUString & rBcp47LanguageTag, bool bCanonicalize = false );
 
     /** Init LanguageTag with Locale. */
     explicit LanguageTag( const com::sun::star::lang::Locale & rLocale );
@@ -88,8 +88,8 @@ public:
         This is a convenience ctor to be used in ODF import where these are
         distinct attributes.
      */
-    explicit LanguageTag( const OUString& rBcp47, const OUString& rLanguage,
-                          const OUString& rScript, const OUString& rCountry );
+    explicit LanguageTag( const rtl::OUString& rBcp47, const rtl::OUString& rLanguage,
+                          const rtl::OUString& rScript, const rtl::OUString& rCountry );
 
     /** Init LanguageTag with rtl_Locale.
 
@@ -106,9 +106,9 @@ public:
         @param bResolveSystem
                If TRUE, resolve an empty language tag denoting the system
                locale to the real locale used.
-               If FALSE, return an empty OUString for such a tag.
+               If FALSE, return an empty rtl::OUString for such a tag.
      */
-    const OUString &                getBcp47( bool bResolveSystem = true ) const;
+    const rtl::OUString &                getBcp47( bool bResolveSystem = true ) const;
 
     /** Obtain language tag as Locale.
 
@@ -147,14 +147,14 @@ public:
 
         Always resolves an empty tag to the system locale.
      */
-    void                            getIsoLanguageScriptCountry( OUString& rLanguage,
-                                                                 OUString& rScript, OUString& rCountry ) const;
+    void                            getIsoLanguageScriptCountry( rtl::OUString& rLanguage,
+                                                                 rtl::OUString& rScript, rtl::OUString& rCountry ) const;
 
     /** Get ISO 639 language code, or BCP 47 language.
 
         Always resolves an empty tag to the system locale.
      */
-    OUString                        getLanguage() const;
+    rtl::OUString                        getLanguage() const;
 
     /** Get ISO 15924 script code, if not the default script according to
         BCP 47. For default script an empty string is returned.
@@ -163,7 +163,7 @@ public:
 
         Always resolves an empty tag to the system locale.
      */
-    OUString                        getScript() const;
+    rtl::OUString                        getScript() const;
 
     /** Get combined language and script code, separated by '-' if
         non-default script, if default script only language.
@@ -172,21 +172,21 @@ public:
 
         Always resolves an empty tag to the system locale.
      */
-    OUString                        getLanguageAndScript() const;
+    rtl::OUString                        getLanguageAndScript() const;
 
     /** Get ISO 3166 country alpha code. Empty if the BCP 47 tags denote a
         region not expressable as 2 character country code.
 
         Always resolves an empty tag to the system locale.
      */
-    OUString                        getCountry() const;
+    rtl::OUString                        getCountry() const;
 
     /** Get BCP 47 region tag, which may be an ISO 3166 country alpha code or
         any other BCP 47 region tag.
 
         Always resolves an empty tag to the system locale.
      */
-    OUString                        getRegion() const;
+    rtl::OUString                        getRegion() const;
 
     /** Get BCP 47 variant subtags, of the IANA Language Subtag Registry.
 
@@ -196,7 +196,7 @@ public:
 
         Always resolves an empty tag to the system locale.
      */
-    OUString                        getVariants() const;
+    rtl::OUString                        getVariants() const;
 
     /** Get a GLIBC locale string.
 
@@ -209,7 +209,7 @@ public:
         @return The resulting GLIBC locale string if it could be constructed,
                 if not an empty string is returned.
      */
-    OUString                        getGlibcLocaleString( const OUString & rEncoding ) const;
+    rtl::OUString                        getGlibcLocaleString( const rtl::OUString & rEncoding ) const;
 
     /** If language tag has a non-default script specified.
      */
@@ -250,7 +250,7 @@ public:
 
 
     /** Reset with existing BCP 47 language tag string. See ctor. */
-    LanguageTag &                   reset( const OUString & rBcp47LanguageTag, bool bCanonicalize = false );
+    LanguageTag &                   reset( const rtl::OUString & rBcp47LanguageTag, bool bCanonicalize = false );
 
     /** Reset with Locale. */
     LanguageTag &                   reset( const com::sun::star::lang::Locale & rLocale );
@@ -304,7 +304,7 @@ public:
                 obtains the fallbacks only if the full tag did not lead to a
                 match, so subsequent tries need not to include it again.
      */
-    ::std::vector< OUString >       getFallbackStrings( bool bIncludeFullBcp47 ) const;
+    ::std::vector< rtl::OUString >       getFallbackStrings( bool bIncludeFullBcp47 ) const;
 
 
     /** @short  Search for an equal or at least for a similar locale in a list
@@ -342,8 +342,8 @@ public:
                 locale list. If no matching locale could be found it points to
                 the beginning of the list.
      */
-    static ::std::vector< OUString >::const_iterator getFallback( const ::std::vector< OUString > & rList,
-                                                                  const OUString & rReference );
+    static ::std::vector< rtl::OUString >::const_iterator getFallback( const ::std::vector< rtl::OUString > & rList,
+                                                                  const rtl::OUString & rReference );
 
 
     /** @short  Search for an equal or for a similar locale in a list
@@ -428,18 +428,18 @@ public:
         @param bResolveSystem
                If TRUE, resolve an empty language tag denoting the system
                locale to the real locale used.
-               If FALSE, return an empty OUString for such a tag.
+               If FALSE, return an empty rtl::OUString for such a tag.
      */
-    static OUString convertToBcp47( LanguageType nLangID, bool bResolveSystem = true );
+    static rtl::OUString convertToBcp47( LanguageType nLangID, bool bResolveSystem = true );
 
     /** Convert Locale to BCP 47 string.
 
         @param bResolveSystem
                If TRUE, resolve an empty language tag denoting the system
                locale to the real locale used.
-               If FALSE, return an empty OUString for such a tag.
+               If FALSE, return an empty rtl::OUString for such a tag.
      */
-    static OUString convertToBcp47( const com::sun::star::lang::Locale& rLocale, bool bResolveSystem = true );
+    static rtl::OUString convertToBcp47( const com::sun::star::lang::Locale& rLocale, bool bResolveSystem = true );
 
     /** Convert BCP 47 string to Locale, convenience method.
 
@@ -453,7 +453,7 @@ public:
                locale to the real locale used.
                If FALSE, return an empty Locale for such a tag.
      */
-    static com::sun::star::lang::Locale convertToLocale( const OUString& rBcp47, bool bResolveSystem = true );
+    static com::sun::star::lang::Locale convertToLocale( const rtl::OUString& rBcp47, bool bResolveSystem = true );
 
     /** Convert BCP 47 string to MS-LangID, convenience method.
 
@@ -467,7 +467,7 @@ public:
                locale to the real locale used.
                If FALSE, return LANGUAGE_SYSTEM for such a tag.
      */
-    static LanguageType convertToLanguageType( const OUString& rBcp47, bool bResolveSystem = true );
+    static LanguageType convertToLanguageType( const rtl::OUString& rBcp47, bool bResolveSystem = true );
 
     /** Convert BCP 47 string to MS-LangID with fallback, convenience method.
 
@@ -480,7 +480,7 @@ public:
 
         Always resolves an empty tag to the system locale.
      */
-    static LanguageType convertToLanguageTypeWithFallback( const OUString& rBcp47 );
+    static LanguageType convertToLanguageTypeWithFallback( const rtl::OUString& rBcp47 );
 
     /** Convert BCP 47 string to Locale with fallback, convenience method.
 
@@ -493,7 +493,7 @@ public:
 
         Always resolves an empty tag to the system locale.
      */
-    static com::sun::star::lang::Locale convertToLocaleWithFallback( const OUString& rBcp47 );
+    static com::sun::star::lang::Locale convertToLocaleWithFallback( const rtl::OUString& rBcp47 );
 
     /** If nLang is a generated on-the-fly LangID */
     static bool         isOnTheFlyID( LanguageType nLang );
@@ -506,7 +506,7 @@ public:
 private:
 
     mutable com::sun::star::lang::Locale    maLocale;
-    mutable OUString                        maBcp47;
+    mutable rtl::OUString                        maBcp47;
     mutable LanguageType                    mnLangID;
     mutable ImplPtr                         mpImpl;
             bool                            mbSystemLocale      : 1;
@@ -538,9 +538,9 @@ private:
 
     void                resetVars();
 
-    static bool         isIsoLanguage( const OUString& rLanguage );
-    static bool         isIsoScript( const OUString& rScript );
-    static bool         isIsoCountry( const OUString& rRegion );
+    static bool         isIsoLanguage( const rtl::OUString& rLanguage );
+    static bool         isIsoScript( const rtl::OUString& rScript );
+    static bool         isIsoCountry( const rtl::OUString& rRegion );
 
 };
 

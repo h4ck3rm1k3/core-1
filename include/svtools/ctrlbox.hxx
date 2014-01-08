@@ -118,7 +118,7 @@ potentially not all applications [Draw,Equation,FontWork] can properly
 handle synthetic fonts. On filling, the previous name will be retained
 if possible.
 
-For DontKnow, the FontStyleBox should be filled with OUString(),
+For DontKnow, the FontStyleBox should be filled with rtl::OUString(),
 so it will contain a list with the default attributes. The currently
 shown style probably needs to be reset by the application.
 
@@ -176,9 +176,9 @@ public:
     virtual void    UserDraw( const UserDrawEvent& rUDEvt );
 
     using ListBox::InsertEntry;
-    virtual sal_uInt16  InsertEntry( const OUString& rStr,
+    virtual sal_uInt16  InsertEntry( const rtl::OUString& rStr,
                                  sal_uInt16 nPos = LISTBOX_APPEND );
-    virtual sal_uInt16  InsertEntry( const Color& rColor, const OUString& rStr,
+    virtual sal_uInt16  InsertEntry( const Color& rColor, const rtl::OUString& rStr,
                                  sal_uInt16 nPos = LISTBOX_APPEND );
     void            InsertAutomaticEntryColor(const Color &rAutoColorValue);
     bool            IsAutomaticSelected() { return !GetSelectEntryPos(); }
@@ -192,11 +192,11 @@ public:
     virtual Color   GetEntryColor( sal_uInt16 nPos ) const;
     Size            GetImageSize() const { return aImageSize; }
 
-    void            SelectEntry( const OUString& rStr, sal_Bool bSelect = sal_True )
+    void            SelectEntry( const rtl::OUString& rStr, sal_Bool bSelect = sal_True )
                         { ListBox::SelectEntry( rStr, bSelect ); }
     void            SelectEntry( const Color& rColor, sal_Bool bSelect = sal_True );
     Color           GetSelectEntryColor( sal_uInt16 nSelIndex = 0 ) const;
-    bool            IsEntrySelected(const OUString& rStr ) const
+    bool            IsEntrySelected(const rtl::OUString& rStr ) const
     {
         return ListBox::IsEntrySelected(rStr);
     }
@@ -296,7 +296,7 @@ class SVT_DLLPUBLIC LineListBox : public ListBox
 {
     ImpLineList*    pLineList;
     long            m_nWidth;
-    OUString        m_sNone;
+    rtl::OUString        m_sNone;
 
     VirtualDevice   aVirDev;
     Size            aTxtSize;
@@ -323,10 +323,10 @@ public:
     /** Set the width in Twips */
     void            SetWidth( long nWidth );
     long            GetWidth() const { return m_nWidth; }
-    void            SetNone( const OUString& sNone );
+    void            SetNone( const rtl::OUString& sNone );
 
     using ListBox::InsertEntry;
-    virtual sal_uInt16  InsertEntry( const OUString& rStr, sal_uInt16 nPos = LISTBOX_APPEND );
+    virtual sal_uInt16  InsertEntry( const rtl::OUString& rStr, sal_uInt16 nPos = LISTBOX_APPEND );
     /** Insert a listbox entry with all widths in Twips. */
     void            InsertEntry( BorderWidthImpl aWidthImpl,
                         sal_uInt16 nStyle, long nMinWidth = 0,
@@ -342,10 +342,10 @@ public:
     virtual sal_uInt16  GetEntryPos( sal_uInt16 nStyle = STYLE_SOLID ) const;
     sal_uInt16          GetEntryStyle( sal_uInt16 nPos ) const;
 
-    void            SelectEntry( const OUString& rStr, sal_Bool bSelect = sal_True ) { ListBox::SelectEntry( rStr, bSelect ); }
+    void            SelectEntry( const rtl::OUString& rStr, sal_Bool bSelect = sal_True ) { ListBox::SelectEntry( rStr, bSelect ); }
     void            SelectEntry( sal_uInt16 nStyle = STYLE_SOLID, sal_Bool bSelect = sal_True );
     sal_uInt16          GetSelectEntryStyle( sal_uInt16 nSelIndex = 0 ) const;
-    bool            IsEntrySelected(const OUString& rStr) const
+    bool            IsEntrySelected(const rtl::OUString& rStr) const
     {
         return ListBox::IsEntrySelected(rStr);
     }
@@ -400,7 +400,7 @@ inline void LineListBox::SetWidth( long nWidth )
     UpdateEntries( nOldWidth );
 }
 
-inline void LineListBox::SetNone( const OUString& sNone )
+inline void LineListBox::SetNone( const rtl::OUString& sNone )
 {
     m_sNone = sNone;
 }
@@ -414,14 +414,14 @@ class SVT_DLLPUBLIC FontNameBox : public ComboBox
 private:
     ImplFontList*   mpFontList;
     sal_Bool        mbWYSIWYG;
-    OUString        maFontMRUEntriesFile;
+    rtl::OUString        maFontMRUEntriesFile;
 
     SVT_DLLPRIVATE void         ImplCalcUserItemSize();
     SVT_DLLPRIVATE void         ImplDestroyFontList();
 
 protected:
-    void            LoadMRUEntries( const OUString& aFontMRUEntriesFile, sal_Unicode cSep = ';' );
-    void            SaveMRUEntries( const OUString& aFontMRUEntriesFile, sal_Unicode cSep = ';' ) const;
+    void            LoadMRUEntries( const rtl::OUString& aFontMRUEntriesFile, sal_Unicode cSep = ';' );
+    void            SaveMRUEntries( const rtl::OUString& aFontMRUEntriesFile, sal_Unicode cSep = ';' ) const;
 public:
                     FontNameBox( Window* pParent,
                                  WinBits nWinStyle = WB_SORT );
@@ -448,7 +448,7 @@ private:
 
 class SVT_DLLPUBLIC FontStyleBox : public ComboBox
 {
-    OUString        aLastStyle;
+    rtl::OUString        aLastStyle;
 
     Size            aOptimalSize;
 
@@ -464,8 +464,8 @@ public:
     virtual void    Modify();
     virtual Size    GetOptimalSize() const;
 
-    void            SetText( const OUString& rText );
-    void            Fill( const OUString& rName, const FontList* pList );
+    void            SetText( const rtl::OUString& rText );
+    void            Fill( const rtl::OUString& rName, const FontList* pList );
 
 private:
     // declared as private because some compilers would generate the default functions
@@ -473,7 +473,7 @@ private:
     FontStyleBox&   operator =( const FontStyleBox& );
 };
 
-inline void FontStyleBox::SetText( const OUString& rText )
+inline void FontStyleBox::SetText( const rtl::OUString& rText )
 {
     aLastStyle = rText;
     ComboBox::SetText( rText );
@@ -502,7 +502,7 @@ class SVT_DLLPUBLIC FontSizeBox : public MetricBox
     SVT_DLLPRIVATE void         ImplInit();
 
 protected:
-    virtual OUString CreateFieldText( sal_Int64 nValue ) const;
+    virtual rtl::OUString CreateFieldText( sal_Int64 nValue ) const;
 
 public:
                     FontSizeBox( Window* pParent, WinBits nWinStyle = 0 );

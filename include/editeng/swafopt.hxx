@@ -32,11 +32,11 @@ namespace editeng {
 class EDITENG_DLLPUBLIC IAutoCompleteString
 {
 private:
-    OUString m_String;
+    rtl::OUString m_String;
 public:
-    explicit IAutoCompleteString(OUString const& rString) : m_String(rString) {}
+    explicit IAutoCompleteString(rtl::OUString const& rString) : m_String(rString) {}
     virtual ~IAutoCompleteString() {}
-    OUString const& GetAutoCompleteString() const { return m_String; }
+    rtl::OUString const& GetAutoCompleteString() const { return m_String; }
 };
 
 struct CompareAutoCompleteString

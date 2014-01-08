@@ -298,7 +298,7 @@ public:
 
     DECL_FIXEDMEMPOOL_NEWDEL(SwPaM);
 
-    OUString GetTxt() const;
+    rtl::OUString GetTxt() const;
     void InvalidatePaM();
 };
 

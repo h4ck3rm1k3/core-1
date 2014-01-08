@@ -143,7 +143,7 @@ protected:
         return maVisArea;
     }
 
-    OUString GetFormattedPageNumber() const;
+    rtl::OUString GetFormattedPageNumber() const;
 };
 
 inline sal_Bool SwAccessibleFrame::IsShowing( const SwRect& rFrm ) const

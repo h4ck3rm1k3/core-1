@@ -1227,7 +1227,7 @@ SAL_DLLPUBLIC void SAL_CALL rtl_uString_new(
     more efficient for allocating a new string.
 
     call rtl_uString_release to release the string
-    alternatively pass ownership to an OUString with
+    alternatively pass ownership to an rtl::OUString with
     rtl::OUString(newStr, SAL_NO_ACQUIRE);
 
     @param[in] nLen the number of characters.
@@ -1807,7 +1807,7 @@ SAL_DLLPUBLIC sal_Int32 SAL_CALL rtl_uString_getToken(
 // (plain cast to const char* would not work with non-const char foo[]="a", which seems to be allowed).
 // This is to avoid mistaken use with functions that accept string literals
 // (i.e. const char (&)[N]) where usage of this macro otherwise could match
-// the argument and a following int argument with a default value (e.g. OUString::match()).
+// the argument and a following int argument with a default value (e.g. rtl::OUString::match()).
 #define RTL_CONSTASCII_USTRINGPARAM( constAsciiStr ) (&(constAsciiStr)[0]), \
     ((sal_Int32)(SAL_N_ELEMENTS(constAsciiStr)-1)), RTL_TEXTENCODING_ASCII_US
 
@@ -1984,7 +1984,7 @@ SAL_DLLPUBLIC sal_uInt32 SAL_CALL rtl_uString_iterateCodePoints(
     @param target
     An out parameter receiving the converted string.  Must not be null itself,
     and must contain either null or a pointer to a valid rtl_uString; the
-    contents are unspecified if conversion fails (rtl_convertStringToUString
+    contents are unspecified if conversion fails (rtl_convertStringTrtl::OUString
     returns false).
 
     @param source
@@ -2012,7 +2012,7 @@ SAL_DLLPUBLIC sal_uInt32 SAL_CALL rtl_uString_iterateCodePoints(
 
     @since UDK 3.2.9
 */
-SAL_DLLPUBLIC sal_Bool SAL_CALL rtl_convertStringToUString(
+SAL_DLLPUBLIC sal_Bool SAL_CALL rtl_convertStringTOUString(
     rtl_uString ** target, char const * source, sal_Int32 length,
     rtl_TextEncoding encoding, sal_uInt32 flags) SAL_THROW_EXTERN_C();
 

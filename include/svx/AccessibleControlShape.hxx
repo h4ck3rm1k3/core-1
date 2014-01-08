@@ -75,7 +75,7 @@ protected:
     virtual ::com::sun::star::uno::Reference< ::com::sun::star::accessibility::XAccessibleRelationSet > SAL_CALL getAccessibleRelationSet(  ) throw (::com::sun::star::uno::RuntimeException);
 
     //---  XServiceInfo  ---------------------------------------
-    virtual OUString SAL_CALL getImplementationName( ) throw(::com::sun::star::uno::RuntimeException);
+    virtual rtl::OUString SAL_CALL getImplementationName( ) throw(::com::sun::star::uno::RuntimeException);
 
     //---  XInterface  -----------------------------------------
     DECLARE_XINTERFACE( )
@@ -113,19 +113,19 @@ protected:
     virtual void Init( );
 
     /// Create a name string that contains the accessible name.
-    virtual OUString
+    virtual rtl::OUString
         CreateAccessibleBaseName( )
         throw(::com::sun::star::uno::RuntimeException);
 
     /** Create a unique name string that contains the accessible name.  The
         name consists of the base name and the index.
     */
-    virtual OUString
+    virtual rtl::OUString
         CreateAccessibleName( )
         throw(::com::sun::star::uno::RuntimeException);
 
     /// Create a description string that contains the accessible description.
-    virtual OUString
+    virtual rtl::OUString
         CreateAccessibleDescription( )
         throw(::com::sun::star::uno::RuntimeException);
 
@@ -135,14 +135,14 @@ protected:
 #endif // DBG_UTIL
 
     /// (safely) reads the given property from the model of the UNO control
-    OUString getControlModelStringProperty( const OUString& _rPropertyName ) const SAL_THROW(( ));
+    rtl::OUString getControlModelStringProperty( const rtl::OUString& _rPropertyName ) const SAL_THROW(( ));
 
     /// ensure that our control model exists(will be retrieved upon need only)
     sal_Bool ensureControlModelAccess( ) SAL_THROW(( ));
 
     /// ensures that we're listening for the given property if(and only if!) necessary
     bool ensureListeningState( const bool _bCurrentlyListening, const bool _bNeedNewListening,
-                const OUString& _rPropertyName );
+                const rtl::OUString& _rPropertyName );
 
     /// starts multiplexing the state changes of our aggregate context
     void    startStateMultiplexing( );

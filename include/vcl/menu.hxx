@@ -126,7 +126,7 @@ private:
     VclEventListeners   maEventListeners;
     VclEventListeners   maChildEventListeners;
 
-    OUString            aTitleText;         // PopupMenu text
+    rtl::OUString            aTitleText;         // PopupMenu text
 
     sal_uLong           nEventId;
     sal_uInt16          mnHighlightedItemPos; // for native menus: keeps track of the highlighted item
@@ -171,7 +171,7 @@ protected:
     SAL_DLLPRIVATE void             ImplFillLayoutData() const;
     SAL_DLLPRIVATE SalMenu*         ImplGetSalMenu() { return mpSalMenu; }
     SAL_DLLPRIVATE void             ImplSetSalMenu( SalMenu *pMenu );
-    SAL_DLLPRIVATE OUString         ImplGetHelpText( sal_uInt16 nItemId ) const;
+    SAL_DLLPRIVATE rtl::OUString         ImplGetHelpText( sal_uInt16 nItemId ) const;
 
     // returns native check and option menu symbol height in rCheckHeight and rRadioHeight
     // return value is maximum width and height of checkboxes and radiobuttons
@@ -201,21 +201,21 @@ public:
     virtual void        Select();
     virtual void        RequestHelp( const HelpEvent& rHEvt );
 
-    void                InsertItem( sal_uInt16 nItemId, const OUString& rStr,
+    void                InsertItem( sal_uInt16 nItemId, const rtl::OUString& rStr,
                                     MenuItemBits nItemBits = 0,
-                                    const OString &rIdent = OString(),
+                                    const rtl::OString &rIdent = rtl::OString(),
                                     sal_uInt16 nPos = MENU_APPEND );
     void                InsertItem( sal_uInt16 nItemId, const Image& rImage,
                                     MenuItemBits nItemBits = 0,
-                                    const OString &rIdent = OString(),
+                                    const rtl::OString &rIdent = rtl::OString(),
                                     sal_uInt16 nPos = MENU_APPEND );
     void                InsertItem( sal_uInt16 nItemId,
-                                    const OUString& rString, const Image& rImage,
+                                    const rtl::OUString& rString, const Image& rImage,
                                     MenuItemBits nItemBits = 0,
-                                    const OString &rIdent = OString(),
+                                    const rtl::OString &rIdent = rtl::OString(),
                                     sal_uInt16 nPos = MENU_APPEND );
     void                InsertItem( const ResId& rResId, sal_uInt16 nPos = MENU_APPEND );
-    void                InsertSeparator( const OString &rIdent = OString(),
+    void                InsertSeparator( const rtl::OString &rIdent = rtl::OString(),
                             sal_uInt16 nPos = MENU_APPEND );
     void                RemoveItem( sal_uInt16 nPos );
     void                CopyItem( const Menu& rMenu, sal_uInt16 nPos,
@@ -229,17 +229,17 @@ public:
 
     sal_uInt16              GetItemCount() const;
     sal_uInt16          GetItemId(sal_uInt16 nPos) const;
-    sal_uInt16          GetItemId(const OString &rIdent) const;
+    sal_uInt16          GetItemId(const rtl::OString &rIdent) const;
     sal_uInt16          GetItemPos( sal_uInt16 nItemId ) const;
-    OString             GetItemIdent(sal_uInt16 nItemId) const;
+    rtl::OString             GetItemIdent(sal_uInt16 nItemId) const;
     MenuItemType        GetItemType( sal_uInt16 nPos ) const;
     sal_uInt16          GetCurItemId() const;
-    OString             GetCurItemIdent() const;
+    rtl::OString             GetCurItemIdent() const;
 
     void                SetHightlightItem(sal_uInt16 nHighlightedItem);
     sal_uInt16          GetHighlightItem() const;
 
-    OUString            GetItemAccKeyStrFromPos(sal_uInt16 nPos) const;
+    rtl::OUString            GetItemAccKeyStrFromPos(sal_uInt16 nPos) const;
 
     sal_Bool            IsTemporaryItemFromPos(sal_uInt16 nPos) const;
 
@@ -265,7 +265,7 @@ public:
     void                DeSelect() { SelectItem( 0xFFFF ); } // MENUITEMPOS_INVALID
 
     void                EnableItem( sal_uInt16 nItemId, sal_Bool bEnable = sal_True );
-    void                EnableItem(const OString &rIdent, bool bEnable = true)
+    void                EnableItem(const rtl::OString &rIdent, bool bEnable = true)
     {
         EnableItem(GetItemId(rIdent), bEnable);
     }
@@ -281,28 +281,28 @@ public:
     void                RemoveDisabledEntries( sal_Bool bCheckPopups = sal_True, sal_Bool bRemoveEmptyPopups = sal_False );
     sal_Bool            HasValidEntries( sal_Bool bCheckPopups = sal_True );
 
-    void                SetItemText( sal_uInt16 nItemId, const OUString& rStr );
-    OUString            GetItemText( sal_uInt16 nItemId ) const;
+    void                SetItemText( sal_uInt16 nItemId, const rtl::OUString& rStr );
+    rtl::OUString            GetItemText( sal_uInt16 nItemId ) const;
 
     void                SetItemImage( sal_uInt16 nItemId, const Image& rImage );
     Image               GetItemImage( sal_uInt16 nItemId ) const;
     void                SetItemImageAngle( sal_uInt16 nItemId, long nAngle10 );
     void                SetItemImageMirrorMode( sal_uInt16 nItemId, sal_Bool bMirror );
 
-    void                SetItemCommand( sal_uInt16 nItemId, const OUString& rCommand );
-    OUString            GetItemCommand( sal_uInt16 nItemId ) const;
+    void                SetItemCommand( sal_uInt16 nItemId, const rtl::OUString& rCommand );
+    rtl::OUString            GetItemCommand( sal_uInt16 nItemId ) const;
 
-    void                SetHelpText( sal_uInt16 nItemId, const OUString& rString );
-    OUString            GetHelpText( sal_uInt16 nItemId ) const;
+    void                SetHelpText( sal_uInt16 nItemId, const rtl::OUString& rString );
+    rtl::OUString            GetHelpText( sal_uInt16 nItemId ) const;
 
-    void                SetTipHelpText( sal_uInt16 nItemId, const OUString& rString );
-    OUString            GetTipHelpText( sal_uInt16 nItemId ) const;
+    void                SetTipHelpText( sal_uInt16 nItemId, const rtl::OUString& rString );
+    rtl::OUString            GetTipHelpText( sal_uInt16 nItemId ) const;
 
-    void                SetHelpCommand( sal_uInt16 nItemId, const OUString& rString );
-    OUString            GetHelpCommand( sal_uInt16 nItemId ) const;
+    void                SetHelpCommand( sal_uInt16 nItemId, const rtl::OUString& rString );
+    rtl::OUString            GetHelpCommand( sal_uInt16 nItemId ) const;
 
-    void                SetHelpId( sal_uInt16 nItemId, const OString& rHelpId );
-    OString             GetHelpId( sal_uInt16 nItemId ) const;
+    void                SetHelpId( sal_uInt16 nItemId, const rtl::OString& rHelpId );
+    rtl::OString             GetHelpId( sal_uInt16 nItemId ) const;
 
     void                SetActivateHdl( const Link& rLink )     { aActivateHdl = rLink; }
     const Link&         GetActivateHdl() const                  { return aActivateHdl; }
@@ -352,8 +352,8 @@ public:
 
     Window*             GetWindow() const { return pWindow; }
 
-    void                SetAccessibleName( sal_uInt16 nItemId, const OUString& rStr );
-    OUString            GetAccessibleName( sal_uInt16 nItemId ) const;
+    void                SetAccessibleName( sal_uInt16 nItemId, const rtl::OUString& rStr );
+    rtl::OUString            GetAccessibleName( sal_uInt16 nItemId ) const;
 
     // returns whether the item a position nItemPos is highlighted or not.
     bool  IsHighlighted( sal_uInt16 nItemPos ) const;
@@ -429,7 +429,7 @@ public:
     // add an arbitrary button to the menubar (will appear next to closer)
     // passed link will be call with a MenuBarButtonCallbackArg on press
     // passed string will be set as tooltip
-    sal_uInt16          AddMenuBarButton( const Image&, const Link&, const OUString&, sal_uInt16 nPos = 0 );
+    sal_uInt16          AddMenuBarButton( const Image&, const Link&, const rtl::OUString&, sal_uInt16 nPos = 0 );
     // set the highlight link for additional button with ID nId
     // highlight link will be called with a MenuBarButtonHighlightArg
     // the bHighlight member of that struct shall contain the new state
@@ -475,8 +475,8 @@ public:
     explicit            PopupMenu( const ResId& );
     virtual             ~PopupMenu();
 
-    void                SetText( const OUString& rTitle )  { aTitleText = rTitle; }
-    const OUString&     GetText() const                     { return aTitleText; }
+    void                SetText( const rtl::OUString& rTitle )  { aTitleText = rTitle; }
+    const rtl::OUString&     GetText() const                     { return aTitleText; }
 
     sal_uInt16              Execute( Window* pWindow, const Point& rPopupPos );
     sal_uInt16              Execute( Window* pWindow, const Rectangle& rRect, sal_uInt16 nFlags = 0 );

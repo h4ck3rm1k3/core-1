@@ -381,20 +381,20 @@ public:
     SAL_DLLPRIVATE bool         ImplSelectClipRegion( const Region&, SalGraphics* pGraphics = NULL );
     SAL_DLLPRIVATE void         ImplSetClipRegion( const Region* pRegion );
 
-    SAL_DLLPRIVATE SalLayout*   ImplLayout( const OUString&, sal_Int32 nIndex, sal_Int32 nLen,
+    SAL_DLLPRIVATE SalLayout*   ImplLayout( const rtl::OUString&, sal_Int32 nIndex, sal_Int32 nLen,
                                             const Point& rLogicPos = Point(0,0), long nLogicWidth=0,
                                             const sal_Int32* pLogicDXArray=NULL, bool bFilter = false ) const;
-    SAL_DLLPRIVATE ImplLayoutArgs ImplPrepareLayoutArgs( OUString&, const sal_Int32 nIndex, const sal_Int32 nLen,
+    SAL_DLLPRIVATE ImplLayoutArgs ImplPrepareLayoutArgs( rtl::OUString&, const sal_Int32 nIndex, const sal_Int32 nLen,
                                             long nPixelWidth, const sal_Int32* pPixelDXArray ) const;
     SAL_DLLPRIVATE SalLayout*   ImplGlyphFallbackLayout( SalLayout*, ImplLayoutArgs& ) const;
 
     static
-    SAL_DLLPRIVATE OUString    ImplGetEllipsisString( const OutputDevice& rTargetDevice, const OUString& rStr,
+    SAL_DLLPRIVATE rtl::OUString    ImplGetEllipsisString( const OutputDevice& rTargetDevice, const rtl::OUString& rStr,
                                                        long nMaxWidth, sal_uInt16 nStyle, const ::vcl::ITextLayout& _rLayout );
     static
     SAL_DLLPRIVATE void         ImplDrawText( OutputDevice& rTargetDevice, const Rectangle& rRect,
-                                              const OUString& rOrigStr, sal_uInt16 nStyle,
-                                              MetricVector* pVector, OUString* pDisplayText, ::vcl::ITextLayout& _rLayout );
+                                              const rtl::OUString& rOrigStr, sal_uInt16 nStyle,
+                                              MetricVector* pVector, rtl::OUString* pDisplayText, ::vcl::ITextLayout& _rLayout );
     SAL_DLLPRIVATE void         ImplDrawTextBackground( const SalLayout& );
     SAL_DLLPRIVATE void         ImplDrawTextLines( SalLayout&, FontStrikeout eStrikeout, FontUnderline eUnderline, FontUnderline eOverline, sal_Bool bWordLine, sal_Bool bUnderlineAbove );
     SAL_DLLPRIVATE bool         ImplDrawRotateText( SalLayout& );
@@ -418,7 +418,7 @@ public:
     SAL_DLLPRIVATE void         ImplGetEmphasisMark( PolyPolygon& rPolyPoly, sal_Bool& rPolyLine, Rectangle& rRect1, Rectangle& rRect2, long& rYOff, long& rWidth, FontEmphasisMark eEmphasis, long nHeight, short nOrient );
     SAL_DLLPRIVATE void         ImplDrawEmphasisMark( long nBaseX, long nX, long nY, const PolyPolygon& rPolyPoly, sal_Bool bPolyLine, const Rectangle& rRect1, const Rectangle& rRect2 );
     static
-    SAL_DLLPRIVATE long         ImplGetTextLines( ImplMultiTextLineInfo& rLineInfo, long nWidth, const OUString& rStr, sal_uInt16 nStyle, const ::vcl::ITextLayout& _rLayout );
+    SAL_DLLPRIVATE long         ImplGetTextLines( ImplMultiTextLineInfo& rLineInfo, long nWidth, const rtl::OUString& rStr, sal_uInt16 nStyle, const ::vcl::ITextLayout& _rLayout );
     SAL_DLLPRIVATE void         ImplInitFontList() const;
     SAL_DLLPRIVATE void         ImplUpdateFontData( bool bNewFontLists );
     SAL_DLLPRIVATE static void  ImplUpdateAllFontData( bool bNewFontLists );
@@ -572,30 +572,30 @@ public:
                                       FontUnderline eOverline,
                                       sal_Bool bUnderlineAbove = sal_False );
 
-    void                DrawText( const Point& rStartPt, const OUString& rStr,
+    void                DrawText( const Point& rStartPt, const rtl::OUString& rStr,
                                   sal_Int32 nIndex = 0, sal_Int32 nLen = -1,
-                                  MetricVector* pVector = NULL, OUString* pDisplayText = NULL );
-    long                GetTextWidth( const OUString& rStr, sal_Int32 nIndex = 0, sal_Int32 nLen = -1 ) const;
+                                  MetricVector* pVector = NULL, rtl::OUString* pDisplayText = NULL );
+    long                GetTextWidth( const rtl::OUString& rStr, sal_Int32 nIndex = 0, sal_Int32 nLen = -1 ) const;
     /// Height where any character of the current font fits; in logic coordinates.
     long                GetTextHeight() const;
     float               approximate_char_width() const;
-    void                DrawTextArray( const Point& rStartPt, const OUString& rStr,
+    void                DrawTextArray( const Point& rStartPt, const rtl::OUString& rStr,
                                        const sal_Int32* pDXAry = NULL,
                                        sal_Int32 nIndex = 0,
                                        sal_Int32 nLen = -1 );
-    long                GetTextArray( const OUString& rStr, sal_Int32* pDXAry = NULL,
+    long                GetTextArray( const rtl::OUString& rStr, sal_Int32* pDXAry = NULL,
                                       sal_Int32 nIndex = 0, sal_Int32 nLen = -1 ) const;
-    bool                GetCaretPositions( const OUString&, sal_Int32* pCaretXArray,
+    bool                GetCaretPositions( const rtl::OUString&, sal_Int32* pCaretXArray,
                                       sal_Int32 nIndex, sal_Int32 nLen,
                                       sal_Int32* pDXAry = NULL, long nWidth = 0,
                                       sal_Bool bCellBreaking = sal_True ) const;
     void                DrawStretchText( const Point& rStartPt, sal_uLong nWidth,
-                                         const OUString& rStr,
+                                         const rtl::OUString& rStr,
                                          sal_Int32 nIndex = 0, sal_Int32 nLen = -1 );
-    sal_Int32           GetTextBreak( const OUString& rStr, long nTextWidth,
+    sal_Int32           GetTextBreak( const rtl::OUString& rStr, long nTextWidth,
                                       sal_Int32 nIndex = 0, sal_Int32 nLen = -1,
                                       long nCharExtra = 0 ) const;
-    sal_Int32           GetTextBreak( const OUString& rStr, long nTextWidth,
+    sal_Int32           GetTextBreak( const rtl::OUString& rStr, long nTextWidth,
                                       sal_Unicode nExtraChar, sal_Int32& rExtraCharPos,
                                       sal_Int32 nIndex, sal_Int32 nLen,
                                       long nCharExtra = 0 ) const;
@@ -608,45 +608,45 @@ public:
         DrawText().
      */
     void                AddTextRectActions( const Rectangle& rRect,
-                                            const OUString&    rOrigStr,
+                                            const rtl::OUString&    rOrigStr,
                                             sal_uInt16           nStyle,
                                             GDIMetaFile&     rMtf );
     void                DrawText( const Rectangle& rRect,
-                                  const OUString& rStr, sal_uInt16 nStyle = 0,
-                                  MetricVector* pVector = NULL, OUString* pDisplayText = NULL,
+                                  const rtl::OUString& rStr, sal_uInt16 nStyle = 0,
+                                  MetricVector* pVector = NULL, rtl::OUString* pDisplayText = NULL,
                                   ::vcl::ITextLayout* _pTextLayout = NULL );
     Rectangle           GetTextRect( const Rectangle& rRect,
-                                     const OUString& rStr, sal_uInt16 nStyle = TEXT_DRAW_WORDBREAK,
+                                     const rtl::OUString& rStr, sal_uInt16 nStyle = TEXT_DRAW_WORDBREAK,
                                      TextRectInfo* pInfo = NULL,
                                      const ::vcl::ITextLayout* _pTextLayout = NULL ) const;
-    OUString            GetEllipsisString( const OUString& rStr, long nMaxWidth,
+    rtl::OUString            GetEllipsisString( const rtl::OUString& rStr, long nMaxWidth,
                                            sal_uInt16 nStyle = TEXT_DRAW_ENDELLIPSIS ) const;
-    void                DrawCtrlText( const Point& rPos, const OUString& rStr,
+    void                DrawCtrlText( const Point& rPos, const rtl::OUString& rStr,
                                       sal_Int32 nIndex = 0, sal_Int32 nLen = -1,
-                                      sal_uInt16 nStyle = TEXT_DRAW_MNEMONIC, MetricVector* pVector = NULL, OUString* pDisplayText = NULL );
-    long                GetCtrlTextWidth( const OUString& rStr, sal_Int32 nIndex = 0,
+                                      sal_uInt16 nStyle = TEXT_DRAW_MNEMONIC, MetricVector* pVector = NULL, rtl::OUString* pDisplayText = NULL );
+    long                GetCtrlTextWidth( const rtl::OUString& rStr, sal_Int32 nIndex = 0,
                                           sal_Int32 nLen = -1,
                                           sal_uInt16 nStyle = TEXT_DRAW_MNEMONIC ) const;
-    static OUString    GetNonMnemonicString( const OUString& rStr, sal_Int32& rMnemonicPos );
-    static OUString    GetNonMnemonicString( const OUString& rStr )
+    static rtl::OUString    GetNonMnemonicString( const rtl::OUString& rStr, sal_Int32& rMnemonicPos );
+    static rtl::OUString    GetNonMnemonicString( const rtl::OUString& rStr )
                             { sal_Int32 nDummy; return GetNonMnemonicString( rStr, nDummy ); }
 
     sal_Bool                GetTextBoundRect( Rectangle& rRect,
-                            const OUString& rStr, sal_Int32 nBase = 0, sal_Int32 nIndex = 0, sal_Int32 nLen = -1,
+                            const rtl::OUString& rStr, sal_Int32 nBase = 0, sal_Int32 nIndex = 0, sal_Int32 nLen = -1,
                             sal_uLong nLayoutWidth = 0, const sal_Int32* pDXArray = NULL ) const;
     sal_Bool                GetTextOutline( PolyPolygon&,
-                            const OUString& rStr, sal_Int32 nBase = 0, sal_Int32 nIndex = 0,
+                            const rtl::OUString& rStr, sal_Int32 nBase = 0, sal_Int32 nIndex = 0,
                             sal_Int32 nLen = -1, sal_Bool bOptimize = sal_True,
                             sal_uLong nLayoutWidth = 0, const sal_Int32* pDXArray = NULL ) const;
     sal_Bool                GetTextOutlines( PolyPolyVector&,
-                            const OUString& rStr, sal_Int32 nBase = 0, sal_Int32 nIndex = 0,
+                            const rtl::OUString& rStr, sal_Int32 nBase = 0, sal_Int32 nIndex = 0,
                             sal_Int32 nLen = -1, sal_Bool bOptimize = sal_True,
                             sal_uLong nLayoutWidth = 0, const sal_Int32* pDXArray = NULL ) const;
     sal_Bool                GetTextOutlines( ::basegfx::B2DPolyPolygonVector&,
-                            const OUString& rStr, sal_Int32 nBase = 0, sal_Int32 nIndex = 0,
+                            const rtl::OUString& rStr, sal_Int32 nBase = 0, sal_Int32 nIndex = 0,
                             sal_Int32 nLen = -1, sal_Bool bOptimize = sal_True,
                             sal_uLong nLayoutWidth = 0, const sal_Int32* pDXArray = NULL ) const;
-    sal_Bool                GetGlyphBoundRects( const Point& rOrigin, const OUString& rStr, int nIndex,
+    sal_Bool                GetGlyphBoundRects( const Point& rOrigin, const rtl::OUString& rStr, int nIndex,
                             int nLen, int nBase, MetricVector& rVector );
 
     void                DrawPixel( const Point& rPt );
@@ -903,7 +903,7 @@ public:
     const Font&         GetFont() const { return maFont; }
 
     SystemFontData        GetSysFontData( int nFallbacklevel ) const;
-    SystemTextLayoutData  GetSysTextLayoutData( const Point& rStartPt, const OUString& rStr,
+    SystemTextLayoutData  GetSysTextLayoutData( const Point& rStartPt, const rtl::OUString& rStr,
                                                 sal_Int32 nIndex = 0, sal_Int32 nLen = -1,
                                                 const sal_Int32* pDXAry = NULL ) const;
 
@@ -1075,19 +1075,19 @@ public:
     void                Erase();
     void                Erase( const Rectangle& rRect ) { DrawWallpaper( rRect, GetBackground() ); }
 
-    sal_Bool            AddTempDevFont( const OUString& rFileURL, const OUString& rFontName );
+    sal_Bool            AddTempDevFont( const rtl::OUString& rFileURL, const rtl::OUString& rFontName );
     int                 GetDevFontCount() const;
     FontInfo            GetDevFont( int nDevFontIndex ) const;
     int                 GetDevFontSizeCount( const Font& ) const;
     Size                GetDevFontSize( const Font& rFont, int nSizeIndex ) const;
-    sal_Bool            IsFontAvailable( const OUString& rFontName ) const;
+    sal_Bool            IsFontAvailable( const rtl::OUString& rFontName ) const;
 
     FontMetric          GetFontMetric() const;
     FontMetric          GetFontMetric( const Font& rFont ) const;
     sal_Bool                GetFontCharMap( FontCharMap& rFontCharMap ) const;
     bool                GetFontCapabilities( vcl::FontCapabilities& rFontCapabilities ) const;
 
-    sal_Int32           HasGlyphs( const Font& rFont, const OUString& rStr,
+    sal_Int32           HasGlyphs( const Font& rFont, const rtl::OUString& rStr,
                             sal_Int32 nIndex = 0, sal_Int32 nLen = -1 ) const;
 
     long                GetMinKashida() const;
@@ -1095,7 +1095,7 @@ public:
     // i60594
     // validate kashida positions against the current font
     // returns count of invalid kashida positions
-    xub_StrLen          ValidateKashidas ( const OUString& rTxt,
+    xub_StrLen          ValidateKashidas ( const rtl::OUString& rTxt,
                                             xub_StrLen nIdx, xub_StrLen nLen,
                                             xub_StrLen nKashCount, // number of suggested kashida positions (in)
                                             const xub_StrLen* pKashidaPos, // suggested kashida positions (in)
@@ -1104,7 +1104,7 @@ public:
 
     sal_uInt16          GetBitCount() const;
 
-    sal_Bool            GetTextIsRTL( const OUString&, sal_Int32 nIndex, sal_Int32 nLen ) const;
+    sal_Bool            GetTextIsRTL( const rtl::OUString&, sal_Int32 nIndex, sal_Int32 nLen ) const;
 
     /** Query the existence and depth of the alpha channel
 
@@ -1141,8 +1141,8 @@ public:
 
     static void         BeginFontSubstitution();
     static void         EndFontSubstitution();
-    static void         AddFontSubstitute( const OUString& rFontName,
-                                           const OUString& rReplaceFontName,
+    static void         AddFontSubstitute( const rtl::OUString& rFontName,
+                                           const rtl::OUString& rReplaceFontName,
                                            sal_uInt16 nFlags = 0 );
     static void         RemoveFontSubstitute( sal_uInt16 n );
     static sal_uInt16       GetFontSubstituteCount();
@@ -1200,7 +1200,7 @@ public:
                                             const Rectangle& rControlRegion,
                                             ControlState nState,
                                             const ImplControlValue& aValue,
-                                            OUString aCaption );
+                                            rtl::OUString aCaption );
 
     // Query the native control's actual drawing region (including adornment)
     sal_Bool                GetNativeControlRegion( ControlType nType,
@@ -1208,7 +1208,7 @@ public:
                                                 const Rectangle& rControlRegion,
                                                 ControlState nState,
                                                 const ImplControlValue& aValue,
-                                                OUString aCaption,
+                                                rtl::OUString aCaption,
                                                 Rectangle &rNativeBoundingRegion,
                                                 Rectangle &rNativeContentRegion ) const;
 

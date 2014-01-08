@@ -52,7 +52,7 @@ struct ImpBuffer
 
 struct ImpSwap
 {
-    OUString   maURL;
+    rtl::OUString   maURL;
     sal_uLong           mnDataSize;
     sal_uLong           mnRefCount;
 
@@ -136,7 +136,7 @@ private:
 public:
                         GfxLink();
                         GfxLink( const GfxLink& );
-                        GfxLink( const OUString& rPath, GfxLinkType nType );
+                        GfxLink( const rtl::OUString& rPath, GfxLinkType nType );
                         GfxLink( sal_uInt8* pBuf, sal_uInt32 nBufSize, GfxLinkType nType, sal_Bool bOwns );
                         ~GfxLink();
 

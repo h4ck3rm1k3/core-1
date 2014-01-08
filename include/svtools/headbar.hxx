@@ -313,7 +313,7 @@ public:
     virtual void        Select();
     virtual void        DoubleClick();
 
-    void                InsertItem( sal_uInt16 nItemId, const OUString& rText,
+    void                InsertItem( sal_uInt16 nItemId, const rtl::OUString& rText,
                                     long nSize, HeaderBarItemBits nBits = HIB_STDSTYLE,
                                     sal_uInt16 nPos = HEADERBAR_APPEND );
     void                RemoveItem( sal_uInt16 nItemId );
@@ -341,18 +341,18 @@ public:
     void                SetItemBits( sal_uInt16 nItemId, HeaderBarItemBits nNewBits );
     HeaderBarItemBits   GetItemBits( sal_uInt16 nItemId ) const;
 
-    void                SetItemText( sal_uInt16 nItemId, const OUString& rText );
-    OUString            GetItemText( sal_uInt16 nItemId ) const;
+    void                SetItemText( sal_uInt16 nItemId, const rtl::OUString& rText );
+    rtl::OUString            GetItemText( sal_uInt16 nItemId ) const;
 
-    OUString            GetHelpText( sal_uInt16 nItemId ) const;
-    OString             GetHelpId( sal_uInt16 nItemId ) const;
+    rtl::OUString            GetHelpText( sal_uInt16 nItemId ) const;
+    rtl::OString             GetHelpId( sal_uInt16 nItemId ) const;
 
     Size                CalcWindowSizePixel() const;
 
-    inline void             SetHelpText( const OUString& rText )    { Window::SetHelpText( rText ); }
-    inline const OUString&  GetHelpText() const                     { return Window::GetHelpText(); }
-    inline void             SetHelpId( const OString& rId )    { Window::SetHelpId( rId ); }
-    inline const OString& GetHelpId() const                    { return Window::GetHelpId(); }
+    inline void             SetHelpText( const rtl::OUString& rText )    { Window::SetHelpText( rText ); }
+    inline const rtl::OUString&  GetHelpText() const                     { return Window::GetHelpText(); }
+    inline void             SetHelpId( const rtl::OString& rId )    { Window::SetHelpId( rId ); }
+    inline const rtl::OString& GetHelpId() const                    { return Window::GetHelpId(); }
 
     inline void         SetStartDragHdl( const Link& rLink )        { maStartDragHdl = rLink; }
     inline const Link&  GetStartDragHdl() const                     { return maStartDragHdl; }

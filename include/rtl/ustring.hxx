@@ -72,7 +72,7 @@ namespace rtl
   in every case in a new string instance (in the most cases with a
   memory allocation). You don't have functionality to change the
   content of the string. If you want to change the string content, then
-  you should use the OStringBuffer class, which provides these
+  you should use the rtl::OStringBuffer class, which provides these
   functionalities and avoids too much memory allocation.
 
   The design of this class is similar to the string classes in Java so
@@ -199,7 +199,7 @@ public:
      * @internal
      */
     template< typename T >
-    OUString( T&, typename internal::ExceptConstCharArrayDetector< T >::Type = internal::Dummy() )
+        OUString( T&, typename internal::ExceptConstCharArrayDetector< T >::Type = internal::Dummy() )
     {
         pData = 0;
         rtl_uString_newFromLiteral( &pData, "!!br0ken!!", 10, 0 ); // set to garbage
@@ -1231,7 +1231,7 @@ public:
 
       @return   a hash code value for this object.
 
-      @see rtl::OUStringHash for convenient use of boost::unordered_map
+      @see OUStringHash for convenient use of boost::unordered_map
     */
     sal_Int32 hashCode() const SAL_THROW(())
     {
@@ -1988,11 +1988,11 @@ public:
     }
 
     /**
-      Converts to an OString, signalling failure.
+      Converts to an rtl::OString, signalling failure.
 
       @param pTarget
-      An out parameter receiving the converted OString.  Must not be null; the
-      contents are not modified if conversion fails (convertToOString returns
+      An out parameter receiving the converted rtl::OString.  Must not be null; the
+      contents are not modified if conversion fails (convertTortl::OString returns
       false).
 
       @param nEncoding
@@ -2011,7 +2011,7 @@ public:
       @return
       True if the conversion succeeded, false otherwise.
      */
-    inline bool convertToString(OString * pTarget, rtl_TextEncoding nEncoding,
+    inline bool convertToString(rtl::OString * pTarget, rtl_TextEncoding nEncoding,
                                 sal_uInt32 nFlags) const
     {
         return rtl_convertUStringToString(&pTarget->pData, pData->buffer,
@@ -2315,7 +2315,7 @@ struct SAL_WARN_UNUSED OUStringLiteral
  @internal
 */
 template<>
-struct ToStringHelper< OUString >
+struct TOStringHelper< OUString >
     {
     static int length( const OUString& s ) { return s.getLength(); }
     static sal_Unicode* addData( sal_Unicode* buffer, const OUString& s ) { return addDataHelper( buffer, s.getStr(), s.getLength()); }
@@ -2327,7 +2327,7 @@ struct ToStringHelper< OUString >
  @internal
 */
 template<>
-struct ToStringHelper< OUStringLiteral >
+struct TOStringHelper< OUStringLiteral >
     {
     static int length( const OUStringLiteral& str ) { return str.size; }
     static sal_Unicode* addData( sal_Unicode* buffer, const OUStringLiteral& str ) { return addDataLiteral( buffer, str.data, str.size ); }
@@ -2373,13 +2373,13 @@ struct OUStringHash
 
 /* ======================================================================= */
 
-/** Convert an OString to an OUString, using a specific text encoding.
+/** Convert an rtl::OString to an OUString, using a specific text encoding.
 
     The lengths of the two strings may differ (e.g., for double-byte
     encodings, UTF-7, UTF-8).
 
     @param rStr
-    an OString to convert.
+    an rtl::OString to convert.
 
     @param encoding
     the text encoding to use for conversion.
@@ -2390,14 +2390,14 @@ struct OUStringHash
     <http://udk.openoffice.org/cpp/man/spec/textconversion.html> for more
     details.
  */
-inline OUString OStringToOUString( const OString & rStr,
+inline OUString OStringToOUString( const rtl::OString & rStr,
                                    rtl_TextEncoding encoding,
                                    sal_uInt32 convertFlags = OSTRING_TO_OUSTRING_CVTFLAGS )
 {
     return OUString( rStr.getStr(), rStr.getLength(), encoding, convertFlags );
 }
 
-/** Convert an OUString to an OString, using a specific text encoding.
+/** Convert an OUString to an rtl::OString, using a specific text encoding.
 
     The lengths of the two strings may differ (e.g., for double-byte
     encodings, UTF-7, UTF-8).
@@ -2414,20 +2414,20 @@ inline OUString OStringToOUString( const OString & rStr,
     <http://udk.openoffice.org/cpp/man/spec/textconversion.html> for more
     details.
  */
-inline OString OUStringToOString( const OUString & rUnicode,
+    inline rtl::OString OUStringToOString( const rtl::OUString & rUnicode,
                                   rtl_TextEncoding encoding,
                                   sal_uInt32 convertFlags = OUSTRING_TO_OSTRING_CVTFLAGS )
 {
-    return OString( rUnicode.getStr(), rUnicode.getLength(), encoding, convertFlags );
+    return rtl::OString( rUnicode.getStr(), rUnicode.getLength(), encoding, convertFlags );
 }
 
 /* ======================================================================= */
 
 /**
-    Support for rtl::OUString in std::ostream (and thus in
+    Support for OUString in std::ostream (and thus in
     CPPUNIT_ASSERT or SAL_INFO macros, for example).
 
-    The rtl::OUString is converted to UTF-8.
+    The OUString is converted to UTF-8.
 
     @since LibreOffice 3.5.
 */
@@ -2455,11 +2455,11 @@ typedef rtlunittest::OUString OUString;
 // having to explicitly refer to the rtl namespace, which is kind of superfluous
 // given that OUString itself is namespaced by its OU prefix.
 #ifdef RTL_USING
-using ::rtl::OUString;
-using ::rtl::OUStringHash;
-using ::rtl::OStringToOUString;
-using ::rtl::OUStringToOString;
-using ::rtl::OUStringLiteral;
+using ::OUString;
+using ::OUStringHash;
+using ::OStringToOUString;
+using ::OUStringToOString;
+using ::OUStringLiteral;
 #endif
 
 #endif /* _RTL_USTRING_HXX */

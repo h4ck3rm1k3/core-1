@@ -93,7 +93,7 @@ public:
     DECLARE_XTYPEPROVIDER( )
 
     // XServiceInfo
-    virtual OUString SAL_CALL getImplementationName (void)
+    virtual rtl::OUString SAL_CALL getImplementationName (void)
         throw (::com::sun::star::uno::RuntimeException);
 
     // XAccessibleSelection
